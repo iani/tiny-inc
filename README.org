@@ -1,0 +1,19 @@
+Incremental redo of [[https://github.com/iani/tiny-sc][tiny-sc]].
+
+Started on [2016-01-28 Thu 00:09]
+
+* Roadmap
+
+** Axiom: Notification
+
+** Real Server Watcher, that tells when system resumes from sleep
+
+** Notify an object when a synth starts / ends
+
+*** Do not notify end when a new synth is stared to replace a previous one
+
+*** Examples with GUI buttons to start/stop a synth
+
+** Unique objects - created only if not found under a key
+
+
