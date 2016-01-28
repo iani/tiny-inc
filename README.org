@@ -4,9 +4,11 @@ Started on [2016-01-28 Thu 00:09]
 
 * Roadmap
 
-** Axiom: Notification
+** DONE Axiom: Notification
+CLOSED: [2016-01-28 Thu 07:42]
 
-** Real Server Watcher, that tells when system resumes from sleep
+** DONE Real Server Watcher, that tells when system resumes from sleep
+CLOSED: [2016-01-28 Thu 07:42]
 
 ** Notify an object when a synth starts / ends
 
