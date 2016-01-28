@@ -18,13 +18,11 @@ b.addNode({ WhiteNoise.ar(0.01) }.play);
 n = NodePlayer();
 w = Window().front;
 w.view.layout = VLayout(
-	b = Button().states_([["start"], ["stop"]])
-	.nodeWatcher(n)
+	Button().nodeWatcher(n)
 );
 
 //:
-b.value = 1;
-//:
+
 n addNode: { WhiteNoise.ar(0.01) }.play;
 
 //:

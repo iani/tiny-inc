@@ -1,5 +1,5 @@
 + Button {
-	nodeWatcher { | nodePlayer |
+	nodeWatcher { | nodePlayer, addStates = true |
 		nodePlayer.addListener(this, {
 			{ this.value = 1; }.defer;
 		}, {
@@ -10,5 +10,9 @@
 		}{
 			this.value = 0;
 		};
+	
+		if (addStates) {
+			this.states = [["start"], ["stop"]];
+		}
 	}
 }
