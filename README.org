@@ -1,3 +1,5 @@
+#+TODO: TODO(t) STARTED(s@/!) | DONE(d!) CANCELED(c@)
+
 Incremental redo of [[https://github.com/iani/tiny-sc][tiny-sc]].
 
 Started on [2016-01-28 Thu 00:09]
@@ -12,17 +14,73 @@ CLOSED: [2016-01-28 Thu 07:42]
 
 ** Notify an object when a synth starts / ends
 
-*** DONE Do not notify end when a new synth is stared to replace a previous one
+*** DONE Do not notify end when a new synth is started to replace a previous one
 CLOSED: [2016-01-28 Thu 10:39]
+
+Done in class SimpleNodePlayer.
+
+#+BEGIN_SRC sclang
+	addNode { | argNode |
+		NodeWatcher.register(argNode);
+		//  Release previous node if playing,
+		//	but prevent that node from triggering a stopped notification when it ends.
+		if (this.isPlaying) {
+			node.releaseDependants; // do not notify when you end: next node is on the way
+			this.prStop;
+			argNode addDependant: { | changer, message |
+				switch (message,
+					// do not notify when started
+					// \n_go, { this.changed(\started) },
+					\n_end, {
+						node = nil;
+						this.changed(\stopped);					
+					}
+				);
+			}
+		}{
+			argNode addDependant: { | changer, message |
+				switch (message,
+					\n_go, { this.changed(\started) },
+					\n_end, {
+						node = nil;
+						this.changed(\stopped);					
+					}
+				);
+			}
+		};
+		node = argNode;
+	}
+#+END_SRC
 
 *** DONE Examples with GUI buttons to start/stop a synth
 CLOSED: [2016-01-28 Thu 10:39]
 
-*** Store the source of a NodePlayer, to be able to restart
+See file 
+
+** STARTED NodeSource: Store the source of a NodePlayer, to be able to restart
+:LOGBOOK:  
+- State "STARTED"    from ""           [2016-01-28 Thu 12:37] \\
+  includes inputs and outputs
+:END:      
 
 Keep in separate Class than NodePlayer, or add in NodePlayer class?
 
 First try separate Class. [2016-01-28 Thu 10:42]
+
+** STARTED Auto-config of Synth linking
+:LOGBOOK:  
+- State "STARTED"    from ""           [2016-01-28 Thu 12:39] \\
+  can be done in NodeSource.
+:END:      
+
+Prefer to keep code for managing groups, busses in separate class: Rhizome.
+
+*** STARTED Rhizome class
+:LOGBOOK:  
+- State "STARTED"    from ""           [2016-01-28 Thu 12:48] \\
+  Start with all NodeSource instances that have no inputs.
+:END:      
+
 
 ** Unique objects - created only if not found under a key
 

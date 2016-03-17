@@ -175,8 +175,6 @@ Notification {
 			{ this.objectClosed; }.defer(0.1);
 		});
     }
-
-	
 }
 
 + View {
