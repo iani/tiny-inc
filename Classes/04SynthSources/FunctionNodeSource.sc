@@ -9,7 +9,7 @@ However, before doing this, test FunctionNodeSource with Function:play, in order
 to check the rest of the functionality. 
 */
 
-FunctionNodeSource {
+FunctionNodeSource : NodeSource {
 	var <synthDef;
 	var <name; // auto-generated
 	var <playMethod = \addSynthDef; /* method to call when sent the play message.

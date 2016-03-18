@@ -4,7 +4,7 @@
 	}
 }
 
-/* TODO: Return a FunctionNodeSource.
+/* Return a FunctionNodeSource.
 For efficieny FunctionNodeSource should not run Function:play to create a synth.
 Instead, it should add a new SynthFunc to the server when given a function, 
 and then start Synth('synthfunctname'). 

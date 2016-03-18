@@ -5,31 +5,39 @@ SimpleNodePlayer {
 		NodeWatcher.register(argNode);
 		//  Release previous node if playing,
 		//	but prevent that node from triggering a stopped notification when it ends.
-		if (this.isPlaying) {
-			node.releaseDependants; // do not notify when you end: next node is on the way
+
+		/*  If a node is added by FunctionNodeSource again, before the 
+			initial node has time to start, then ignore it.
+			Therefore prevent stopping a node that has not started yet.
+		*/			
+		if (node.notNil and: { node.isPlaying.not }) { ^this }; // Do nothing if waiting for node to start
+
+		// do not notify when you end: next node is on the way
+		if (node.isNil) {
+			node.releaseDependants;
 			this.prStop;
 			argNode addDependant: { | changer, message |
 				switch (message,
 					// do not notify when started
 					// \n_go, { this.changed(\started) },
-					\n_end, {
-						node = nil;
-						this.changed(\stopped);					
-					}
+					\n_end, { this.stopped; }
 				);
 			}
 		}{
 			argNode addDependant: { | changer, message |
 				switch (message,
 					\n_go, { this.changed(\started) },
-					\n_end, {
-						node = nil;
-						this.changed(\stopped);					
-					}
+					\n_end, { this.stopped; }
 				);
 			}
 		};
 		node = argNode;
+	}
+
+	stopped {
+		node.releaseDependants;
+		node = nil;
+		this.changed(\stopped);
 	}
 
 	isPlaying { ^node.notNil; }

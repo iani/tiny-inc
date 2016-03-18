@@ -6,13 +6,21 @@ Started on [2016-01-28 Thu 00:09]
 
 * Roadmap
 
-** DONE Axiom: Notification
+** DONE Make an object listen to notifications from another object
 CLOSED: [2016-01-28 Thu 07:42]
+
+Notification class.
 
 ** DONE Real Server Watcher, that tells when system resumes from sleep
 CLOSED: [2016-01-28 Thu 07:42]
 
 ** Notify an object when a synth starts / ends
+
+Methods Node:onStart, Node:onEnd.
+
+** Hold a node, monitor if it runs, replace with other node on request, notify when it starts and stops running
+
+Class =SimpleNodePlayer=
 
 *** DONE Do not notify end when a new synth is started to replace a previous one
 CLOSED: [2016-01-28 Thu 10:39]
@@ -57,15 +65,52 @@ CLOSED: [2016-01-28 Thu 10:39]
 
 See file 
 
-** STARTED NodeSource: Store the source of a NodePlayer, to be able to restart
+** STARTED Store the source for starting a node
 :LOGBOOK:  
 - State "STARTED"    from ""           [2016-01-28 Thu 12:37] \\
   includes inputs and outputs
 :END:      
 
-Keep in separate Class than NodePlayer, or add in NodePlayer class?
+*** NodePlayer
 
-First try separate Class. [2016-01-28 Thu 10:42]
+*** FunctionNodeSource
+
+Stores a Function that is the source for creating Synths.  It substitutes ={ }.play= by a mechanism that caches the SynthDef created from the function, so that any new Synths from the same Function can be created by =Synth("defName")=.  This is much more efficient than compiling the SynthDef from the Function and sending it to the Server each time that a new Synth is created. 
+
+Behavior: 
+
+**** message =play=
+
+When receiving the message =play=, the FunctionNodeSource creates a Synth and returns it immediately.  If the SynthDef from the Function stored in the FunctionNodeSource is already loaded in the server, then the Synth is created in the usual manner, with the =Synth("defName")=.  If however the Function is not yet loaded, the Synth is created with =Synth.basicNew= and the actual Synth instance on the scserver is created as soon as the SynthDef is loaded.
+
+To make the algorithm of =play= faster, use a flag to check if the SynthDef is loaded (instead of performing a method from symbol each time): 
+
+#+BEGIN_SRC sclang
+  if (is_loaded) {
+      player.addNode(Synth(defName, *args));
+  }{
+      ^this.perform(loadAndPlayMethod, args);
+  }
+#+END_SRC
+
+=loadAndPlayMethod= is one of the following: 
+
+***** sendDef2Server
+
+
+
+***** waitForServer2Load 
+
+**** message =source_=
+
+1. Set the 
+
+
+** STARTED 
+:LOGBOOK:  
+- State "STARTED"    from "TODO"       [2016-03-17 Thu 12:33] \\
+  started
+:END:      
 
 ** STARTED Auto-config of Synth linking
 :LOGBOOK:  

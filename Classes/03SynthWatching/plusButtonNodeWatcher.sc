@@ -1,5 +1,5 @@
 + Button {
-	nodePlayer { | nodePlayer, addStates = true |
+	simpleNodePlayer { | nodePlayer, addStates = true |
 		nodePlayer.addListener(this, {
 			{ this.value = 1; }.defer;
 		}, {
@@ -16,7 +16,7 @@
 		}
 	}
 
-	nodeSource { | nodeSource, states, action |
+	nodePlayer { | nodeSource, states, action |
 		(nodeSource ?? { NodeSource() }).player.addListener(this, {
 			{ this.value = 1; }.defer;
 		}, {
