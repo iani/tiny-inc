@@ -83,13 +83,19 @@ Behavior:
 
 When receiving the message =play=, the FunctionNodeSource creates a Synth and returns it immediately.  If the SynthDef from the Function stored in the FunctionNodeSource is already loaded in the server, then the Synth is created in the usual manner, with the =Synth("defName")=.  If however the Function is not yet loaded, the Synth is created with =Synth.basicNew= and the actual Synth instance on the scserver is created as soon as the SynthDef is loaded.
 
-To make the algorithm of =play= faster, use a flag to check if the SynthDef is loaded (instead of performing a method from symbol each time): 
+When a FunctionNodeSource is created, it adds the given Function - or a default - as SynthDef, and sends it to the Server.
+
+Upon sending a SynthDef to the server, the FunctionNodeSource sets its waiting_for_def flag to true.
+
+The algorithm for the method =play= is as follows: 
 
 #+BEGIN_SRC sclang
-  if (is_loaded) {
-      player.addNode(Synth(defName, *args));
+  if (waiting_for_def) {
+      ^node ?? {
+          node = Synth.basicNew(defName, server);
+      }
   }{
-      ^this.perform(loadAndPlayMethod, args);
+      ^Synth(defName, *args);
   }
 #+END_SRC
 
