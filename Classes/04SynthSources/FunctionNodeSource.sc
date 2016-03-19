@@ -13,10 +13,9 @@
 // Sources can be of kind: Function ... (Pattern?)
 NodeSource {
 	var <source;
-	var <server;
 
 	*new { | source, server |
-		^this.newCopyArgs(source, server ?? Server.default).init;
+		^this.newCopyArgs(source).init(server);
 	}
 
 	init { this.subclassResponsibility }
@@ -26,30 +25,28 @@ FunctionNodeSource : NodeSource {
 	var <synthDef;
 	var <defName; // auto-generated
 
-	init {
+	init { | server |
 		defName = format("sdef_%", UniqueID.next);
-		source !? { this.source = source };
+		source !? { this.source_ (source, server, false) };
 	}
 
-	source_ { | func, sendNow = true |
+	source_ { | func, server, sendNow = true |
 		source = func;
 		synthDef = source.asSynthDef(
 			fadeTime: 0.02, //: TODO: must be variable in the synthdef
 			name: defName
 		);
-		if (sendNow) { synthDef.send(server);
-			postf("sent % to server %\n", synthDef, server);
-		};
+		if (sendNow) { synthDef.send(server) }
 	}
 
-	playFunc { | func, args |
+	playFunc { | func, target, args, action = \addToHead |
 		var node;
+		target = target.asTarget;
 		this.source_(func, false);
-		node = Synth.basicNew(defName, server);
-		synthDef.doSend(server, node.newMsg(*args));
+		node = Synth.basicNew(defName, target.server);
+		synthDef.doSend(server, node.newMsg(target, args, action));
 		^node;
 	}
 	
-	play { | args | ^Synth(defName, *args) }
-
+	play { | target, args, action | ^Synth(defName, target, args, action) }
 }

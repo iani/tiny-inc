@@ -24,5 +24,10 @@ c.source;
 //:
 c.play;
 //:
-d = NodePlayer({ LFSaw.ar(Rand(400, 100), 0, 0.1) });
+d = NodePlayer({ LFSaw.ar(Rand(400, 100), 0, 0.01) });
+d.start;
+
+//: doSend
+d.stop;
+//:
 d.start;

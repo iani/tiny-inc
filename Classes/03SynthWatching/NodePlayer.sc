@@ -56,12 +56,13 @@ NodePlayer : SimpleNodePlayer {
 	var <source; // a source that knows how to create a node
 	var <target; // the target where the node will be created
 	var <args;   // args array used for creating the node
-	var <inputs, <outputs;
+	var <action; // addAction for creating nodes
+	//	var <inputs, <outputs;
 
-	*new { | source, target, args |
+	*new { | source, target, args, action = \addToHead |
 		target = target.asTarget;
 		^super.newCopyArgs(
-			nil, source.asSource(target.server), target, args ? [], (), ()
+			nil, source.asSource(target.server), target, args ? [], action
 		);
 	}
 
@@ -70,7 +71,7 @@ NodePlayer : SimpleNodePlayer {
 	}
 
 	makeNode {
-		this addNode: source.play(args);
+		this addNode: source.play(target, args, action);
 	}
 	
 	source_ { | argSource |
