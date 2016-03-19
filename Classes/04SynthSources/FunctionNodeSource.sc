@@ -40,13 +40,14 @@ FunctionNodeSource : NodeSource {
 	}
 
 	playFunc { | func, target, args, action = \addToHead |
-		var node;
+		var node, server;
 		target = target.asTarget;
+		server = target.server;
 		this.source_(func, false);
-		node = Synth.basicNew(defName, target.server);
+		node = Synth.basicNew(defName, target);
 		synthDef.doSend(server, node.newMsg(target, args, action));
 		^node;
 	}
-	
+
 	play { | target, args, action | ^Synth(defName, target, args, action) }
 }
