@@ -6,6 +6,3 @@ a.free;
 a = f.play; 
 //:
 a release: 3;
-
-SynthDescLib.all;
-SynthDescLib.all.at(\localhost)// .inspect;

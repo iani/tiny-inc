@@ -25,20 +25,20 @@ NodeSource {
 FunctionNodeSource : NodeSource {
 	var <synthDef;
 	var <defName; // auto-generated
-	var <libname; // from server
 
 	init {
-		libname = server.name.asSymbol;
 		defName = format("sdef_%", UniqueID.next);
-		SynthDescLib.all.at(libname) ?? { SynthDescLib(libname, [server]) }
 	}
 
-	playFunc { | func, args |
+	playFunc { | func, args, fadeTime = 0.02 |
 		var node;
 		source = func;
-		synthDef = source.asSynthDef(name: defName);
+		synthDef = source.asSynthDef(
+			fadeTime: fadeTime,
+			name: defName
+		);
 		node = Synth.basicNew(defName, server);
-		synthDef.add(libname, node.newMsg(*args));
+		synthDef.doSend(server, node.newMsg(*args));
 		^node;
 	}
 	
