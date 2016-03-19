@@ -19,7 +19,7 @@ SimpleNodePlayer {
 			}
 		}{
 			if (node.isPlaying) {
-				// Actions to do if new node replacex a playing node:
+				// Actions to do if new node replaces a playing node:
 				node.releaseDependants; // cancel notification of previous node
 				this.prStop;            // stop previous node
 				argNode addDependant: { | changer, message |
@@ -54,15 +54,15 @@ SimpleNodePlayer {
 
 NodePlayer : SimpleNodePlayer {
 	var <source; // a source that knows how to create a node
-	var <target; // the target where the node will be created
 	var <args;   // args array used for creating the node
+	var <target; // the target where the node will be created
 	var <action; // addAction for creating nodes
 	//	var <inputs, <outputs;
 
-	*new { | source, target, args, action = \addToHead |
+	*new { | source, args, target, action = \addToHead |
 		target = target.asTarget;
-		^super.newCopyArgs(
-			nil, source.asSource(target.server), target, args ? [], action
+		^this.newCopyArgs(
+			nil, source.asSource(target.server), args ? [], target, action
 		);
 	}
 
@@ -71,7 +71,8 @@ NodePlayer : SimpleNodePlayer {
 	}
 
 	makeNode {
-		this addNode: source.play(target, args, action);
+		postf("NodePlayer calling source play with: 1. %, 2. %, 3. %\n", args, target, action);
+		this addNode: source.play(args, target, action);
 	}
 	
 	source_ { | argSource |

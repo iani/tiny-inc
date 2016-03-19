@@ -36,10 +36,10 @@ FunctionNodeSource : NodeSource {
 			fadeTime: 0.02, //: TODO: must be variable in the synthdef
 			name: defName
 		);
-		if (sendNow) { synthDef.send(server) }
+		if (sendNow) { synthDef.send(server.postln); "SENT TO SERVER".postln; }
 	}
 
-	playFunc { | func, target, args, action = \addToHead |
+	playFunc { | func, args, target, action = \addToHead |
 		var node, server;
 		target = target.asTarget;
 		server = target.server;

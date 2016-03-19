@@ -29,12 +29,12 @@
 		};
 		
 		this.states = states ?? { [["start"], ["stop"]] };
-		this.action = action ?? { | me |
+		this.action = action ?? {{ | me |
 			if (me.value >= 0) {
 				source.start;
 			}{
 				source.stop;
 			}
-		}
+		}}
 	}
 }
