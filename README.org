@@ -109,8 +109,17 @@ The algorithm for the method =play= is as follows:
 
 **** message =source_=
 
-1. Set the 
+1. Set the
 
+**** tests
+:PROPERTIES:
+:DATE:     <2016-03-19 Sat 09:56>
+:END:
+
+#+BEGIN_SRC sclang
+  f = FuncNodeSource.new;
+  f.play;
+#+END_SRC
 
 ** STARTED 
 :LOGBOOK:  

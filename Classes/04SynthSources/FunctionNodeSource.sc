@@ -27,18 +27,19 @@ FunctionNodeSource : NodeSource {
 	var <defName; // auto-generated
 	
 	var node; // stores Synth while waiting for it to actually start
+
 	var nodeArgs;
 	var waitingForDef = false;
 	
 	init {
 		defName = format("sdef_%", UniqueID.next);
-		this.loadDef(source ?? { { Out.ar(0, WhiteNoise.ar(0.1).dup) } });
+		this.source = source ?? { { Out.ar(0, WhiteNoise.ar(0.1).dup) } };
 	}
 
-	loadDef { | argDef |
+	source_ { | argDef |
 		synthDef = source.asSynthDef;
 		waitingForDef = true;
-		SynthDefLoader.add(server, synthDef, { this.loadedSynthDef });
+		SynthDefLoader.add(synthDef, { this.loadedSynthDef }, server);
 	}
 
 	loadedSynthDef {
@@ -59,5 +60,4 @@ FunctionNodeSource : NodeSource {
 			^Synth(defName, *args);
 		};
 	}
-
 }
