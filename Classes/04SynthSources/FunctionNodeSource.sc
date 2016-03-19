@@ -15,8 +15,8 @@ NodeSource {
 	var <server;
 	var <source;
 
-	*new { | server, source |
-		^this.newCopyArgs(server.asTarget.server, source).init;
+	*new { | server |
+		^this.newCopyArgs(server.asTarget.server).init;
 	}
 
 	init { this.subclassResponsibility }
@@ -25,42 +25,23 @@ NodeSource {
 FunctionNodeSource : NodeSource {
 	var <synthDef;
 	var <defName; // auto-generated
-	
-	var node; // stores Synth while waiting for it to actually start
-	var nodeArgs;
-	var waitingForDef = false;
-	
+	var <libname; // from server
+
 	init {
+		libname = server.name.asSymbol;
 		defName = format("sdef_%", UniqueID.next);
-		this.source = source ?? { { Out.ar(0, WhiteNoise.ar(0.1).dup) } };
+		SynthDescLib.all.at(libname) ?? { SynthDescLib(libname, [server]) }
 	}
 
 	playFunc { | func, args |
-		
+		var node;
+		source = func;
+		synthDef = source.asSynthDef(name: defName);
+		node = Synth.basicNew(defName, server);
+		synthDef.add(libname, node.newMsg(*args));
+		^node;
 	}
 	
-	play { | args |
-		if (waitingForDef) {
-			nodeArgs = args;
-			^node ?? {
-				node = Synth.basicNew(defName, server);
-			}
-		}{
-			^Synth(defName, *args);
-		};
-	}
+	play { | args | ^Synth(defName, *args) }
 
-	source_ { | argDef |
-		synthDef = source.asSynthDef;
-		waitingForDef = true;
-		SynthDefLoader.add(synthDef, { this.loadedSynthDef }, server);
-	}
-
-	loadedSynthDef {
-		waitingForDef = false;
-		node !? {
-			server.addr.sendMsg(*node.newMsg(*nodeArgs));
-			node = nil;
-		};
-	}
 }
