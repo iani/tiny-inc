@@ -27,13 +27,27 @@ FunctionNodeSource : NodeSource {
 	var <defName; // auto-generated
 	
 	var node; // stores Synth while waiting for it to actually start
-
 	var nodeArgs;
 	var waitingForDef = false;
 	
 	init {
 		defName = format("sdef_%", UniqueID.next);
 		this.source = source ?? { { Out.ar(0, WhiteNoise.ar(0.1).dup) } };
+	}
+
+	playFunc { | func, args |
+		
+	}
+	
+	play { | args |
+		if (waitingForDef) {
+			nodeArgs = args;
+			^node ?? {
+				node = Synth.basicNew(defName, server);
+			}
+		}{
+			^Synth(defName, *args);
+		};
 	}
 
 	source_ { | argDef |
@@ -47,17 +61,6 @@ FunctionNodeSource : NodeSource {
 		node !? {
 			server.addr.sendMsg(*node.newMsg(*nodeArgs));
 			node = nil;
-		};
-	}
-
-	play { | args |
-		if (waitingForDef) {
-			nodeArgs = args;
-			^node ?? {
-				node = Synth.basicNew(defName, server);
-			}
-		}{
-			^Synth(defName, *args);
 		};
 	}
 }
