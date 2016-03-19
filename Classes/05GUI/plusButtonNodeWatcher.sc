@@ -16,13 +16,13 @@
 		}
 	}
 
-	nodePlayer { | nodeSource, states, action |
-		(nodeSource ?? { NodeSource() }).player.addListener(this, {
+	nodePlayer { | source, states, action |
+		(source ?? { NodePlayer() }).addListener(this, {
 			{ this.value = 1; }.defer;
 		}, {
 			{ this.value = 0; }.defer;
 		});
-		if (nodeSource.isPlaying) {
+		if (source.isPlaying) {
 			this.value = 1;
 		}{
 			this.value = 0;
@@ -31,9 +31,9 @@
 		this.states = states ?? { [["start"], ["stop"]] };
 		this.action = action ?? { | me |
 			if (me.value >= 0) {
-				nodeSource.start;
+				source.start;
 			}{
-				nodeSource.stop;
+				source.stop;
 			}
 		}
 	}

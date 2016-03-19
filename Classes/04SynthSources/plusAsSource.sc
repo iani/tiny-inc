@@ -1,6 +1,6 @@
 + Nil {
-	asSource {
-		^{ WhiteNoise.ar(0.1).dup }.asSource;
+	asSource { | server |
+		^{ WhiteNoise.ar(0.1).dup }.asSource(server);
 	}
 }
 
@@ -13,7 +13,7 @@ However, before doing this, test FunctionNodeSource with Function:play, in order
 to check the rest of the functionality. 
 */
 + Function {
-	asSource {
-		^FunctionNodeSource(this)
+	asSource { | server |
+		^FunctionNodeSource(this, server);
 	}
 }

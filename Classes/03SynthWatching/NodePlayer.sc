@@ -53,30 +53,24 @@ SimpleNodePlayer {
 }
 
 NodePlayer : SimpleNodePlayer {
-	classvar <all;
 	var <source; // a source that knows how to create a node
 	var <target; // the target where the node will be created
 	var <args;   // args array used for creating the node
 	var <inputs, <outputs;
 
-	*initClass {
-		all = [];
-	}
-
 	*new { | source, target, args |
+		target = target.asTarget;
 		^super.newCopyArgs(
-			nil, source.asSource, target.asTarget, args ? [], (), ()
-		).init;
+			nil, source.asSource(target.server), target, args ? [], (), ()
+		);
 	}
-
-	init { all = all add: this }
 
 	start { // if not playing, then start with current source.
 		if (this.isPlaying.not) { this.makeNode; };
 	}
 
 	makeNode {
-		this addNode: source.play(target, args);
+		this addNode: source.play(args);
 	}
 	
 	source_ { | argSource |

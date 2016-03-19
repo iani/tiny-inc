@@ -7,12 +7,12 @@ a.addNode({ WhiteNoise.ar(0.01) }.play);
 a.stop;
 
 //:
-b = NodePlayer();
+b = NodePlayer({ SinOsc.ar(Rand(400, 100), 0, 0.1) });
 
 b.addListener(\test, { "started".postln; }, { "stopped".postln; });
 
-b.addNode({ WhiteNoise.ar(0.01) }.play);
-
+b.start;
+//:
 b.stop;
 
 //:

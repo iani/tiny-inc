@@ -12,11 +12,11 @@
 // Abstract class for holding a source that can create nodes
 // Sources can be of kind: Function ... (Pattern?)
 NodeSource {
-	var <server;
 	var <source;
+	var <server;
 
-	*new { | server |
-		^this.newCopyArgs(server.asTarget.server).init;
+	*new { | source, server |
+		^this.newCopyArgs(source, server ?? Server.default).init;
 	}
 
 	init { this.subclassResponsibility }
@@ -28,15 +28,23 @@ FunctionNodeSource : NodeSource {
 
 	init {
 		defName = format("sdef_%", UniqueID.next);
+		source !? { this.source = source };
 	}
 
-	playFunc { | func, args, fadeTime = 0.02 |
-		var node;
+	source_ { | func, sendNow = true |
 		source = func;
 		synthDef = source.asSynthDef(
-			fadeTime: fadeTime,
+			fadeTime: 0.02, //: TODO: must be variable in the synthdef
 			name: defName
 		);
+		if (sendNow) { synthDef.send(server);
+			postf("sent % to server %\n", synthDef, server);
+		};
+	}
+
+	playFunc { | func, args |
+		var node;
+		this.source_(func, false);
 		node = Synth.basicNew(defName, server);
 		synthDef.doSend(server, node.newMsg(*args));
 		^node;
