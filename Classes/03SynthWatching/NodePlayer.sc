@@ -29,7 +29,7 @@ SimpleNodePlayer {
 						\n_end, { this.stopped; }
 					);
 				}
-			}{}  // if node is waiting to start - do nothing
+			} /* {} */  // if node is waiting to start - do nothing
 		};
 		node = argNode;
 	}

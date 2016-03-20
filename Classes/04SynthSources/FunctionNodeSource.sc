@@ -15,7 +15,7 @@ NodeSource {
 	var <source;
 
 	*new { | source, server |
-		^this.newCopyArgs(source).init(server);
+		^this.newCopyArgs(source).init(server ?? { server.asTarget.server });
 	}
 
 	init { this.subclassResponsibility }
@@ -24,21 +24,32 @@ NodeSource {
 FunctionNodeSource : NodeSource {
 	var <synthDef;
 	var <defName; // auto-generated
+	var <waitForDef = true;
+	var node, args, target, action, server;
 
-	init { | server |
+	init { | argServer |
+		server = argServer;
 		defName = format("sdef_%", UniqueID.next);
-		source !? { this.source_ (source, server, false) };
+		source !? { this.source_ (source, server) };
 	}
 
-	source_ { | func, server, sendNow = true |
+	source_ { | func, server, sendNow |
 		source = func;
 		synthDef = source.asSynthDef(
 			fadeTime: 0.02, //: TODO: must be variable in the synthdef
 			name: defName
 		);
-		if (sendNow) { synthDef.send(server.postln); "SENT TO SERVER".postln; }
+		SynthDefLoader.send(synthDef, server, { this.synthDefSent });
 	}
 
+	synthDefSent {
+		waitForDef = false;
+		node !? {
+			server.addr.sendMsg(*node.newMsg(target, args, action));
+			node = nil;
+		};
+	}
+	
 	playFunc { | func, args, target, action = \addToHead |
 		var node, server;
 		target = target.asTarget;
@@ -49,5 +60,7 @@ FunctionNodeSource : NodeSource {
 		^node;
 	}
 
-	play { | target, args, action | ^Synth(defName, target, args, action) }
+	play { | target, args, action |
+		^Synth(defName, target, args, action)
+	}
 }
