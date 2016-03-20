@@ -1,18 +1,19 @@
-f = FunctionNodeSource();
-a = f.playFunc({ WhiteNoise.ar(0.1) });
-//:
-a.free;
+f = FunctionNodeSource({ WhiteNoise.ar(0.1) });
 //:
 a = f.play; 
 //:
 a release: 3;
 //:
-b = FunctionNodeSource({ SinOsc.ar(Rand(400, 100), 0, 0.1) });
+
 
 //:
-
-b.play;
-
+b = FunctionNodeSource({ | freq = 400 | SinOsc.ar(freq, 0, 0.1) });
+{
+	10 do: {
+		b.play([freq: 400 rrand: 4000 ]);
+		1.0.rand.wait;
+	}
+}.fork;
 
 //:
 

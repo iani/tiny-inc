@@ -25,42 +25,33 @@ FunctionNodeSource : NodeSource {
 	var <synthDef;
 	var <defName; // auto-generated
 	var <waitForDef = true;
-	var node, args, target, action, server;
 
-	init { | argServer |
-		server = argServer;
+	init {
 		defName = format("sdef_%", UniqueID.next);
-		source !? { this.source_ (source, server) };
+		source !? { this.source_ (source) };
 	}
 
-	source_ { | func, server, sendNow |
+	source_ { | func |
 		source = func;
-		synthDef = source.asSynthDef(
-			fadeTime: 0.02, //: TODO: must be variable in the synthdef
-			name: defName
-		);
-		SynthDefLoader.send(synthDef, server, { this.synthDefSent });
+		synthDef = nil;
 	}
 
-	synthDefSent {
-		waitForDef = false;
-		node !? {
-			server.addr.sendMsg(*node.newMsg(target, args, action));
-			node = nil;
-		};
-	}
-	
-	playFunc { | func, args, target, action = \addToHead |
-		var node, server;
-		target = target.asTarget;
-		server = target.server;
-		this.source_(func, false);
-		node = Synth.basicNew(defName, target);
-		synthDef.doSend(server, node.newMsg(target, args, action));
-		^node;
-	}
-
-	play { | target, args, action |
-		^Synth(defName, target, args, action)
+	play { | args, target, action = \addToHead |
+		var synth, server;
+		if (synthDef.isNil) {
+			target = target.asTarget;
+			server = target.server;
+			synth = Synth.basicNew(defName, server);
+			synthDef = source.asSynthDef(
+				fadeTime: 0.02, //: TODO: must be variable in the synthdef
+				name: defName
+			);
+			synthDef.doSend(server, synth.newMsg(target, args, action));
+			waitForDef = true;
+			synth.onStart(this, { waitForDef = false; });
+			^synth;
+		}{
+			^Synth(defName, args, target.asTarget, action);
+		}
 	}
 }
