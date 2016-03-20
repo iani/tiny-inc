@@ -71,7 +71,6 @@ NodePlayer : SimpleNodePlayer {
 	}
 
 	makeNode {
-		postf("NodePlayer calling source play with: 1. %, 2. %, 3. %\n", args, target, action);
 		this addNode: source.play(args, target, action);
 	}
 	

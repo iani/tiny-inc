@@ -1,3 +1,8 @@
++ Function {
+	button { | states, action, server |
+		^Button().nodePlayer(this, states, action, server)
+	}
+}
 + Button {
 	simpleNodePlayer { | nodePlayer, addStates = true |
 		nodePlayer.addListener(this, {
@@ -16,8 +21,9 @@
 		}
 	}
 
-	nodePlayer { | source, states, action |
-		(source ?? { NodePlayer() }).addListener(this, {
+	nodePlayer { | source, states, action, server |
+		source = source.asPlayer(server);
+		source.addListener(this, {
 			{ this.value = 1; }.defer;
 		}, {
 			{ this.value = 0; }.defer;
@@ -30,7 +36,7 @@
 		
 		this.states = states ?? { [["start"], ["stop"]] };
 		this.action = action ?? {{ | me |
-			if (me.value >= 0) {
+			if (me.value > 0) {
 				source.start;
 			}{
 				source.stop;
