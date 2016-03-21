@@ -1,5 +1,18 @@
-SimpleSynthPlayer {
-	var <node;
+AbstractPlayer {
+	var <process;
+	restart {
+		if (this.isPlaying) { this.stop };
+		this.makeProcess;
+	}
+
+	start { // if not playing, then start with current source.
+		if (this.isPlaying.not) { this.makeProcess; };
+	}
+
+	stop { if (this.isPlaying) { this.prStop } }
+}
+
+SimpleSynthPlayer : AbstractPlayer {
 
 	addNode { | argNode |
 		NodeWatcher.register(argNode);
@@ -10,7 +23,7 @@ SimpleSynthPlayer {
 			initial node has time to start, then ignore it.
 			Therefore prevent stopping a node that has not started yet.
 		*/		
-		if (node.isNil) {
+		if (process.isNil) {
 			argNode addDependant: { | changer, message |
 				switch (message,
 					\n_go, { this.changed(\started) },
@@ -18,9 +31,9 @@ SimpleSynthPlayer {
 				);
 			}
 		}{
-			if (node.isPlaying) {
+			if (process.isPlaying) {
 				// Actions to do if new node replaces a playing node:
-				node.releaseDependants; // cancel notification of previous node
+				process.releaseDependants; // cancel notification of previous node
 				this.prStop;            // stop previous node
 				argNode addDependant: { | changer, message |
 					switch (message,
@@ -31,20 +44,18 @@ SimpleSynthPlayer {
 				}
 			} /* {} */  // if node is waiting to start - do nothing
 		};
-		node = argNode;
+		process = argNode;
 	}
 
 	stopped {
-		node.releaseDependants;
-		node = nil;
+		process.releaseDependants;
+		process = nil;
 		this.changed(\stopped);
 	}
 
-	isPlaying { ^node.notNil; }
+	isPlaying { ^process.notNil; }
 
-	stop { if (this.isPlaying) { this.prStop } }
-
-	prStop { node.release }
+	prStop { process.release }
 
 	addListener { | listener, onStart, onEnd |
 		listener.addNotifier(this, \started, onStart);
@@ -56,7 +67,7 @@ SynthPlayer : SimpleSynthPlayer {
 	var <source; // a source that knows how to create a node
 	var <args;   // args array used for creating the node
 	var <target; // the target where the node will be created
-	var <action; // addAction for creating nodes
+	var <action; // addAction for creating synth
 	//	var <inputs, <outputs;
 
 	*new { | source, args, target, action = \addToHead |
@@ -66,12 +77,12 @@ SynthPlayer : SimpleSynthPlayer {
 		);
 	}
 
-	start { // if not playing, then start with current source.
-		if (this.isPlaying.not) { this.makeNode; };
+	makeProcess {
+		this addNode: source.play(args, target, action);
 	}
 
-	makeNode {
-		this addNode: source.play(args, target, action);
+	release { | dur = 0.1 |
+		process !? { process release: dur }
 	}
 	
 	source_ { | argSource |

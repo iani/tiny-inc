@@ -14,8 +14,8 @@ TaskPlayer {
 		}, clock);
 		//		task = Task()
 	}
-
-	*start {
-		if (task)
-	}
+	
+	start {
+		//	if (task)
+	}	
 }

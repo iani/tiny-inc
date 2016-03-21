@@ -137,8 +137,29 @@ The algorithm for the method =play= is as follows:
   started
 :END:      
 
-: { } +> \symbol
+Play function into SynthPlayer: 
+: { } +> \symbol 
+
+Play function into TaskPlayer:
 : { } *> \symbol
+
+Function is used as source for SynthPlayer in both cases. 
+In =*>=, the SynthPlayer has the same name as the TaskPlayer.  If a different name is to be used, then provide the name as adverb: 
+
+: { } *>.sound1 \symbol
+
+** STARTED Designing TaskPlayer
+:LOGBOOK:  
+- State "STARTED"    from "TODO"       [2016-03-21 Mon 17:20] \\
+  started ...
+:END:      
+:PROPERTIES:
+:DATE:     <2016-03-21 Mon 17:20>
+:END:
+
+*** Approach 1: Use the same archtecture and approach as for SynthPlayer, involving a TaskSource.
+
+
 
 ** STARTED Auto-config of Synth linking
 :LOGBOOK:  

@@ -3,7 +3,7 @@ a = SimpleSynthPlayer();
 a addDependant: { | ... args | args.postln };
 
 a.addNode({ WhiteNoise.ar(0.01) }.play);
-
+//:
 a.stop;
 
 //:
@@ -17,16 +17,12 @@ b.stop;
 
 //:
 
-n = SimpleSynthPlayer();
-w = Window().front;
-w.view.layout = VLayout(
-	Button().synthPlayer(n)
-);
+c = SynthPlayer({ LFTri.ar( Rand(1000, 2000) * [1, 1.01 + 1.1.rand], 0, 0.1) });
 
-//:
-
-n addNode: { WhiteNoise.ar(0.01) }.play;
-//:
-n.stop;
-//:
-Server.default.queryAllNodes;
+{
+	20 do: {
+		c.restart;
+		0.1.wait;
+	};
+	c release: 3;
+}.fork
