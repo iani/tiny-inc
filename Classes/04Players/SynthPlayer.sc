@@ -1,16 +1,17 @@
 AbstractPlayer {
-	var <process;
+	var <process, <source;
 
-	restart {
-		if (this.isPlaying) { this.stop };
-		this.makeProcess;
-	}
-
-	start { // if not playing, then start with current source.
-		if (this.isPlaying.not) { this.makeProcess; };
-	}
-
+	start { this.makeProcess }
 	stop { if (this.isPlaying) { this.prStop } }
+	isPlaying { ^process.notNil; }
+	source_ { | argSource |
+		this.setSource(argSource);
+		this.changed(\source)
+	}
+	
+	setSource { | argSource |
+		source = argSource.asSource;
+	}
 }
 
 SimpleSynthPlayer : AbstractPlayer {
@@ -41,7 +42,7 @@ SimpleSynthPlayer : AbstractPlayer {
 						// do not notify when started
 						// \n_go, { this.changed(\started) },
 						\n_end, { this.stopped; }
-					);
+					)
 				}
 			} /* {} */  // if node is waiting to start - do nothing
 		};
@@ -51,21 +52,18 @@ SimpleSynthPlayer : AbstractPlayer {
 	stopped {
 		process.releaseDependants;
 		process = nil;
-		this.changed(\stopped);
+		this.changed(\stopped)
 	}
-
-	isPlaying { ^process.notNil; }
 
 	prStop { process.release }
 
 	addListener { | listener, onStart, onEnd |
 		listener.addNotifier(this, \started, onStart);
-		listener.addNotifier(this, \stopped, onEnd);
+		listener.addNotifier(this, \stopped, onEnd)
 	}
 }
 
 SynthPlayer : SimpleSynthPlayer {
-	var <source; // a source that knows how to create a node
 	var <args;   // args array used for creating the node
 	var <target; // the target where the node will be created
 	var <action; // addAction for creating synth
@@ -75,19 +73,14 @@ SynthPlayer : SimpleSynthPlayer {
 		target = target.asTarget;
 		^this.newCopyArgs(
 			nil, source.asSource(target.server), args ? [], target, action
-		);
+		)
 	}
 
 	makeProcess {
-		this addNode: source.play(args, target, action);
+		this addNode: source.play(args, target, action)
 	}
 
 	release { | dur = 0.1 |
 		process !? { process release: dur }
-	}
-	
-	source_ { | argSource |
-		source = argSource;
-		this.changed(\source);
 	}
 }

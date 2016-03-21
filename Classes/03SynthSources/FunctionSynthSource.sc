@@ -1,17 +1,9 @@
-/*
-	Create synths from a Function.
+SynthDefSource {
+	var <source;
+	*new { | source ... args |
+		^this.newCopyArgs(source).init(*args);
+	}
 
-	For efficieny FunctionSynthSource should not run Function:play to create a synth.
-	Instead, it should add a new SynthFunc to the server when given a function, 
-	and then start Synth('synthfunctname'). 
-
-*/
-
-// Abstract class for holding a source that can create nodes
-// Sources can be of kind: Function ... (Pattern?)
-
-SynthDefSource : AbstractSource {
-	
 	init { }
 	
 	play { | args, target, action = \addToHead |
@@ -19,8 +11,19 @@ SynthDefSource : AbstractSource {
 	}
 }
 
+/*
+	Create synths from a Function.
+
+	For efficieny FunctionSynthSource should not run Function:play to create a synth.
+	When a new Function is given, the first time that Function:play is called, 
+	send the SynthDef created from the Function to the server, 
+	and then start the synth.
+	For all subsequent times, when the synthdef is already loaded, create a new Synth
+	with Synth(defname ...).
+*/
+
 FunctionSynthSource : SynthDefSource {
-	var <defName; // uto-generated
+	var <defName; // auto-generated
 	var <synthDef;
 	var synth;
 
@@ -31,7 +34,7 @@ FunctionSynthSource : SynthDefSource {
 	source_ { | func |
 		source = func;
 		synthDef = nil;
-		synth = nil;
+		// synth = nil;
 	}
 
 	fplay { | func, args, target, action = \addToHead |

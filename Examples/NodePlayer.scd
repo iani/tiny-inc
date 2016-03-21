@@ -17,11 +17,11 @@ b.stop;
 
 //:
 
-c = SynthPlayer({ LFTri.ar( Rand(1000, 2000) * [1, 1.01 + 1.1.rand], 0, 0.1) });
+c = SynthPlayer({ LFTri.ar( Rand(400, 2000) * [1, 1.01 + 1.1.rand], 0, 0.1) });
 
 {
 	20 do: {
-		c.restart;
+		c.start;
 		0.1.wait;
 	};
 	c release: 3;
