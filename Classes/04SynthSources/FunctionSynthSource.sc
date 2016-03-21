@@ -1,7 +1,7 @@
 /*
 	Create synths from a Function.
 
-	For efficieny FunctionNodeSource should not run Function:play to create a synth.
+	For efficieny FunctionSynthSource should not run Function:play to create a synth.
 	Instead, it should add a new SynthFunc to the server when given a function, 
 	and then start Synth('synthfunctname'). 
 
@@ -9,24 +9,28 @@
 
 // Abstract class for holding a source that can create nodes
 // Sources can be of kind: Function ... (Pattern?)
-NodeSource {
+
+SynthDefSource {
 	var <source;
 
-	*new { | source, server |
-		^this.newCopyArgs(source).init(server ?? { server.asTarget.server });
+	*new { | source |
+		^this.newCopyArgs(source).init;
 	}
 
-	init { this.subclassResponsibility }
+	init {  }
+	
+	play { | args, target, action = \addToHead |
+		^Synth(source, args, target.asTarget, action);
+	}
 }
 
-FunctionNodeSource : NodeSource {
+FunctionSynthSource : SynthDefSource {
+	var <defName; // uto-generated
 	var <synthDef;
-	var <defName; // auto-generated
 	var synth;
 
 	init {
 		defName = format("sdef_%", UniqueID.next);
-		source !? { this.source_ (source) };
 	}
 
 	source_ { | func |
@@ -42,8 +46,8 @@ FunctionNodeSource : NodeSource {
 
 	play { | args, target, action = \addToHead |
 		var server;
-		if (synthDef.isNil) {
-			if (synth.isNil) {
+		if (synthDef.isNil) {  // Load synthdef if new
+			if (synth.isNil) { // if waiting for synthdef, return previous synth
 				target = target.asTarget;
 				server = target.server; 
 				synth = Synth.basicNew(defName, server);

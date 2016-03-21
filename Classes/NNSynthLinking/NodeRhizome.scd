@@ -36,7 +36,7 @@ NodeRhizome {
 
 	makeLayers {
 		var layer, newLayer;
-		layer = NodePlayer.all.select({ | n | n.inputs.size == 0 }).asSet;
+		layer = SynthPlayer.all.select({ | n | n.inputs.size == 0 }).asSet;
 		while { layer.size > 0 } {
 			this removeFromPreviousLayers: layer;
 			layers = layers add: layer;

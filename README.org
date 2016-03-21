@@ -28,12 +28,12 @@ CLOSED: [2016-03-20 Sun 18:58]
 - State "DONE"       from ""           [2016-03-20 Sun 18:58]
 :END:      
 
-Class =SimpleNodePlayer=
+Class =SimpleSynthPlayer=
 
 *** DONE Do not notify end when a new synth is started to replace a previous one
 CLOSED: [2016-01-28 Thu 10:39]
 
-Done in class SimpleNodePlayer.
+Done in class SimpleSynthPlayer.
 
 #+BEGIN_SRC sclang
 	addNode { | argNode |
@@ -81,9 +81,9 @@ CLOSED: [2016-03-20 Sun 18:57]
   includes inputs and outputs
 :END:      
 
-*** NodePlayer
+*** SynthPlayer
 
-*** FunctionNodeSource
+*** FunctionSynthSource
 
 Stores a Function that is the source for creating Synths.  It substitutes ={ }.play= by a mechanism that caches the SynthDef created from the function, so that any new Synths from the same Function can be created by =Synth("defName")=.  This is much more efficient than compiling the SynthDef from the Function and sending it to the Server each time that a new Synth is created. 
 
@@ -91,11 +91,11 @@ Behavior:
 
 **** message =play=
 
-When receiving the message =play=, the FunctionNodeSource creates a Synth and returns it immediately.  If the SynthDef from the Function stored in the FunctionNodeSource is already loaded in the server, then the Synth is created in the usual manner, with the =Synth("defName")=.  If however the Function is not yet loaded, the Synth is created with =Synth.basicNew= and the actual Synth instance on the scserver is created as soon as the SynthDef is loaded.
+When receiving the message =play=, the FunctionSynthSource creates a Synth and returns it immediately.  If the SynthDef from the Function stored in the FunctionSynthSource is already loaded in the server, then the Synth is created in the usual manner, with the =Synth("defName")=.  If however the Function is not yet loaded, the Synth is created with =Synth.basicNew= and the actual Synth instance on the scserver is created as soon as the SynthDef is loaded.
 
-When a FunctionNodeSource is created, it adds the given Function - or a default - as SynthDef, and sends it to the Server.
+When a FunctionSynthSource is created, it adds the given Function - or a default - as SynthDef, and sends it to the Server.
 
-Upon sending a SynthDef to the server, the FunctionNodeSource sets its waiting_for_def flag to true.
+Upon sending a SynthDef to the server, the FunctionSynthSource sets its waiting_for_def flag to true.
 
 The algorithm for the method =play= is as follows: 
 

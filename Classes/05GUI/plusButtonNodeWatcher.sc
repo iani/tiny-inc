@@ -1,16 +1,16 @@
 + Function {
 	button { | states, action, server |
-		^Button().nodePlayer(this, states, action, server)
+		^Button().synthPlayer(this, states, action, server)
 	}
 }
 + Button {
-	simpleNodePlayer { | nodePlayer, addStates = true |
-		nodePlayer.addListener(this, {
+	simpleSynthPlayer { | synthPlayer, addStates = true |
+		synthPlayer.addListener(this, {
 			{ this.value = 1; }.defer;
 		}, {
 			{ this.value = 0; }.defer;
 		});
-		if (nodePlayer.isPlaying) {
+		if (synthPlayer.isPlaying) {
 			this.value = 1;
 		}{
 			this.value = 0;
@@ -21,7 +21,7 @@
 		}
 	}
 
-	nodePlayer { | source, states, action, server |
+	synthPlayer { | source, states, action, server |
 		source = source.asPlayer(server);
 		source.addListener(this, {
 			{ this.value = 1; }.defer;

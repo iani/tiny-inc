@@ -6,9 +6,9 @@
 
 + Function {
 	asSource { | server |
-		^FunctionNodeSource(this, server);
+		^FunctionSynthSource(this, server);
 	}
 	asPlayer { | server |
-		^NodePlayer(this, server);
+		^SynthPlayer(this, server);
 	}
 }

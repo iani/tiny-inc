@@ -1,4 +1,4 @@
-+ NodePlayer {
++ SynthPlayer {
 	
 	canAddReader { | reader |
 		^this !== reader and: {

@@ -1,4 +1,4 @@
-f = FunctionNodeSource({ WhiteNoise.ar(0.1) });
+f = FunctionSynthSource({ WhiteNoise.ar(0.1) });
 a = f.play;
 
 //:
@@ -7,7 +7,7 @@ a release: 3;
 
 
 //:
-b = FunctionNodeSource({ | freq = 400 | SinOsc.ar(freq, 0, 0.1) });
+b = FunctionSynthSource({ | freq = 400 | SinOsc.ar(freq, 0, 0.1) });
 {
 	10 do: {
 		b.play([freq: 400 rrand: 4000 ]);
@@ -23,7 +23,7 @@ c.source;
 //:
 c.play;
 //:
-d = NodePlayer({ LFSaw.ar(Rand(400, 100), 0, 0.01) });
+d = SynthPlayer({ LFSaw.ar(Rand(400, 100), 0, 0.01) });
 d.start;
 
 //: doSend

@@ -1,4 +1,4 @@
-SimpleNodePlayer {
+SimpleSynthPlayer {
 	var <node;
 
 	addNode { | argNode |
@@ -6,7 +6,7 @@ SimpleNodePlayer {
 		//  Release previous node if playing,
 		//	but prevent that node from triggering a stopped notification when it ends.
 
-		/*  If a node is added by FunctionNodeSource again, before the 
+		/*  If a node is added by FunctionSynthSource again, before the 
 			initial node has time to start, then ignore it.
 			Therefore prevent stopping a node that has not started yet.
 		*/		
@@ -52,7 +52,7 @@ SimpleNodePlayer {
 	}
 }
 
-NodePlayer : SimpleNodePlayer {
+SynthPlayer : SimpleSynthPlayer {
 	var <source; // a source that knows how to create a node
 	var <args;   // args array used for creating the node
 	var <target; // the target where the node will be created

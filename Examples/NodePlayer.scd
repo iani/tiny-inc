@@ -1,4 +1,4 @@
-a = SimpleNodePlayer();
+a = SimpleSynthPlayer();
 
 a addDependant: { | ... args | args.postln };
 
@@ -7,7 +7,7 @@ a.addNode({ WhiteNoise.ar(0.01) }.play);
 a.stop;
 
 //:
-b = NodePlayer({ SinOsc.ar(Rand(400, 100), 0, 0.1) });
+b = SynthPlayer({ SinOsc.ar(Rand(400, 100), 0, 0.1) });
 
 b.addListener(\test, { "started".postln; }, { "stopped".postln; });
 
@@ -17,10 +17,10 @@ b.stop;
 
 //:
 
-n = SimpleNodePlayer();
+n = SimpleSynthPlayer();
 w = Window().front;
 w.view.layout = VLayout(
-	Button().nodePlayer(n)
+	Button().synthPlayer(n)
 );
 
 //:
