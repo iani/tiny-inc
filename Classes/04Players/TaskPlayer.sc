@@ -14,9 +14,12 @@ TaskPlayer : AbstractPlayer {
 	start {
 		// If task has been paused or stopped before its end, 
 		// then do not restart task from beginning, but resume.
+		// Note: this.isPlaying = there is still a task to resume
+		// process.isPlaying.not = the task has been paused
+		// process.isPlaying = the task is playing, and should therefore not re-start
 		if (this.isPlaying) {
-			// only resume if not still playing!
-			if (process.isPlaying.not) { proces.resume }
+			// only resume if paused! (If playing, then do nothing.)
+			if (process.isPlaying.not) { process.resume }
 		}{
 			this.makeProcess;
 		}
@@ -46,4 +49,12 @@ TaskPlayer : AbstractPlayer {
 	}
 
 	reset { process !? { process.reset } }
+}
+
+PatternTaskPlayer {
+	/* 
+		
+	*/
+	var <patrern, stream;
+
 }
