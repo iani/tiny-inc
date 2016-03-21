@@ -1,5 +1,6 @@
 AbstractPlayer {
 	var <process;
+
 	restart {
 		if (this.isPlaying) { this.stop };
 		this.makeProcess;

@@ -10,14 +10,9 @@
 // Abstract class for holding a source that can create nodes
 // Sources can be of kind: Function ... (Pattern?)
 
-SynthDefSource {
-	var <source;
-
-	*new { | source |
-		^this.newCopyArgs(source).init;
-	}
-
-	init {  }
+SynthDefSource : AbstractSource {
+	
+	init { }
 	
 	play { | args, target, action = \addToHead |
 		^Synth(source, args, target.asTarget, action);
