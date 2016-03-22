@@ -9,3 +9,8 @@ Pseq([
 	EventPattern((freq: [200, 1500, 25].pwhite * [1, 1.2, 1.5], dur: 0.15, legato: 0.15)),
 	EventPattern((degree: [0, 2, 4] + [0, 5, 1].prand(3), dur: 2, legato: 0.5)),
 ]).play;
+//:
+
+a = EventPattern((dur: 0.1, degree: [-5, 12, 1].pbrown + [0, [-2, 3]].prand));
+b = a.asStream;
+b.nextN(3); 
