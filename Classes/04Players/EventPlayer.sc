@@ -18,7 +18,7 @@ EventPlayer {
 		this.reset;
 		action ?? {
 			action = { | dur |
-				stream.next.play(dur);
+				stream.next.put(\dur, dur).play;
 			}
 		}
 	}
@@ -26,7 +26,7 @@ EventPlayer {
 	reset { this.pattern = pattern }
 
 	pattern_ { | argPattern |
-		pattern = argPattern;
+		pattern = EventPattern(argPattern);
 		stream = pattern.asStream;
 	}
 
