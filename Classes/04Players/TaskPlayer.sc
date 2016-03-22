@@ -30,11 +30,13 @@ TaskPlayer : AbstractPlayer {
 	}
 
 	makeProcess {
+		var sourceEvent;
 		stream = source.asStream;
 		process = Task({
 			while { (dur = stream.next).notNil }
 			{
-				actions do: _.value(dur, this.getArgs);
+				sourceEvent = this.getSourceEvent.put(\dur, dur);
+				actions do: _.value(sourceEvent);
 				dur.wait;
 			}
 		}).play(clock, false, quant);
@@ -43,7 +45,7 @@ TaskPlayer : AbstractPlayer {
 		})
 	}
 
-	getArgs { ^nil }
+	getSourceEvent { ^() }
 
 	pause {
 		process !? { process.pause }
@@ -69,7 +71,7 @@ PatternTaskPlayer : TaskPlayer {
 
 	makeStream { stream = pattern.asStream }
 
-	getArgs { ^stream.next }
+	getSourceEvent { ^stream.next }
 
 	reset {
 		super.reset;

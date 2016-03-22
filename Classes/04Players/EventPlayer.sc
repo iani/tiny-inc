@@ -27,11 +27,9 @@ stream.next keysValuesDo: { | key, value |
 
 
 */
-EventFilterPlayer : AbstractEventPlayer {
+SimpleEventPlayer : AbstractEventPlayer {
 	makeAction {
-		action = { | dur args |
-			args.put(\dur, dur).play
-		}
+		action = { | sourceEvent | sourceEvent.play }
 	}
 }
 
@@ -70,8 +68,8 @@ EventPlayer : AbstractEventPlayer {
 	freq: { ~freq * 123 },
 	dur: 0.2,
 	freq2: { ~freq / ~ser },
-	xpattern: [-100, -50, 1].pbrown,
-	freqFromOwnPattern: { | f | ~freq * f[\xpattern] } // cannot use like this
+		xpattern: [-100, -50, 1].pbrown, // stream value in own event stream
+	freqFromOwnPattern: { | f | ~freq * f[\xpattern] } // use value from own event stream
 )).asStream;
 //:
 ~filter.next;
@@ -97,9 +95,9 @@ EventPlayer : AbstractEventPlayer {
 		}
 	}
 
-	filterSourceEvent { | dur, sourceEvent |
+	filterSourceEvent { | sourceEvent |
 		var filterEvent, outputEvent;
-		outputEvent = (sourceEvent ?? { () }).copy.put (\dur, dur);
+		outputEvent = sourceEvent.copy;
 		filterEvent = stream.next;
 		sourceEvent use: {
 			filterEvent keysValuesDo: { | key value |
