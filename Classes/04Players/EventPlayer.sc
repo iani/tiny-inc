@@ -17,22 +17,6 @@ AbstractEventPlayer {
 	}
 }
 
-/* This can become part of EventPlayer,
-when I figure out how to merge the stream's event with the args event.
-
-args.put(\dur, dur);
-stream.next keysValuesDo: { | key, value |
-	args.put(key, value.valueEnvir())
-}
-
-
-*/
-SimpleEventPlayer : AbstractEventPlayer {
-	makeAction {
-		action = { | sourceEvent | sourceEvent.play }
-	}
-}
-
 /*
 Play an EventStream attached to a TaskPlayer.
 
@@ -57,11 +41,44 @@ EventPlayer : AbstractEventPlayer {
 	reset { this.pattern = pattern }
 	
 	pattern_ { | argPattern |
-		pattern = EventPattern(argPattern);
+		pattern = EventPattern(argPattern ?? (instrument: \default));
 		stream = pattern.asStream;
 	}
+	
+	makeAction {
+		action ?? {
+			action = { | sourceEvent |
+				this.filterSourceEvent (sourceEvent).play;
+			}
+		}
+	}
 
-	/* TODO: Put this filter mechanism in the default action: 
+	filterSourceEvent { | sourceEvent |
+		var filterEvent, outputEvent;
+		filterEvent = stream.next;
+		// Do not play if stream has ended.
+		// Note: The default plays forever: (instrument: \default)
+		if (filterEvent.isNil) { ^nil };
+		outputEvent = sourceEvent.copy;
+		sourceEvent use: {
+			filterEvent keysValuesDo: { | key value |
+				outputEvent[key] = value.(filterEvent);
+			}
+		};
+		^outputEvent;
+	}
+
+}
+
+////////////////////////////////////////////////////////////////
+
+SimpleEventPlayer : AbstractEventPlayer {
+	makeAction {
+		action = { | sourceEvent | sourceEvent.play }
+	}
+}
+
+/* Notes on consturction of filterSourceEvent
 //:
 ~source = EventPattern((freq: 1000, somethingElse: \xxxxx, ser: [1, 1].pseries)).asStream;
 ~filter = EventPattern((
@@ -86,26 +103,4 @@ EventPlayer : AbstractEventPlayer {
 	};
 	outputEvent;
 }.value;
-	*/
-	makeAction {
-		action ?? {
-			action = { | dur args |
-				this.filterSourceEvent (dur, args).play;
-			}
-		}
-	}
-
-	filterSourceEvent { | sourceEvent |
-		var filterEvent, outputEvent;
-		outputEvent = sourceEvent.copy;
-		filterEvent = stream.next;
-		sourceEvent use: {
-			filterEvent keysValuesDo: { | key value |
-				outputEvent[key] = value.(filterEvent);
-			}
-		};
-		^outputEvent;
-	}
-
-}
-
+*/

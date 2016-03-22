@@ -36,7 +36,9 @@ TaskPlayer : AbstractPlayer {
 			while { (dur = stream.next).notNil }
 			{
 				sourceEvent = this.getSourceEvent.put(\dur, dur);
-				actions do: _.value(sourceEvent);
+				actions keysValuesDo: { | player, action |
+					action.value(sourceEvent, player)
+				};
 				dur.wait;
 			}
 		}).play(clock, false, quant);
