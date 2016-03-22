@@ -1,9 +1,9 @@
 TaskPlayer : AbstractPlayer {
 	var <>clock, <>quant;
 	var <actions;
-	var <dur;
+	var <dur, <stream;
 
-	*new { | source, clock, quant |
+	*new { | source = 1, clock, quant |
 		^this.newCopyArgs(nil, source, clock, quant).init;
 	}
 
@@ -11,6 +11,10 @@ TaskPlayer : AbstractPlayer {
 		actions = IdentityDictionary();
 	}
 
+	setSource { | argSource |
+		source = argSource;
+		stream = source.asStream;
+	}
 	start {
 		// If task has been paused or stopped before its end, 
 		// then do not restart task from beginning, but resume.
@@ -26,7 +30,6 @@ TaskPlayer : AbstractPlayer {
 	}
 
 	makeProcess {
-		var stream;
 		stream = source.asStream;
 		process = Task({
 			while { (dur = stream.next).notNil }
