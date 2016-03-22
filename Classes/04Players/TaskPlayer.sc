@@ -75,5 +75,4 @@ PatternTaskPlayer : TaskPlayer {
 		super.reset;
 		this.makeStream;
 	}
-
 }
