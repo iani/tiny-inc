@@ -53,11 +53,3 @@ TaskPlayer : AbstractPlayer {
 
 	reset { process !? { process.reset } }
 }
-
-PatternTaskPlayer {
-	/* 
-		
-	*/
-	var <patrern, stream;
-
-}

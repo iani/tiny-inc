@@ -12,7 +12,3 @@
 		^SynthPlayer(this, server);
 	}
 }
-
-+ Pattern {
-	asSource { ^this }
-}
