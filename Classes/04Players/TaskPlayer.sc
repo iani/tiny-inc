@@ -34,14 +34,16 @@ TaskPlayer : AbstractPlayer {
 		process = Task({
 			while { (dur = stream.next).notNil }
 			{
-				actions do: _.value(dur);
-				dur.postln.wait;
+				actions do: _.value(dur, this.getArgs);
+				dur.wait;
 			}
 		}).play(clock, false, quant);
 		process.addDependant({ | task msg |
 			if (msg === \stopped and: { task.streamHasEnded }) { process = nil }
 		})
 	}
+
+	getArgs { ^nil }
 
 	pause {
 		process !? { process.pause }
@@ -52,4 +54,26 @@ TaskPlayer : AbstractPlayer {
 	}
 
 	reset { process !? { process.reset } }
+}
+
+PatternTaskPlayer : TaskPlayer {
+	/* 
+		also pass an extra argument generated from a pattern.
+	*/
+	var <pattern, stream;
+
+	pattern_ { | argPattern |
+		pattern = argPattern;
+		this.makeStream;
+	}
+
+	makeStream { stream = pattern.asStream }
+
+	getArgs { ^stream.next }
+
+	reset {
+		super.reset;
+		this.makeStream;
+	}
+
 }
