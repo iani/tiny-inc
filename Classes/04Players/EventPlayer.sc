@@ -3,7 +3,7 @@ AbstractEventPlayer {
 	var <>action;
 
 	*new { | action |
-		^this.newCopyArgs(action, pattern).init;
+		^this.newCopyArgs(action).init;
 	}
 
 	init { this.makeAction }
@@ -27,7 +27,7 @@ stream.next keysValuesDo: { | key, value |
 
 
 */
-EventFilterPlayer : AbsractEventPlayer {
+EventFilterPlayer : AbstractEventPlayer {
 	makeAction {
 		action = { | dur args |
 			args.put(\dur, dur).play
@@ -43,7 +43,7 @@ Create Events from EventStream and play them by attaching yourself to a TaskPlay
 through { | dur | stream.next.put(\dur, dur).play }
 */
 
-EventPlayer : AbsractEventPlayer {
+EventPlayer : AbstractEventPlayer {
 	var <pattern;
 	var stream;
 
@@ -63,10 +63,50 @@ EventPlayer : AbsractEventPlayer {
 		stream = pattern.asStream;
 	}
 
+	/* TODO: Put this filter mechanism in the default action: 
+//:
+~source = EventPattern((freq: 1000, somethingElse: \xxxxx, ser: [1, 1].pseries)).asStream;
+~filter = EventPattern((
+	freq: { ~freq * 123 },
+	dur: 0.2,
+	freq2: { ~freq / ~ser },
+	xpattern: [-100, -50, 1].pbrown,
+	freqFromOwnPattern: { | f | ~freq * f[\xpattern] } // cannot use like this
+)).asStream;
+//:
+~filter.next;
+//:
+{
+	var sourceEvent, filterEvent, outputEvent;
+	sourceEvent = ~source.next;
+	filterEvent = ~filter.next;
+	outputEvent = sourceEvent.copy;
+	sourceEvent use: {
+		filterEvent keysValuesDo: { | key value |
+			outputEvent[key] = value.(filterEvent);
+		}
+	};
+	outputEvent;
+}.value;
+	*/
 	makeAction {
 		action ?? {
-			action = { | dur | stream.next.put(\dur, dur).play }
+			action = { | dur args |
+				this.filterSourceEvent (dur, args).play;
+			}
 		}
+	}
+
+	filterSourceEvent { | dur, sourceEvent |
+		var filterEvent, outputEvent;
+		outputEvent = (sourceEvent ?? { () }).copy.put (\dur, dur);
+		filterEvent = stream.next;
+		sourceEvent use: {
+			filterEvent keysValuesDo: { | key value |
+				outputEvent[key] = value.(filterEvent);
+			}
+		};
+		^outputEvent;
 	}
 
 }
