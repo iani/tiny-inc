@@ -11,11 +11,11 @@ to modify values received from the TaskPlayer, before playing.
 */
 
 AbstractEventPlayer {
-	var <>action;
 	var <name = \player;
+	var <>action;
 
-	*new { | action, name = \player |
-		^this.newCopyArgs(action, name).init;
+	*new { | name = \player, action |
+		^this.newCopyArgs(name, action).init;
 	}
 
 	init { this.makeAction }
@@ -44,21 +44,21 @@ EventPlayer : AbstractEventPlayer {
 	var <pattern;
 	var stream;
 
-	*new { | pattern, name = \player, action |
-		^this.newCopyArgs(action, name, pattern).init;
+	*new { | name = \player, pattern, action |
+		^super.new(name, action).init(pattern);
 	}
 
-	init {
-		this.reset;
+	init { | inPattern |		
 		super.init;
+		this.pattern = inPattern;
 	}
 
-	reset { this.pattern = pattern }
-	
 	pattern_ { | argPattern |
 		pattern = EventPattern(argPattern ?? (instrument: \default));
 		stream = pattern.asStream;
 	}
+
+	reset { this.pattern = pattern }
 	
 	makeAction {
 		action ?? {

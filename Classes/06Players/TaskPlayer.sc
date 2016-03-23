@@ -84,8 +84,18 @@ PatternTaskPlayer : TaskPlayer {
 	var <pattern, stream;
 
 	pattern_ { | argPattern |
-		pattern = argPattern;
+		this.extractDur(argPattern);
+		pattern = EventPattern(argPattern);
 		this.makeStream;
+	}
+
+	extractDur { | argPattern |
+		var durPattern;
+		durPattern = argPattern[\dur];
+		durPattern !? {
+			this.setSource(durPattern);
+			argPattern[\dur] = nil;
+		}
 	}
 
 	makeStream { stream = pattern.asStream }
@@ -99,12 +109,17 @@ PatternTaskPlayer : TaskPlayer {
 
 	// Modifying the player (works also while it is playing)
 	addEvent2Self { | inEvent |
-
+		this.extractDur(inEvent);
+		pattern.addEventContents(inEvent, stream.event)
 	}
 
+	
 	addEvent2Player { | inEvent, player = \player |
 		player = players[player];
-		player !? { player.addEvent(inEvent) }
+		player !? {
+			this.extractDur(inEvent);
+			player.addEvent(inEvent);
+		}
 	}
 	
 }
