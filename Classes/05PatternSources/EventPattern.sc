@@ -4,12 +4,6 @@ in similar way as Pdef can be embedded in a Pseq (see Pdef help entry).
 
 IZ Mon, Apr 21 2014, 09:58 EEST
 
-EventPattern((dur: 0.1, degree: [-5, 12, 1].pbrown + [0, [-2, 3]].prand)).play;
-
-shortcut: 
-
-
-
 */
 
 EventPattern : Pattern {
@@ -20,6 +14,15 @@ EventPattern : Pattern {
 	asStream { ^EventStream(event) }
 
 	pattern { ^this }
+
+	addEventContents { | inEvent streamEvent |
+		// Add event's keys/values and also update the event
+		// of the currently playing stream.
+		inEvent keysValuesDo: { | key value |
+			event[key] = value;
+			streamEvent[key] = value.asStream;
+		}
+	}
 }
 
 EventStream : Stream {

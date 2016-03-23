@@ -1,3 +1,14 @@
+//
+
+////////////////////////////////////////////////////////////////
+
+
+// Better see newer file
+
+////////////////////////////////////////////////////////////////
+
+//
+
 t = TaskPlayer(1);
 //:
 t.start;
@@ -14,7 +25,9 @@ t.stop;
 //:
 q = TaskPlayer(0.1);
 q.start;
-e = EventPlayer((freq: 1000)).add(q);
+e = EventPlayer((freq: 1000)).addTo(q);
+//:
+
 //:
 e.pattern = (freq: [1000, 1200]);
 //:

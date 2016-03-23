@@ -1,7 +1,7 @@
 TaskPlayer : AbstractPlayer {
 	var <>clock, <>quant;
 	var <players;
-	var <dur, <stream;
+	var <dur, <durStream;
 
 	*new { | source = 1, clock, quant |
 		^this.newCopyArgs(nil, source, clock, quant).init;
@@ -18,7 +18,7 @@ TaskPlayer : AbstractPlayer {
 	dur_ { | argDur = 1 | this.setSource(argDur) } 
 	setSource { | argSource |
 		source = argSource;
-		stream = source.asStream;
+		durStream = source.asStream;
 	}
 
 	start {
@@ -28,29 +28,38 @@ TaskPlayer : AbstractPlayer {
 		// process.isPlaying.not = the task has been paused
 		// process.isPlaying = the task is playing, and should therefore not re-start
 		if (this.isPlaying) {
+			// process exists = has not ended by itself, but interrupted (paused)
+			// or playing
+			// Therefore, if paused, resume - do not reset
 			// only resume if paused! (If playing, then do nothing.)
 			if (process.isPlaying.not) { process.resume }
 		}{
-			this.makeProcess;
+			// process has reached end.  Must reset durStream
+			this.makeProcess; // creates new task + plays it
 		}
 	}
 
 	makeProcess {
 		var sourceEvent;
-		stream = source.asStream;
+		// Only called when process has reached its end. Therefore: ...
+		this.makeDurStream; // ... reset the durStream to the begining
 		process = Task({
-			while { (dur = stream.next).notNil }
+			while { (dur = durStream.next).notNil }
 			{
 				sourceEvent = this.getSourceEvent;
 				players do: _.play(sourceEvent);
 				dur.wait;
 			}
-		}).play(clock, false, quant);
+		}).play(clock, false, quant); // THE TASK STARTS PLAYING HERE
 		process.addDependant({ | task msg |
 			if (msg === \stopped and: { task.streamHasEnded }) { process = nil }
 		})
+		^process;
 	}
 
+	// Reset the durStream to the begining
+	makeDurStream { durStream = source.asStream }
+	
 	getSourceEvent { ^(dur: dur) }
 
 	pause {
@@ -61,7 +70,10 @@ TaskPlayer : AbstractPlayer {
 		process !? { process.resume }
 	}
 
-	reset { process !? { process.reset } }
+	reset {
+		process !? { process.reset };
+		this.makeDurStream;
+	}
 }
 
 PatternTaskPlayer : TaskPlayer {
@@ -78,10 +90,21 @@ PatternTaskPlayer : TaskPlayer {
 
 	makeStream { stream = pattern.asStream }
 
-	getSourceEvent { ^stream.next.put (\dur, dur) }
+	getSourceEvent { ^(stream.next ?? { () }).put (\dur, dur) }
 
 	reset {
 		super.reset;
 		this.makeStream;
 	}
+
+	// Modifying the player (works also while it is playing)
+	addEvent2Self { | inEvent |
+
+	}
+
+	addEvent2Player { | inEvent, player = \player |
+		player = players[player];
+		player !? { player.addEvent(inEvent) }
+	}
+	
 }

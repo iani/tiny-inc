@@ -82,6 +82,8 @@ EventPlayer : AbstractEventPlayer {
 		};
 		^outputEvent;
 	}
+
+	addEvent { | inEvent | pattern.addEventContents(inEvent, stream.event) }
 }
 
 ////////////////////////////////////////////////////////////////
