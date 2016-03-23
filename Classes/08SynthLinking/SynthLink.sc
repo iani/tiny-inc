@@ -4,7 +4,7 @@
 
 LinkedNode {
 	var <server;
-	var <rank = 0; // smaller numbers mean earlier synth order
+	var <rank; // smaller numbers mean earlier synth order
 	var <group;  // the actual group. Used as target for player.
 	var <inputs; // Dictionary of Inputs (param: input, param2: input)
 	var <outputs; // Dictionary of Outputs
@@ -20,17 +20,35 @@ LinkedNode {
 
 	*new { | server name |
 		server ?? { server = Server.default };
-		^Registry(this, server, name.asSymbol, { this.newCopyArgs(server) })
+		^Registry(this, server, name.asSymbol, { this.newCopyArgs(server).init })
+	}
+
+	init {
+		inputs = IdentityDictionary();
+		outputs = IdentityDictionary()
+	}
+
+	addOutputNode { | node out = \out in = \in numChannels = 1  |
+		
 	}
 
 	getGroup {
-		if (inputs.isNil and: { outputs.isNil }) {
-			rank = 0
+		// TODO: REWRITE THIS CORRECTLY.  IT IS NOT RIGHT NOW
+		/*
+			When there are no inputs and no outputs, there should be
+			no rank and no group.
+			When there are only outputs, rank should be 0
+		*/
+		if (inputs.size == 0 and: { outputs.size == 0 }) {
+			rank = nil;
 		}{
-			rank = this.allWriters.collect(_.rank).maxItem + 1;
-			this.moveToGroup;
+			if (inputs.size == 0) {
+				rank = 0
+			}{
+				rank = this.allWriters.collect(_.rank).maxItem + 1
+			};
 		};
-		
+		this.moveToGroup;
 	}
 
 	moveToGroup {
@@ -45,7 +63,13 @@ LinkedNode {
 		}
 	}
 	
-	setGroup { this.group = PlayerGroup(server, rank) }
+	setGroup {
+		if (rank.isNil) {
+			this.group = server.asTarget;
+		}{
+			this.group = PlayerGroup(server, rank)
+		}
+	}
 
 	group_ { | argGroup |
 		group = argGroup;
@@ -53,7 +77,9 @@ LinkedNode {
 	}
 
 	// called by PlayerGroup when recreating Groups on ServerTree:
-	resetGroup { | groups | this.group = groups [rank] }
+	resetGroup { | groups |
+		rank !? { this.group = groups [rank] }
+	}
 	
 	getArgs {
 		
