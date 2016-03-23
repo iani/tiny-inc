@@ -137,16 +137,16 @@ The algorithm for the method =play= is as follows:
   started
 :END:      
 
-Play function into SynthPlayer: 
+Play function into SynthPlayer - in LinkedNode: 
 : { } +> \symbol 
 
-Play function into TaskPlayer:
-: { } *> \symbol
+Play named and loaded SynthDef into SynthPlayer - in LinkedNode: 
+: \default +> \symbol
 
-Function is used as source for SynthPlayer in both cases. 
-In =*>=, the SynthPlayer has the same name as the TaskPlayer.  If a different name is to be used, then provide the name as adverb: 
+Play Event into TaskPlayer - in LinkedNode:
+: ( ) +> \symbol
 
-: { } *>.sound1 \symbol
+Use =++>= to set the source of the LinkedNode without starting it. 
 
 ** STARTED Designing TaskPlayer
 :LOGBOOK:  
@@ -174,7 +174,7 @@ In =*>=, the SynthPlayer has the same name as the TaskPlayer.  If a different na
 \writer @> \reader; // move output of writer to input of reader
 \writer <@ \reader; // move input of reader to output of writer
 // operator specifies output, adverb specifies input:
-\writer@\out1 @>.in2 \reader; // specify output param out1 and input in2
+\writer@\out1 @>.in2 \reader; // specify output/input params out1 and in2
 #+END_SRC
 
 =\writer= and =\reader= are unique group/rank and input/output bus holders accessible through their symbols. They can store a SynthPlayer or a TaskPlayer - interchangeably. Class: =LinkedNode=

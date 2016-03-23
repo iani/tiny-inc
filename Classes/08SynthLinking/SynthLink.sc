@@ -9,6 +9,8 @@ LinkedNode {
 	var <inputs; // Dictionary of Inputs (param: input, param2: input)
 	var <outputs; // Dictionary of Outputs
 	var <player; // SynthPlayer, TaskPlayer, or similar/compatible object
+	var <>addAction = \addToHead;
+	var <>args;
 
 	*all { | server |
 		if (server.isNil) {
@@ -28,6 +30,10 @@ LinkedNode {
 		outputs = IdentityDictionary()
 	}
 
+	start { player.start(group, args, addAction) }
+	stop { player.stop }
+	release { player.release }
+	
 	addOutputNode { | node out = \out in = \in numChannels = 1  |
 		
 	}

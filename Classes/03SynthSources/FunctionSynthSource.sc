@@ -25,7 +25,8 @@ SynthDefSource {
 FunctionSynthSource : SynthDefSource {
 	var <defName; // auto-generated
 	var <synthDef;
-	var synth;
+	// cached synth for rare case: Resending SynthDef before it completes loading
+	var synth;   
 
 	init {
 		defName = format("sdef_%", UniqueID.next);
@@ -53,7 +54,7 @@ FunctionSynthSource : SynthDefSource {
 					fadeTime: 0.02, //: TODO: must be variable in the synthdef
 					name: defName
 				);
-				synthDef.doSend(server, synth.newMsg(target, args, action));
+				synthDef.doSend(server, synth.newMsg(target, args, action ? \addToHead));
 				synth.onStart(this, { synth = nil; });
 				^synth;
 			}{ 

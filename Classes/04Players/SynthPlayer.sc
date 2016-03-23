@@ -1,3 +1,22 @@
+AbstractPlayer {
+	var <process, <source;
+
+	start { | args, target, action = \addToHead |
+		this.makeProcess(args, target, action)
+	}
+	stop { if (this.isPlaying) { this.prStop } }
+	isPlaying { ^process.notNil; }
+	source_ { | argSource |
+		this.setSource(argSource);
+		this.changed(\source)
+	}
+
+	setSource { | argSource |
+		source = argSource.asSource;
+	}
+
+	prStop { process.stop }
+}
 
 SimpleSynthPlayer : AbstractPlayer {
 
@@ -49,19 +68,12 @@ SimpleSynthPlayer : AbstractPlayer {
 }
 
 SynthPlayer : SimpleSynthPlayer {
-	var <args;   // args array used for creating the node
-	var <target; // the target where the node will be created
-	var <action; // addAction for creating synth
-	//	var <inputs, <outputs;
 
-	*new { | source, args, target, action = \addToHead |
-		target = target.asTarget;
-		^this.newCopyArgs(
-			nil, source.asSource(target.server), args ? [], target, action
-		)
+	*new { | source |
+		^this.newCopyArgs(nil, source.asSource)
 	}
 
-	makeProcess {
+	makeProcess { | args, target, action |
 		this addNode: source.play(args, target, action)
 	}
 
