@@ -1,20 +1,40 @@
+/*
+Play events produced by an EventStream, one at a time.
+The timing is not produced by the EventPlayer.  
+Instead, the event player gets and plays the next event from the EventStream, 
+in response to calls from a TaskPlayer. The TaskPlayer times the events. 
+
+EventPlayer filters the events given by the TaskPlayer at each call.
+It combines them with its own events, and can use its own event
+to modify values received from the TaskPlayer, before playing.
+
+*/
 
 AbstractEventPlayer {
 	var <>action;
+	var <name = \player;
 
-	*new { | action |
-		^this.newCopyArgs(action).init;
+	*new { | action, name = \player |
+		^this.newCopyArgs(action, name).init;
 	}
 
 	init { this.makeAction }
 
+	/*
 	add { | taskPlayer |
 		taskPlayer.actions[this] = action;
 	}
+	*/
+
+	add { | taskPlayer |
+		taskPlayer[name] = this;
+	}
 
 	remove { | taskPlayer |
-		taskPlayer.actions[this] = nil;
+		taskPlayer[name] = nil
 	}
+
+	play { | args | action.(args, this) }
 }
 
 /*
@@ -29,8 +49,8 @@ EventPlayer : AbstractEventPlayer {
 	var <pattern;
 	var stream;
 
-	*new { | pattern, action |
-		^this.newCopyArgs(action, pattern).init;
+	*new { | pattern, name = \player, action |
+		^this.newCopyArgs(action, name, pattern).init;
 	}
 
 	init {

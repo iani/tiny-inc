@@ -1,6 +1,6 @@
 TaskPlayer : AbstractPlayer {
 	var <>clock, <>quant;
-	var <actions;
+	var <players;
 	var <dur, <stream;
 
 	*new { | source = 1, clock, quant |
@@ -8,7 +8,7 @@ TaskPlayer : AbstractPlayer {
 	}
 
 	init {
-		actions = IdentityDictionary();
+		players = IdentityDictionary();
 	}
 
 	setSource { | argSource |
@@ -36,9 +36,7 @@ TaskPlayer : AbstractPlayer {
 			while { (dur = stream.next).notNil }
 			{
 				sourceEvent = this.getSourceEvent;
-				actions keysValuesDo: { | player, action |
-					action.value(sourceEvent, player)
-				};
+				players do: _.play(sourceEvent);
 				dur.wait;
 			}
 		}).play(clock, false, quant);
@@ -62,7 +60,8 @@ TaskPlayer : AbstractPlayer {
 
 PatternTaskPlayer : TaskPlayer {
 	/* 
-		also pass an extra argument generated from a pattern.
+		Create events from a pattern, 
+		and pass them to your players for playing.
 	*/
 	var <pattern, stream;
 

@@ -252,11 +252,27 @@ Structure of SynthLink:
   started
 :END:      
 
-- =+>= :: Set source of SynthLink and play
-- =++>= :: Set source of SynthLink but do not play now
+*** Operator overview
 
-- =%>= :: change args in SynthLink, and send them to player if playing.
-- =%%>= :: change args in SynthLink, but do not send them to player now.
+1. Playing
+   - =+>= :: Start playing something in a SynthLink.
+             Note:  If the first (left) operand is an event, it adds or sets the EventPattern of an EventPlayer that is attached to the TaskPlayer as player. The default name of the player is =player=.  Another name is used if it is provided as adverb to the =+>= operator. 
+   - =+^>= :: Set the pattern of the TaskPlayer in the SynthLink, and start. Do not add any EventPlayer to the TaskPlayer.
+2. Modifying args
+   For TaskPlayer, these modify the EventStream of the default EventPlayer or the player specified in the adverb to the operator.
+   - =%>= :: Add args to event or arg-array
+   - =%!>= :: Replace event or arg-array
+3. Modifying pattern of the TaskPlayer
+   These modify the pattern and stream of the TaskPlayer, not of any EventPlayer.
+   - =^>= :: ...
+   - =^!>= :: ...
+4. Linking SynthLinks
+   - =@>= :: ...
+   - =<@= :: ...
+   - =@= :: ...
+
+*** Details
+**** =+>= : Set source of SynthLink and play.
 
 Play function into SynthPlayer - in SynthLink: 
 : { } +> \symbol 
@@ -265,12 +281,25 @@ Play named and loaded SynthDef into SynthPlayer - in SynthLink:
 : \default +> \symbol
 
 Play Event into TaskPlayer - in SynthLink:
-: ( ) +> \symbol
+: ( ) +> \symbol // Plays through default EventPlayer as TaskPlayer-player
+: ( ) +> \symbol // Plays through default EventPlayer as TaskPlayer-player
 
 Possibly: 
 
 - =number +> \symbol= :: use number as duration to start TaskPlayer in SynthLink
 - =pattern +> \symbol= :: use pattern as duration to start TaskPlayer in SynthLink
+
+****  =%>= : change args in SynthLink, and send them to player - without restarting
+
+() %> \symbol
+
+*** for simplicity, these will not be attempted now:
+:PROPERTIES:
+:DATE:     <2016-03-23 Wed 14:54>
+:END:
+
+- =++>= :: Set source of SynthLink but do not play now
+- =%%>= :: change args in SynthLink, but do not send them to player now.
 
 ** TODO Overview of Classes
 :PROPERTIES:
