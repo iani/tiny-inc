@@ -34,6 +34,12 @@ Registry {
 	*remove { | ... path |
 		Library.global.removeEmptyAt(*path);
 	}
+
+	*allAt { | ... path |
+		var found;
+		found = Library.global.atPath(path); 
+		^if (found isKindOf: Dictionary) { found.values } { found }
+	}
 }
 
 + Function {

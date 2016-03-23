@@ -10,6 +10,19 @@ LinkedNode {
 	var <outputs; // Dictionary of Outputs
 	var <player; // SynthPlayer, TaskPlayer, or similar/compatible object
 
+	*all { | server |
+		if (server.isNil) {
+			^server.all.asArray.collect ({ | s | this.all (s) }).flat
+		}{
+			^Registry.allAt (this, server)
+		}
+	}
+
+	*new { | server name |
+		server ?? { server = Server.default };
+		^Registry(this, server, name.asSymbol, { this.newCopyArgs(server) })
+	}
+
 	getGroup {
 		if (inputs.isNil and: { outputs.isNil }) {
 			rank = 0
@@ -32,11 +45,16 @@ LinkedNode {
 		}
 	}
 	
-	setGroup {
-		group = PlayerGroup(server, rank);
-		player !? { player.target = group };
+	setGroup { this.group = PlayerGroup(server, rank) }
+
+	group_ { | argGroup |
+		group = argGroup;
+		player !? { player.target = group };		
 	}
 
+	// called by PlayerGroup when recreating Groups on ServerTree:
+	resetGroup { | groups | this.group = groups [rank] }
+	
 	getArgs {
 		
 	}
@@ -57,21 +75,31 @@ Output {
 }
 
 PlayerGroup {
+	// A PlayerGroup contains and handles all Groups that are used 
+	// by all LinkedNodes on one Server.
 	var <server, <groups;
 	*new { | server, rank = 0 |
+		// Only one PlayerGroup per server
+		server ?? { server = Server.default };
 		^Registry(this, server, { this.newCopyArgs(server, []).init })
 		.getGroup(rank);
 	}
 
 	init {
-		server // initGraph ...
+		ServerTree.add({ this.remakeGroups }, server);
 	}
 
+	remakeGroups {
+		groups = { this.makeGroup } ! groups.size;
+		LinkedNode.all (server) do: _.resetGroup (groups);
+		postf ("% made % Groups on %\n", this, groups.size, server);
+	}
+
+	makeGroup { ^Group(server, \addToTail) }
+
 	getGroup { | rank |
-		var root;
-		root = server.rootNode;
 		rank - groups.size + 1 max: 0 do: {
-			groups = groups add: Group.tail(root);
+			groups = groups add: this.makeGroup
 		};
 		^groups[rank];
 	}
