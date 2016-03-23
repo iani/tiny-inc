@@ -21,8 +21,8 @@ AbstractEventPlayer {
 Play an EventStream attached to a TaskPlayer.
 
 Hold EventPattern, create EventStream from it.
-Create Events from EventStream and play them by attaching yourself to a TaskPlayer, 
-through { | dur | stream.next.put(\dur, dur).play }
+Create Events from EventStream and play them by attaching yourself to a TaskPlayer.
+
 */
 
 EventPlayer : AbstractEventPlayer {

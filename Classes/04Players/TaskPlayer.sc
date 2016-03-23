@@ -35,7 +35,7 @@ TaskPlayer : AbstractPlayer {
 		process = Task({
 			while { (dur = stream.next).notNil }
 			{
-				sourceEvent = this.getSourceEvent.put(\dur, dur);
+				sourceEvent = this.getSourceEvent;
 				actions keysValuesDo: { | player, action |
 					action.value(sourceEvent, player)
 				};
@@ -47,7 +47,7 @@ TaskPlayer : AbstractPlayer {
 		})
 	}
 
-	getSourceEvent { ^() }
+	getSourceEvent { ^(dur: dur) }
 
 	pause {
 		process !? { process.pause }
@@ -73,7 +73,7 @@ PatternTaskPlayer : TaskPlayer {
 
 	makeStream { stream = pattern.asStream }
 
-	getSourceEvent { ^stream.next }
+	getSourceEvent { ^stream.next.put (\dur, dur) }
 
 	reset {
 		super.reset;
