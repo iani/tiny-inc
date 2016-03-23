@@ -46,13 +46,17 @@ SynthLink {
 		
 	}
 
+	// ================ INPUTS AND OUTPUTS ================
+
+	getInputBus { | name, numChannels = 1, rate = \audio |
+		
+	}
+
+	getOutputBus { | name, numChannels = 1, rate = \audio |
+
+	}
+	// ================ GROUPS ================
 	getGroup {
-		// TODO: REWRITE THIS CORRECTLY.  IT IS NOT RIGHT NOW
-		/*
-			When there are no inputs and no outputs, there should be
-			no rank and no group.
-			When there are only outputs, rank should be 0
-		*/
 		if (inputs.size == 0 and: { outputs.size == 0 }) {
 			rank = nil;
 		}{

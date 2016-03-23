@@ -11,10 +11,16 @@ TaskPlayer : AbstractPlayer {
 		players = IdentityDictionary();
 	}
 
+	add { | player | players[player.name] = player }
+	remove { | player | players[player.name] = nil }
+
+	// meaningful synonym, since source is the source for dur:
+	dur_ { | argDur = 1 | this.setSource(argDur) } 
 	setSource { | argSource |
 		source = argSource;
 		stream = source.asStream;
 	}
+
 	start {
 		// If task has been paused or stopped before its end, 
 		// then do not restart task from beginning, but resume.
