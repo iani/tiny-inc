@@ -131,22 +131,15 @@ The algorithm for the method =play= is as follows:
   f.play;
 #+END_SRC
 
-** STARTED operator syntax
+** DONE Unique objects - created only if not found under a key
+CLOSED: [2016-03-23 Wed 13:19]
 :LOGBOOK:  
-- State "STARTED"    from "TODO"       [2016-03-17 Thu 12:33] \\
-  started
+- State "DONE"       from "STARTED"    [2016-03-23 Wed 13:19]
+- State "STARTED"    from "TODO"       [2016-03-23 Wed 13:18] \\
+  Imported Registry class from tiny-sc.
 :END:      
 
-Play function into SynthPlayer - in LinkedNode: 
-: { } +> \symbol 
-
-Play named and loaded SynthDef into SynthPlayer - in LinkedNode: 
-: \default +> \symbol
-
-Play Event into TaskPlayer - in LinkedNode:
-: ( ) +> \symbol
-
-Use =++>= to set the source of the LinkedNode without starting it. 
+See =Registry= class.
 
 ** STARTED Designing TaskPlayer
 :LOGBOOK:  
@@ -158,8 +151,6 @@ Use =++>= to set the source of the LinkedNode without starting it.
 :END:
 
 *** Approach 1: Use the same archtecture and approach as for SynthPlayer, involving a TaskSource.
-
-** Unique objects - created only if not found under a key
 
 ** STARTED Synth and Task Bus I/O linking mechanism
 :LOGBOOK:  
@@ -177,12 +168,12 @@ Use =++>= to set the source of the LinkedNode without starting it.
 \writer@\out1 @>.in2 \reader; // specify output/input params out1 and in2
 #+END_SRC
 
-=\writer= and =\reader= are unique group/rank and input/output bus holders accessible through their symbols. They can store a SynthPlayer or a TaskPlayer - interchangeably. Class: =LinkedNode=
+=\writer= and =\reader= are unique group/rank and input/output bus holders accessible through their symbols. They can store a SynthPlayer or a TaskPlayer - interchangeably. Class: =SynthLink=
 
-Structure of LinkedNode: 
+Structure of SynthLink: 
 
 #+BEGIN_SRC sclang
-  LinkedNode {
+  SynthLink {
       var <server;
       var <rank = 0; // smaller numbers mean earlier synth order
       var <group;  // the actual group. Used as target for player.
@@ -225,14 +216,14 @@ Structure of LinkedNode:
   Input {
       var <parameter; // name of input parameter
       var <bus;
-      var <readerNode; // the LinkedNode that has this input
+      var <readerNode; // the SynthLink that has this input
       var <writers;   // set of Outputs that write to this input
   }
 
   Output {
       var <parameter; // name of input parameter
       var <bus;
-      var <writerNode; // the LinkedNode that has this output
+      var <writerNode; // the SynthLink that has this output
       var <readers;   // set of Inputs that read from this output
   }
 
@@ -254,3 +245,60 @@ Structure of LinkedNode:
   }
 
 #+END_SRC
+
+** STARTED operator syntax
+:LOGBOOK:  
+- State "STARTED"    from "TODO"       [2016-03-17 Thu 12:33] \\
+  started
+:END:      
+
+- =+>= :: Set source of SynthLink and play
+- =++>= :: Set source of SynthLink but do not play now
+
+- =%>= :: change args in SynthLink, and send them to player if playing.
+- =%%>= :: change args in SynthLink, but do not send them to player now.
+
+Play function into SynthPlayer - in SynthLink: 
+: { } +> \symbol 
+
+Play named and loaded SynthDef into SynthPlayer - in SynthLink: 
+: \default +> \symbol
+
+Play Event into TaskPlayer - in SynthLink:
+: ( ) +> \symbol
+
+Possibly: 
+
+- =number +> \symbol= :: use number as duration to start TaskPlayer in SynthLink
+- =pattern +> \symbol= :: use pattern as duration to start TaskPlayer in SynthLink
+
+** TODO Overview of Classes
+:PROPERTIES:
+:DATE:     <2016-03-23 Wed 13:20>
+:END:
+
+*** Synth and Task playing
+
+**** Source containers for players
+
+***** FunctionSynthSource
+
+***** SynthDefSource
+
+
+**** Players
+***** SynthPlayer
+
+***** TaskPlayer
+*** Linking Synth I/O
+
+*** Utilities
+
+**** Notification
+
+**** ServerBootCheck
+
+**** onEnd, onStart
+
+**** Registry
+

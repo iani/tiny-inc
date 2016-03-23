@@ -1,7 +1,7 @@
 SynthDefSource {
 	var <source;
-	*new { | source ... args |
-		^this.newCopyArgs(source).init(*args);
+	*new { | source |
+		^this.newCopyArgs(source).init;
 	}
 
 	init { }

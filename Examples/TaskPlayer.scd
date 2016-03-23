@@ -27,3 +27,6 @@ q.source = [Pn(0.1, 5), Pn(0.01, 50), Pn(0.2, 5), 1, 1.5].prand;
 q.source = 0.05;
 //:
 q.source = 0.01;
+
+//:
+TaskPlayer()

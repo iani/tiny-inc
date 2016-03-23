@@ -2,7 +2,7 @@
 ================ DRAFT ================
 */
 
-LinkedNode {
+SynthLink {
 	var <server;
 	var <rank; // smaller numbers mean earlier synth order
 	var <group;  // the actual group. Used as target for player.
@@ -16,11 +16,11 @@ LinkedNode {
 		if (server.isNil) {
 			^server.all.asArray.collect ({ | s | this.all (s) }).flat
 		}{
-			^Registry.allAt (this, server)
+			^Registry.allAt (this, server).asArray
 		}
 	}
 
-	*new { | server name |
+	*new { | name server |
 		server ?? { server = Server.default };
 		^Registry(this, server, name.asSymbol, { this.newCopyArgs(server).init })
 	}
@@ -30,9 +30,17 @@ LinkedNode {
 		outputs = IdentityDictionary()
 	}
 
-	start { player.start(group, args, addAction) }
+	start { | argArgs |
+		argArgs !? { args = argArgs };
+		player.start(args, group, addAction)
+	}
+
+	player_ { | argPlayer |
+		this.stop;
+		player = argPlayer;
+	}
 	stop { player.stop }
-	release { player.release }
+	release { | dur = 1 | player.release(dur) }
 	
 	addOutputNode { | node out = \out in = \in numChannels = 1  |
 		
@@ -95,20 +103,20 @@ LinkedNode {
 Input {
 	var <parameter; // name of input parameter
 	var <bus;
-	var <readerNode; // the LinkedNode that has this input
+	var <readerNode; // the SynthLink that has this input
 	var <writers;   // set of Outputs that write to this input
 }
 
 Output {
 	var <parameter; // name of input parameter
 	var <bus;
-	var <writerNode; // the LinkedNode that has this output
+	var <writerNode; // the SynthLink that has this output
 	var <readers;   // set of Inputs that read from this output
 }
 
 PlayerGroup {
 	// A PlayerGroup contains and handles all Groups that are used 
-	// by all LinkedNodes on one Server.
+	// by all SynthLinks on one Server.
 	var <server, <groups;
 	*new { | server, rank = 0 |
 		// Only one PlayerGroup per server
@@ -123,7 +131,7 @@ PlayerGroup {
 
 	remakeGroups {
 		groups = { this.makeGroup } ! groups.size;
-		LinkedNode.all (server) do: _.resetGroup (groups);
+		SynthLink.all (server) do: _.resetGroup (groups);
 		postf ("% made % Groups on %\n", this, groups.size, server);
 	}
 
