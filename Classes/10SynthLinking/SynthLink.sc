@@ -3,6 +3,8 @@
 */
 
 SynthLink {
+	var <name; // Each instance stored as unique object under this name.
+	// The name is also useful for printing, to identify different instances.
 	var <server;
 	var <rank; // smaller numbers mean earlier synth order
 	var <group;  // the actual group. Used as target for player.
@@ -20,10 +22,13 @@ SynthLink {
 		}
 	}
 
-	*new { | name server |
+	*new { | name = \default, server |
+		name = name.asSymbol;
 		server ?? { server = Server.default };
-		^Registry(this, server, name.asSymbol, { this.newCopyArgs(server).init })
+		^Registry(this, server, name.asSymbol, { this.newCopyArgs(name, server).init })
 	}
+
+	asString { ^format ("% : %", this.class.name, name) }
 
 	init {
 		inputs = IdentityDictionary();
@@ -42,8 +47,81 @@ SynthLink {
 	stop { player.stop }
 	release { | dur = 1 | player.release(dur) }
 	
-	addOutputNode { | node out = \out in = \in numChannels = 1  |
+	addReader { | reader out = \out in = \in numChannels = 1 |
+		// set reader's input bus to my output bus
 		
+		this.connectWriterReader(
+			this, reader, this.getOutputBus(out, numChannels), out, in
+		);
+		// FOLLOWING IS THE CORRECT CODE - FOR LATER
+		/*
+		if (this canAddReader: reader) {
+		this.connectWriterReader(
+			this, reader, this.getOutputBus(out, numChannels), out, in
+		);			
+			
+		}{
+			postf("% is a writer of % : cannot add it as reader\n",
+				this, reader
+			);
+		}
+		*/
+	}
+	
+	canAddReader { | reader |
+		^(reader isIndirectWriterOf: this).not
+	}
+
+	isIndirectWriterOf { | synthLink |
+		var allReaders;
+		// TEST!
+		
+		if ((allReaders = this.allReaders)) {
+			^true
+		}{
+			allReaders do: { | r |
+				if (r isIndirectWriterOf: synthLink) { ^true }
+			}
+		};
+		^false;
+	}
+
+	allReaders {
+		^outputs.values.asArray.collect({ | o | o.readers.asArray }).flat;
+	}
+
+	connectWriterReader { | writer, reader, bus, out = \out, in = \in |
+		writer.addOutput (reader, bus, out); // do not set synth's out yet!
+		reader.addInput (writer, bus, in); // do not set synth's in yet!
+		writer.getGroup; // this also moves readers groups after own
+		// Perhaps rewrite this as a bundle message to the server
+		// to ensure that both bus changes happen simultaneously:
+		writer.finalizeInput (bus, in); // set in in synth after all is prepared!
+		writer.finalizeOutput (bus, out); // set out in synth after all is prepared!
+	}
+
+	addOutput { | reader, bus, out = \out |
+		// Only create the data structure.
+		// Do not change group or set synth,
+		// because this must be done in a separate order:
+		// first the group ordering and then the bus changes in the synths
+
+		// TODO: still unfinished here>
+	}
+
+	addInput { | writer, bus, in = \in |
+		
+	}
+
+	addWriter { | writer out = \out in = \in numChannels = 1  |
+		// set writer's output bus to my input bus
+		if (writer canAddReader: this) {
+			writer.setOutputBus (this.getInputBus(in, numChannels), out);			
+		}{
+			postf("% is a writer of % : cannot add it as reader\n",
+				writer, this
+			)
+		}
 	}
 
 	// ================ INPUTS AND OUTPUTS ================
@@ -56,6 +134,7 @@ SynthLink {
 
 	}
 	// ================ GROUPS ================
+
 	getGroup {
 		if (inputs.size == 0 and: { outputs.size == 0 }) {
 			rank = nil;
@@ -63,7 +142,7 @@ SynthLink {
 			if (inputs.size == 0) {
 				rank = 0
 			}{
-				rank = this.allWriters.collect(_.rank).maxItem + 1
+				rank = this.writers.collect(_.rank).maxItem + 1
 			};
 		};
 		this.moveToGroup;
