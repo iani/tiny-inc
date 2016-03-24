@@ -1,40 +1,30 @@
-+ Object {
-	+> { | symbol |
-		^(this ++> symbol).start
-	}
-
-	++> { | symbol |
-		^SynthLink(symbol).player_(this.asPlayer)	
-	}
-}
-
+// INCOMPLETE!
 + Symbol {
-	start { | ... args |
-		this.asSynthLink.start(args);
+	@> { | readerName, inputName = \in |
+		^SynthLink(this).connect2Reader(SynthLink(readerName), \out, inputName, 1)
 	}
 
-	asSynthLink { | server |
-		^SynthLink(this, server)
+	<@ { | readerName, inputName = \in |
+		^SynthLink(readerName).connect2Writer(SynthLink(this), \out, inputName, 1)
 	}
 
-	stop { | server |
-		^SynthLink(this, server).stop
-	}
-
-	asPlayer {
-		^SynthPlayer (SynthDefSource (this))
+	@ { | outputName, numChannels = 1 |
+		^(writer: SynthLink(this), outputName: outputName, numChannels: numChannels)
 	}
 }
 
-+ Function {
-	asPlayer { ^SynthPlayer (FunctionSynthSource (this)) }
-}
 
 + Event {
-	asPlayer {
-		var dur;
-		dur = this [\dur] ? 1;
-		this [\dur] = nil;
-		^TaskPlayer (dur).pattern_ (this)
+	@> { | readerName, inputName = \in |
+		^this[\writer].connect2Reader(
+			SynthLink(readerName), this[\outputName], inputName, this[\numChannels]
+		)
+	}
+
+	<@ {  | readerName, inputName = \in |
+		^SynthLink(readerName).connect2Writer(
+			this[\writer], this[\outputName], inputName, this[\numChannels]
+		)
 	}
 }
+

@@ -26,8 +26,8 @@ AbstractEventPlayer {
 	}
 	*/
 
-	addTo { | taskPlayer | taskPlayer.add(this) }
-	removeFrom { | taskPlayer | taskPlayer.remove(this) }
+	addTo { | taskPlayer | taskPlayer.addPlayer(this) }
+	removeFrom { | taskPlayer | taskPlayer.removePlayer(this) }
 
 	play { | args | action.(args, this) }
 }
@@ -44,17 +44,17 @@ EventPlayer : AbstractEventPlayer {
 	var <pattern;
 	var stream;
 
-	*new { | name = \player, pattern, action |
-		^super.new(name, action).init(pattern);
+	*new { | name = \player, patternEvent, action |
+		^super.new(name, action).init(patternEvent);
 	}
 
-	init { | inPattern |		
+	init { | patternEvent |		
 		super.init;
-		this.pattern = inPattern;
+		this.pattern = patternEvent;
 	}
 
-	pattern_ { | argPattern |
-		pattern = EventPattern(argPattern ?? (instrument: \default));
+	pattern_ { | patternEvent |
+		pattern = EventPattern(patternEvent ?? (instrument: \default));
 		stream = pattern.asStream;
 	}
 

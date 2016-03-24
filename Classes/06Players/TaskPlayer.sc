@@ -11,8 +11,8 @@ TaskPlayer : AbstractPlayer {
 		players = IdentityDictionary();
 	}
 
-	add { | player | players[player.name] = player }
-	remove { | player | players[player.name] = nil }
+	addPlayer { | player | players[player.name] = player }
+	removePlayer { | player | players[player.name] = nil }
 
 	// meaningful synonym, since source is the source for dur:
 	dur_ { | argDur = 1 | this.setSource(argDur) } 
@@ -121,5 +121,9 @@ PatternTaskPlayer : TaskPlayer {
 			player.addEvent(inEvent);
 		}
 	}
-	
+
+	addPlayerFromEvent { | event, name = \player |
+		this.extractDur(event);
+		this.addPlayer (EvenPlayer(name, event));
+	}
 }

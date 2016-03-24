@@ -102,6 +102,20 @@ SynthLink {
 	getArgs {
 		
 	}
+
+	// ================ SETTING PLAYERS ================
+
+	addEventAsTaskPlayerFilter { | event filterName |
+
+	}
+
+	addEventAsTaskPlayerSource { | event |
+
+	}
+
+	addSynthPlayer { | synthPlayer |
+
+	}
 }
 
 Input {
