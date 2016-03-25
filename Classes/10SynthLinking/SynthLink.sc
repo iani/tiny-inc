@@ -175,7 +175,11 @@ SynthLink {
 
 	// called by PlayerGroup when recreating Groups on ServerTree:
 	resetGroup { | groups |
-		rank !? { this.group = groups [rank] }
+		if (rank.isNil) {
+			this.group = server.asTarget;
+		}{
+			this.group = groups [rank]
+		}
 	}
 	
 	getArgs {
