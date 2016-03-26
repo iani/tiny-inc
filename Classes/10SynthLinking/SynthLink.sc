@@ -50,15 +50,14 @@ SynthLink {
 	addReader { | reader out = \out in = \in numChannels = 1 |
 		// set reader's input bus to my output bus
 		
-		this.connectWriterReader(
-			this, reader, this.getOutputBus(out, numChannels), out, in
-		);
+		Output (this, out, numChannels).addReader (reader, in);
+		
 		// FOLLOWING IS THE CORRECT CODE - FOR LATER
 		/*
 		if (this canAddReader: reader) {
-		this.connectWriterReader(
-			this, reader, this.getOutputBus(out, numChannels), out, in
-		);			
+		
+			Output (this, out, numChannels).addReader (reader, in);
+		
 			
 		}{
 			postf("% is a writer of % : cannot add it as reader\n",
@@ -76,7 +75,7 @@ SynthLink {
 		var allReaders;
 		// TEST!
 		
-		if ((allReaders = this.allReaders)) {
+		if ((allReaders = this.readers)) {
 			^true
 		}{
 			allReaders do: { | r |
@@ -86,10 +85,11 @@ SynthLink {
 		^false;
 	}
 
-	allReaders {
+	readers {
 		^outputs.values.asArray.collect({ | o | o.readers.asArray }).flat;
 	}
 
+	// TODO: following 1 up to 3 methods should move to IOBus and its subclasses
 	connectWriterReader { | writer, reader, bus, out = \out, in = \in |
 		writer.addOutput (reader, bus, out); // do not set synth's out yet!
 		reader.addInput (writer, bus, in); // do not set synth's in yet!
@@ -100,18 +100,7 @@ SynthLink {
 		writer.finalizeOutput (bus, out); // set out in synth after all is prepared!
 	}
 
-	addOutput { | reader, bus, out = \out |
-		// Only create the data structure.
-		// Do not change group or set synth,
-		// because this must be done in a separate order:
-		// first the group ordering and then the bus changes in the synths
 
-		// TODO: still unfinished here>
-	}
-
-	addInput { | writer, bus, in = \in |
-		
-	}
 
 	addWriter { | writer out = \out in = \in numChannels = 1  |
 		// set writer's output bus to my input bus
@@ -126,13 +115,7 @@ SynthLink {
 
 	// ================ INPUTS AND OUTPUTS ================
 
-	getInputBus { | name, numChannels = 1, rate = \audio |
-		
-	}
 
-	getOutputBus { | name, numChannels = 1, rate = \audio |
-
-	}
 	// ================ GROUPS ================
 
 	getGroup {
@@ -149,8 +132,10 @@ SynthLink {
 	}
 
 	moveToGroup {
-		this.readers do: _.moveAfter(rank);
-		this.setGroup;
+		// First move all readers after me, and then set my group. 
+		// This ensures that writers stay before readers at all times.
+		this.readers do: _.moveAfter(rank); // move my readers after me
+		this.setGroup;                      // then set my group
 	}
 
 	moveAfter { | argRank |
@@ -181,7 +166,9 @@ SynthLink {
 			this.group = groups [rank]
 		}
 	}
-	
+
+	//================ ARGUMENTS ================
+ 
 	getArgs {
 		
 	}
@@ -198,50 +185,5 @@ SynthLink {
 
 	addSynthPlayer { | synthPlayer |
 
-	}
-}
-
-Input {
-	var <parameter; // name of input parameter
-	var <bus;
-	var <readerNode; // the SynthLink that has this input
-	var <writers;   // set of Outputs that write to this input
-}
-
-Output {
-	var <parameter; // name of input parameter
-	var <bus;
-	var <writerNode; // the SynthLink that has this output
-	var <readers;   // set of Inputs that read from this output
-}
-
-PlayerGroup {
-	// A PlayerGroup contains and handles all Groups that are used 
-	// by all SynthLinks on one Server.
-	var <server, <groups;
-	*new { | server, rank = 0 |
-		// Only one PlayerGroup per server
-		server ?? { server = Server.default };
-		^Registry(this, server, { this.newCopyArgs(server, []).init })
-		.getGroup(rank);
-	}
-
-	init {
-		ServerTree.add({ this.remakeGroups }, server);
-	}
-
-	remakeGroups {
-		groups = { this.makeGroup } ! groups.size;
-		SynthLink.all (server) do: _.resetGroup (groups);
-		postf ("% made % Groups on %\n", this, groups.size, server);
-	}
-
-	makeGroup { ^Group(server, \addToTail) }
-
-	getGroup { | rank |
-		rank - groups.size + 1 max: 0 do: {
-			groups = groups add: this.makeGroup
-		};
-		^groups[rank];
 	}
 }
