@@ -34,6 +34,6 @@ Output : IOBus {
 
 	*accessor { \outputs }
 	addReader { | reader, in = \in |
-		reader.setInput (in, thie);
+		reader.setInput (in, this);
 	}
 }
