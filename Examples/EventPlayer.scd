@@ -49,7 +49,7 @@ t = PatternTaskPlayer().pattern = (degree: [-15, 25, 5].pbrown);
 e addTo: t;
 t.start;
 //:
-t.dur = [0.1.pn(10), 0.05.pn(20), 0.2.pn(5), 1, 0.5].prand;
+t.dur = [0.1.pn(10), 0.15.pn(4), 0.2.pn(5), 1, 0.5].prand;
 //:
 t.addEvent2Player((ctranspose: Pstutter(20, [-5, -2, 0, 2, 3].prand)));
 //:
