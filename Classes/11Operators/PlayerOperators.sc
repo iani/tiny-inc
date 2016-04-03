@@ -1,10 +1,15 @@
 + Object {
 	+> { | linkName playerName = \player |
-		^this.addToSynthLink(SynthLink(linkName), playerName).start
+		^linkName.asSynthLink
+		.player_ (this.asPlayer(playerName)).start
 	}
 }
 
 + Symbol {
+	restart { | ... args |
+		this.asSynthLink.restart(args); 
+	}
+
 	start { | ... args |
 		this.asSynthLink.start(args);
 	}
@@ -23,11 +28,16 @@
 }
 
 + Function {
-	asPlayer { ^SynthPlayer (FunctionSynthSource (this)) }
+	asPlayer {
+		^SynthPlayer (this);
+		// ^SynthPlayer (FunctionSynthSource (this))
+	}
 }
 
 + Event {
-
+	*asPlayer { | playerName = \player |
+		
+	}
 	addToSynthLink { | synthLink, name |
 		^synthLink.addEventAsTaskPlayerFilter(this, name);
 	}

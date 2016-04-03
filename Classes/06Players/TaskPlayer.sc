@@ -29,8 +29,7 @@ TaskPlayer : AbstractPlayer {
 		// process.isPlaying = the task is playing, and should therefore not re-start
 		if (this.isPlaying) {
 			// process exists = has not ended by itself, but interrupted (paused)
-			// or playing
-			// Therefore, if paused, resume - do not reset
+			// or playing. Therefore, if paused, resume - do not reset
 			// only resume if paused! (If playing, then do nothing.)
 			if (process.isPlaying.not) { process.resume }
 		}{

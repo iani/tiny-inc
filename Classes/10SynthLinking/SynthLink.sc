@@ -6,11 +6,11 @@ SynthLink {
 	var <name; // Each instance stored as unique object under this name.
 	// The name is also useful for printing, to identify different instances.
 	var <server;
+	var <player; // SynthPlayer, TaskPlayer, or similar/compatible object
 	var <rank; // smaller numbers mean earlier synth order
 	var <group;  // the actual group. Used as target for player.
 	var <inputs; // Dictionary of Inputs (param: input, param2: input)
 	var <outputs; // Dictionary of Outputs
-	var <player; // SynthPlayer, TaskPlayer, or similar/compatible object
 	var <>addAction = \addToHead;
 	var <>args;
 
@@ -35,16 +35,29 @@ SynthLink {
 		outputs = IdentityDictionary()
 	}
 
+	restart { | argArgs |
+		player.start (argArgs);
+		//		player.restart (argArgs);
+	}
+
 	start { | argArgs |
+		//		postf ("% isplaying: %\n", this, this.isPlaying);
+		if (this.isPlaying) { ^this }; 
 		argArgs !? { args = argArgs };
 		player.start(args, group, addAction)
 	}
+	stop { player.stop }
 
 	player_ { | argPlayer |
+		var restart;
+		restart = this.isPlaying;
 		this.stop;
 		player = argPlayer;
+		if (restart) { this.start }
 	}
-	stop { player.stop }
+
+	isPlaying { ^player.isPlaying }
+	
 	release { | dur = 1 | player.release(dur) }
 	
 	addReader { | reader out = \out in = \in numChannels = 1 |
