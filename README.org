@@ -257,15 +257,15 @@ Structure of SynthLink:
 1. Playing
    - =+>= :: Start playing something in a SynthLink.
              Note:  If the first (left) operand is an event, it adds or sets the EventPattern of an EventPlayer that is attached to the TaskPlayer as player. The default name of the player is =player=.  Another name is used if it is provided as adverb to the =+>= operator. 
-   - =+^>= :: Set the pattern of the TaskPlayer in the SynthLink, and start. Do not add any EventPlayer to the TaskPlayer.
+   - =+>>= :: Set the pattern of the TaskPlayer in the SynthLink, and start. Do not add any EventPlayer to the TaskPlayer.
 2. Modifying args
    For TaskPlayer, these modify the EventStream of the default EventPlayer or the player specified in the adverb to the operator.
    - =%>= :: Add args to event or arg-array
-   - =%!>= :: Replace event or arg-array
+   - =!%>= :: Replace event or arg-array
 3. Modifying pattern of the TaskPlayer
    These modify the pattern and stream of the TaskPlayer, not of any EventPlayer.
-   - =^>= :: ...
-   - =^!>= :: ...
+   - =>>= :: ...
+   - =>>= :: ...
 4. Linking SynthLinks
    - =@>= :: ...
    - =<@= :: ...
