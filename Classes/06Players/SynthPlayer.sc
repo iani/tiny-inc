@@ -19,7 +19,7 @@ AbstractPlayer {
 }
 
 SimpleSynthPlayer : AbstractPlayer {
-
+	var <processes;
 	addNode { | argNode |
 		NodeWatcher.register(argNode);
 		//  Release previous node if playing,
@@ -28,56 +28,38 @@ SimpleSynthPlayer : AbstractPlayer {
 		/*  If a node is added by FunctionSynthSource again, before the 
 			initial node has time to start, then ignore it.
 			Therefore prevent stopping a node that has not started yet.
-		*/		
+		*/
+		//	process.free;
+	
+		argNode.onStart (\start, { | n |
+			processes.postln;
+			
+			//			processes[..(processes.size - 1).postln].postln
+
+			processes.reverse [1..] do: { | p |
+				processes remove: p;
+				{ p.release }.defer (0.03);
+			};
+			//			processes = [n.notifier];
+		});
 		if (process.isNil) {
 			argNode.onStart (this, { this.changed(\started) });
 			argNode.onEnd (this, { this.changed(\stopped) });
-			/*
-			argNode addDependant: { | changer, message |
-				switch (message,
-					\n_go, { this.changed(\started) },
-					\n_end, { this.stopped; }
-				);
-			}
-			*/
 		}{
-			{ process.free }.defer (0.5);
-			if (process.isPlaying) {
-				// Actions to do if new node replaces a playing node:
-				// process.releaseDependants; // cancel notification of previous node
-				this.removeNotifier (process, \n_go);
-				this.removeNotifier (process, \n_end);
-				// this.removeMessage (\n_end);
-				this.prStop;            // stop previous node
-				argNode addDependant: { | changer, message |
-					switch (message,
-						// do not notify when started
-						// \n_go, { this.changed(\started) },
-						\n_end, { this.stopped; }
-					)
-				}
-			} { // if node is waiting to start: stop it as soon as it starts
-				// to make room for other node
-				process.onStart (\stop, { | n |
-					postf ("% must release: %\n", n, n.notifier);
-					n.notifier.onEnd (\start, { n.notifier.postln;
-						"stopped".postln;
-					});
-					n.notifier.free;
-				});
-				/*
-				{
-					postf ("% is playing %\n", process, process.isPlaying);
-					process.release
-				}.defer (0.5);
-				*/
-			}  
+			// Actions to do if new node replaces a playing node:
+			// process.releaseDependants; // cancel notification of previous node
+			this.removeNotifier (process, \n_go);
+			this.removeNotifier (process, \n_end);
+			// this.removeMessage (\n_end);
+			// this.prStop;            // stop previous node
+			argNode.onEnd (this, { this.changed(\stopped) });
 		};
 		process = argNode;
+		processes = processes add: argNode;
 	}
 
 	stopped {
-		process.releaseDependants;
+		//	process.releaseDependants;
 		process = nil;
 		this.changed(\stopped)
 	}

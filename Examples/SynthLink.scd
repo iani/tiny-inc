@@ -2,7 +2,7 @@
 a = SynthLink(\test);
 
 //:
-b = SynthPlayer({ LFTri.ar( Rand(400, 2000) * [1, 1.01 + 1.1.rand], 0, 0.1) });
+b = SynthPlayer({ LFTri.ar( Rand(400, 2000) * [1, 1.01 + 2], 0, 0.1) });
 //:
 a.player = b;
 //:
@@ -86,3 +86,9 @@ a.restart;
 //:
 a = SynthLink();
 a.isIndirectWriterOf (\x);
+
+//:
+
+(1..10) [..8];
+
+[1] [0..-1]
