@@ -110,5 +110,7 @@ a = SynthLink ().extractDur ((degree: 10));
 
 PatternTaskPlayer ().addPlayerFromEvent ((degree: 10), \test);
 
-(degree: 10) +> \test;
+(degree: [0, 10].pwhite, dur: 0.1) +> \test;
+
+(degree: [-10, 0, 1].pbrown, dur: 0.1) +>.player2 \test;
 

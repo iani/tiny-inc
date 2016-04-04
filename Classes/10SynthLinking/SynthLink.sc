@@ -46,13 +46,18 @@ SynthLink {
 		argArgs !? { args = argArgs };
 		player.start(args, group, addAction)
 	}
+
 	stop { player.stop }
+
+	addSource { | source, name = \player |
+		this.player = player.makeSource (source, name);
+	}
 
 	player_ { | argPlayer |
 		var restart;
 		restart = this.isPlaying;
 		this.stop;
-		player = argPlayer;
+		player = argPlayer; //  argPlayer.makePlayerFor (this);
 		if (restart) { this.start }
 	}
 

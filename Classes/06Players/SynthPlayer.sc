@@ -81,4 +81,11 @@ SynthPlayer : SimpleSynthPlayer {
 	release { | dur = 0.1 |
 		process !? { process release: dur }
 	}
+
+	makePlayerFor { ^this }
+
+	makeSource { | source, name = \player |
+		^source.asPlayer (name);
+	}
 }
+
