@@ -65,3 +65,50 @@ f.pattern = (
 //:
 t.addEvent2Self((legato: Pwrand([0.1, 1.1], [0.7, 0.3], inf)));
 //:
+(degree: [-5, 5, 1].pbrown) +> \patternTest;
+
+a = PatternTaskPlayer ().addPlayerFromEvent ((degree: 10), \test);
+
+a.start;
+
+//:
+a.process.isPlaying;
+
+//:
+
+b = SynthLink ();
+
+
+//:
+b.player = a;
+
+//:
+
+b.start;
+
+//
+
+b.player.start;
+
+//:
+b.isPlaying;
+//:
+b.player.isPlaying;
+
+//:
+a.isPlaying;
+//:
+
+//:
+
+a = SynthLink ().extractDur ((degree: 10));
+
+(degree: 10) +> \patternTest;
+
+
+(degree: [-5, 5, 1].pbrown).asPlayer (\test);
+
+PatternTaskPlayer ().addPlayerFromEvent ((degree: 10), \test);
+
+(degree: 10) +> \test;
+

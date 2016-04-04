@@ -35,8 +35,8 @@
 }
 
 + Event {
-	*asPlayer { | playerName = \player |
-		
+	asPlayer { | playerName = \player |
+		^PatternTaskPlayer ().addPlayerFromEvent (this, playerName);
 	}
 	addToSynthLink { | synthLink, name |
 		^synthLink.addEventAsTaskPlayerFilter(this, name);

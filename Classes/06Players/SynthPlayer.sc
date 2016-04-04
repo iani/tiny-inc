@@ -5,7 +5,7 @@ AbstractPlayer {
 		this.makeProcess(args, target, action)
 	}
 	stop { if (this.isPlaying) { this.prStop } }
-	isPlaying { ^process.notNil; }
+	isPlaying { ^process.isPlaying; }
 	source_ { | argSource |
 		this.setSource(argSource);
 		this.changed(\source)
@@ -32,11 +32,7 @@ SimpleSynthPlayer : AbstractPlayer {
 		//	process.free;
 	
 		argNode.onStart (\start, { | n |
-			processes.postln;
-			
-			//			processes[..(processes.size - 1).postln].postln
-
-			processes.reverse [1..] do: { | p |
+				processes.reverse [1..] do: { | p |
 				processes remove: p;
 				{ p.release }.defer (0.03);
 			};

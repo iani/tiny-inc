@@ -16,9 +16,9 @@ b.start;
 //:
 
 {
-	100 do: {
+	5000 do: {
 		b.start;
-		0.01.wait;
+		0.001.wait;
 	}
 }.fork;
 
@@ -78,7 +78,7 @@ a.restart;
 	freq = [60, 62, 64, 70, 72, 67, 40, 80, 82].midicps.prand.asStream;
 	150 do: {
 		\argTest.restart (\freq, freq.next);
-		0.05.wait;
+		0.01.wait;
 	}
 	
 }.fork;

@@ -123,6 +123,6 @@ PatternTaskPlayer : TaskPlayer {
 
 	addPlayerFromEvent { | event, name = \player |
 		this.extractDur(event);
-		this.addPlayer (EvenPlayer(name, event));
+		this.addPlayer (EventPlayer(name, event));
 	}
 }
