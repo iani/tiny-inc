@@ -1,7 +1,7 @@
 + Object {
 	+> { | linkName playerName = \player |
 		^linkName.asSynthLink
-		//		.player_ (this.asPlayer(playerName)).start
+		// .player_ (this.asPlayer(playerName)).start
 		.addSource(this, playerName).start
 	}
 }

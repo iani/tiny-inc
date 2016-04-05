@@ -50,7 +50,8 @@ SynthLink {
 	stop { player.stop }
 
 	addSource { | source, name = \player |
-		this.player = player.makeSource (source, name);
+		//this.player = player.makeSource (source, name);
+		this.player.source = source;
 	}
 
 	player_ { | argPlayer |

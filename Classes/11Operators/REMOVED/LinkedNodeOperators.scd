@@ -1,4 +1,4 @@
-// INCOMPLETE!
+pf// INCOMPLETE!
 + Symbol {
 	<@ { | readerName, inputName = \in |
 		^SynthLink(this).addReader(SynthLink(readerName), \out, inputName, 1)

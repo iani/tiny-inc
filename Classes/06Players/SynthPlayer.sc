@@ -7,8 +7,12 @@ AbstractPlayer {
 	stop { if (this.isPlaying) { this.prStop } }
 	isPlaying { ^process.isPlaying; }
 	source_ { | argSource |
+		var isPlaying;
+		isPlaying = this.isPlaying;
+		[this, thisMethod.name, format("isPlaying? %\n", this.isPlaying)].postln;
 		this.setSource(argSource);
-		this.changed(\source)
+		if (isPlaying) { this.start};
+		this.changed(\source);
 	}
 
 	setSource { | argSource |
@@ -59,7 +63,7 @@ SimpleSynthPlayer : AbstractPlayer {
 		process = nil;
 		this.changed(\stopped)
 	}
-
+ 
 	prStop { process.release }
 
 	addListener { | listener, onStart, onEnd |
@@ -67,6 +71,7 @@ SimpleSynthPlayer : AbstractPlayer {
 		listener.addNotifier(this, \stopped, onEnd)
 	}
 }
+
 
 SynthPlayer : SimpleSynthPlayer {
 
@@ -85,7 +90,7 @@ SynthPlayer : SimpleSynthPlayer {
 	makePlayerFor { ^this }
 
 	makeSource { | source, name = \player |
-		^source.asPlayer (name);
+		^this.source_ (source);
 	}
 }
 

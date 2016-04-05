@@ -27,11 +27,11 @@ event:addTo -> creates EventPlayer and puts it in PatternTaskPlayer
 	makeSource { | source, name = \player |
 			^source.asPlayer (name);
 	}
-}ψ
+}
 
 + SynthPlayer {
 	makeSource { | source, name = \player |
-			^source.asPlayer (name);
+			^this.source_(source);
 	}
 	
 }

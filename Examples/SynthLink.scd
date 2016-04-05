@@ -7,6 +7,8 @@ b = SynthPlayer({ LFTri.ar( Rand(400, 2000) * [1, 1.01 + 2], 0, 0.1) });
 a.player = b;
 //:
 
+b.inspect;
+
 
 b.start;
 
@@ -30,12 +32,15 @@ a.play;
 //:
 b.stop;
 //:
-
 a = { LFTri.ar( Rand(400, 2000) * [1, 1.01 + 1.1.rand], 0, 0.1) } +> \test;
-
 //:
+a.inspect;
 //:
-a.start;
+p = a.player;
+//:
+p.source = { LFTri.ar( Rand(400, 2000) * [1, 1.01 + 1.1.rand], 0, 0.1) };
+//:
+p.start;
 //:
 a.restart;
 //:
@@ -44,7 +49,6 @@ a.restart;
 		{ LFTri.ar( Rand(400, 2000) * [1, 1.01 + 1.1.rand], 0, 0.1) } +> \test;
 		0.1.wait;
 	}
-	
 }.fork;
 
 //: Restarts with a new Random frequency
@@ -66,7 +70,7 @@ a.restart;
 }.fork;
 
 //:
-{ | freq = 400 | SinOsc.ar (freq * [1, 5/4], 0, 0.1) } +> \argTest;
+{ | freq = 400 amp = 0.1 | SinOsc.ar (freq * [1, 5/4], 0, 0.1) * amp } +> \argTest;
 
 //:
 
@@ -78,7 +82,7 @@ a.restart;
 	freq = [60, 62, 64, 70, 72, 67, 50, 80, 82].midicps.prand.asStream;
 	 50 do: {
 		// \argTest.restart (\freq, freq.next);
-		[\freq, freq.next] +> \argTest;
+		[freq: freq.next, amp: 0.001.exprand (0.1)] +> \argTest;
 		0.1.wait;
 	}
 	
