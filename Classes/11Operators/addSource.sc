@@ -1,14 +1,26 @@
+/*  5 Apr 2016 20:00
+SynthPlayer and PatternTaskPlayer may have to return new object.
+
+*/
+
 
 
 + Nil {
 	addSource { | source, name = \player |
-		^source.asPlayer (source, name);
+		^source.asPlayer (name);
 	}
-
 }
 
 + Function {
 	asPlayer {
+		^SynthPlayer (this)
+	}
+
+	addSelfToSynthPlayer { | player |
+		^player.source = this;
+	}
+
+	addSelfToTaskPlayer {
 		^SynthPlayer (this)
 	}
 }
@@ -18,9 +30,24 @@
 	asPlayer { | name |
 	^PatternTaskPlayer ().addPlayerFromEvent (this, name);
 	}
+
+	addSelfToSynthPlayer { | player, name = \player |
+		^PatternTaskPlayer ().addPlayerFromEvent (this, name);
+	}
+
+	addSelfToTaskPlayer { | player, name = \player |
+		^player ().addPlayerFromEvent (this, name);
+	}
 }
 
 + SynthPlayer {
-	//	asPlayer
-	
+	addSource { | source, name = \player|
+		^source.addSelfToSynthPlayer(this, name);	
+	}
+}
+
++ PatternTaskPlayer {
+	addSource { | source, name = \player |
+		^source.addSelfToTaskPlayer(this, name);	
+	}
 }

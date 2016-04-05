@@ -50,16 +50,23 @@ SynthLink {
 	stop { player.stop }
 
 	addSource { | source, name = \player |
-		//this.player = player.makeSource (source, name);
-		this.player.source = source;
+		// When new source (Function, Event is added,
+		// then current player must decide:
+		// add source and (optionally) restart
+		// or exchange self with new object and (Opionally) restart
+		// The optional restart is done by the plyer
+		//	this.player.source = source;
+		player = player.addSource (source, player)
 	}
 
 	player_ { | argPlayer |
-		var restart;
-		restart = this.isPlaying;
-		this.stop;
+		// The optional restart is done y the plyer
+		// no need to tepeat it here
+		//	var restart;
+		//restart = this.isPlaying;
+		//this.stop;
 		player = argPlayer; //  argPlayer.makePlayerFor (this);
-		if (restart) { this.start }
+		//if (restart) { this.start }
 	}
 
 	isPlaying { ^player.isPlaying }
