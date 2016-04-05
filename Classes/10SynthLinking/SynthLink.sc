@@ -35,12 +35,12 @@ SynthLink {
 		outputs = IdentityDictionary()
 	}
 
-	restart { | argArgs |
+	restart { | ... argArgs |
 		player.start (argArgs);
 		//		player.restart (argArgs);
 	}
 
-	start { | argArgs |
+	start { | ... argArgs |
 		//		postf ("% isplaying: %\n", this, this.isPlaying);
 		if (this.isPlaying) { ^this }; 
 		argArgs !? { args = argArgs };

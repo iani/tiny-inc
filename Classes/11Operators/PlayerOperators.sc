@@ -7,12 +7,12 @@
 }
 
 + Symbol {
-	restart { | args |
-		this.asSynthLink.restart(args); 
+	restart { | ... args |
+		this.asSynthLink.restart(*args); 
 	}
 
-	start { | args |
-		this.asSynthLink.start(args);
+	start { | ... args |
+		this.asSynthLink.start(*args);
 	}
 
 	asSynthLink { | server |
@@ -72,6 +72,6 @@
 
 + Array {
 	+> { | name, server |
-		SynthLink (name, server).restart (this);
+		SynthLink (name, server).restart (*this);
 	}
 }

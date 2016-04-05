@@ -31,7 +31,7 @@ a.play;
 b.stop;
 //:
 
-{ LFTri.ar( Rand(400, 2000) * [1, 1.01 + 1.1.rand], 0, 0.1) } +> \test;
+a = { LFTri.ar( Rand(400, 2000) * [1, 1.01 + 1.1.rand], 0, 0.1) } +> \test;
 
 //:
 //:
@@ -75,13 +75,17 @@ a.restart;
 //: restart with parameters
 {
 	var freq;
-	freq = [60, 62, 64, 70, 72, 67, 40, 80, 82].midicps.prand.asStream;
-	150 do: {
-		\argTest.restart (\freq, freq.next);
-		0.01.wait;
+	freq = [60, 62, 64, 70, 72, 67, 50, 80, 82].midicps.prand.asStream;
+	 50 do: {
+		// \argTest.restart (\freq, freq.next);
+		[\freq, freq.next] +> \argTest;
+		0.1.wait;
 	}
 	
 }.fork;
+
+
+
 
 //:
 a = SynthLink();
