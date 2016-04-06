@@ -5,12 +5,12 @@ AbstractPlayer {
 		this.makeProcess(args, target, action)
 	}
 	stop { if (this.isPlaying) { this.prStop } }
-	isPlaying { ^process.isPlaying; }
 	source_ { | argSource |
 		var isPlaying;
 		isPlaying = this.isPlaying;
-		[this, thisMethod.name, format("isPlaying? %\n", this.isPlaying)].postln;
-		this.setSource(argSource);
+		// [this, thisMethod.name, format("isPlaying? %\n", this.isPlaying)].postln;
+		// this.setSource(argSource);
+		source = argSource.asSource;
 		if (isPlaying) { this.start};
 		this.changed(\source);
 	}
@@ -23,7 +23,7 @@ AbstractPlayer {
 }
 
 SimpleSynthPlayer : AbstractPlayer {
-	var <processes;
+	var <processes, <nodes;
 	addNode { | argNode |
 		NodeWatcher.register(argNode);
 		//  Release previous node if playing,
@@ -43,27 +43,46 @@ SimpleSynthPlayer : AbstractPlayer {
 			//			processes = [n.notifier];
 		});
 		if (process.isNil) {
-			argNode.onStart (this, { this.changed(\started) });
-			argNode.onEnd (this, { this.changed(\stopped) });
+			argNode.onStart (this, { | n |
+				this.nodeStarted (n.notifier);
+				//this.changed(\started)
+			});
+			argNode.onEnd (this, { | n |
+				this.nodeEnded (n.notifier);
+				// this.stopped
+			});
 		}{
 			// Actions to do if new node replaces a playing node:
 			// process.releaseDependants; // cancel notification of previous node
-			this.removeNotifier (process, \n_go);
-			this.removeNotifier (process, \n_end);
+			//	this.removeNotifier (process, \n_go);
+			// this.removeNotifier (process, \n_end);
 			// this.removeMessage (\n_end);
 			// this.prStop;            // stop previous node
-			argNode.onEnd (this, { this.changed(\stopped) });
+			// argNode.onEnd (this, { this.changed(\stopped) });
 		};
 		process = argNode;
 		processes = processes add: argNode;
 	}
 
+	nodeStarted { | argNode |
+		nodes ?? { nodes = Set () };
+		if (nodes.size == 0) { this.changed (\started) };
+		nodes add: argNode;
+	}
+
+	nodeEnded { | argNode |
+		nodes remove: argNode;
+		if (nodes.size == 0) { this.changed (\stopped) };
+	}
 	stopped {
 		//	process.releaseDependants;
 		process = nil;
 		this.changed(\stopped)
 	}
- 
+
+		// isPlaying { ^process.isPlaying; }
+	isPlaying { ^nodes.size > 0; }
+
 	prStop { process.release }
 
 	addListener { | listener, onStart, onEnd |

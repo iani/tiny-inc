@@ -1,18 +1,23 @@
 + Object {
 	+> { | linkName playerName = \player |
-		^linkName.asSynthLink
+		var lp;
+		lp = linkName.asSynthLink;
+		lp.addSource(this, playerName);
 		// .player_ (this.asPlayer(playerName)).start
-		.addSource(this, playerName).start
+		// [this, thisMethod.name, lp, lp.isPlaying].postln;
+		// [ "lp.player.process", lp.player.process].postln;
+		if (lp.isPlaying.not) { lp.start };
+		^lp;
 	}
 }
 
 + Symbol {
 	restart { | ... args |
-		this.asSynthLink.restart(*args); 
+		this.assynthlink.restart(*args); 
 	}
 
 	start { | ... args |
-		this.asSynthLink.start(*args);
+		this.assynthlink.start(*args);
 	}
 
 	asSynthLink { | server |
@@ -24,14 +29,14 @@
 	}
 
 	asPlayer {
-		^SynthPlayer (SynthDefSource (this))
+		^SynthPlayer (synthdefsource (this))
 	}
 }
 
 + Function {
 	asPlayer {
 		^SynthPlayer (this);
-		// ^SynthPlayer (FunctionSynthSource (this))
+		// ^synthplayer (functionsynthsource (this))
 	}
 
 	addToSelf {
@@ -40,8 +45,8 @@
 }
 
 + Event {
-	asPlayer { | playerName = \player |
-	   	^PatternTaskPlayer ().addPlayerFromEvent (this, playerName);
+	asPlayer { | playername = \player |
+	   	^PatternTaskPlayer ().addPlayerFromEvent (this, playername);
 	}
 
 	addToSelf { | taskPlayer, playerName = \player|

@@ -17,6 +17,7 @@ SynthPlayer and PatternTaskPlayer may have to return new object.
 	}
 
 	addSelfToSynthPlayer { | player |
+		[this, thisMethod.name, player].postln;
 		^player.source = this;
 	}
 
@@ -35,8 +36,8 @@ SynthPlayer and PatternTaskPlayer may have to return new object.
 		^PatternTaskPlayer ().addPlayerFromEvent (this, name);
 	}
 
-	addSelfToTaskPlayer { | player, name = \player |
-		^player ().addPlayerFromEvent (this, name);
+	addSelfToTaskPlayer { | player name = \player |
+		^player.addPlayerFromEvent (this, name);
 	}
 }
 

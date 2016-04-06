@@ -14,7 +14,8 @@ b.addListener(\test, { "started".postln; }, { "stopped".postln; });
 b.start;
 
 //
-b.source = { LFTri.ar( Rand(400, 2000) * [1, 1.01 + 1.1.rand], 0, 0.1) };
+b.source = { LFTri.ar( Rand(1400, 2000) * [1, 1.01 + 1.1.rand], 0, 0.1) };
+b.start;
 //:
 b.stop;
 
