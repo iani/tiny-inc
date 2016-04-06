@@ -45,7 +45,7 @@ FunctionSynthSource : SynthDefSource {
 
 	play { | args, target, action = \addToHead |
 		var server;
-		[this, thisMethod.name, "the synthdef is:", synthDef].postln;
+		//		[this, thisMethod.name, "the synthdef is:", synthDef].postln;
 		if (synthDef.isNil) {  // Load synthdef if new
 			if (synth.isNil) { // if waiting for synthdef, return previous synth
 				target = target.asTarget;
@@ -55,7 +55,7 @@ FunctionSynthSource : SynthDefSource {
 					fadeTime: 0.02, //: TODO: must be variable in the synthdef
 					name: defName
 				);
-				[this, thisMethod.name, "sending synthdef now"].postln;
+				// [this, thisMethod.name, "sending synthdef now"].postln;
 				synthDef.doSend(server, synth.newMsg(target, args, action ? \addToHead));
 				synth.onStart(this, { synth = nil; });
 				^synth;

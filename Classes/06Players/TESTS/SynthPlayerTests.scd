@@ -30,9 +30,7 @@ a.start;
 //:
 {
 	10 do: { | i |
-a = { LFTri.ar(1 + i * 100 * [1, 1.2], 0, 0.1) } +> \test;
-
-
+		a = { LFTri.ar(1 + i * 100 * [1, 1.2], 0, 0.1) } +> \test;
 		0.1.wait;
 	}	
 }.fork
