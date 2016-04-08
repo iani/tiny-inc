@@ -20,6 +20,8 @@ AbstractPlayer {
 	}
 
 	prStop { process.stop }
+
+	isPlaying { ^process.notNil }
 }
 
 SimpleSynthPlayer : AbstractPlayer {

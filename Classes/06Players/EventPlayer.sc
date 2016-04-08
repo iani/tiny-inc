@@ -75,11 +75,13 @@ EventPlayer : AbstractEventPlayer {
 		// Note: The default plays forever: (instrument: \default)
 		if (filterEvent.isNil) { ^nil };
 		outputEvent = sourceEvent.copy;
-		sourceEvent use: {
+		postf ("outputEvent %, filterEvent %\n", outputEvent, filterEvent);
+		filterEvent use: {
 			filterEvent keysValuesDo: { | key value |
 				outputEvent[key] = value.(filterEvent);
 			}
 		};
+		postf ("the outputEvent is: %\n", outputEvent);
 		^outputEvent;
 	}
 

@@ -54,9 +54,9 @@ SynthLink {
 		// then current player must decide:
 		// add source and (optionally) restart
 		// or exchange self with new object and (Opionally) restart
-		// The optional restart is done by the plyer
+		// The optional restart is done by the player
 		//	this.player.source = source;
-		player = player.addSource (source, player)
+		player = player.addSource (source, name)
 	}
 
 	player_ { | argPlayer |
@@ -200,16 +200,24 @@ SynthLink {
 	}
 
 	// ================ SETTING PLAYERS ================
-
+	/*
 	addEventAsTaskPlayerFilter { | event filterName |
 
 	}
-
+	*/
+   
 	addEventAsTaskPlayerSource { | event |
+		//	var isPlaying;
+		//isPlaying = this.isPlaying;
+		if (player isKindOf: PatternTaskPlayer) {
+			//	postf ("% doing % will add to existing PatternTaskPlayer\n", this, thisMethod.name);
+			player.pattern = event;
+		}{
+			// postf ("% doing % will create new PatternTaskPlayer\n", this, thisMethod.name);
+			player = event.asPlayer;
+		};
 
+		//postf ("% doing % monitoring: isPlaying? %\n", this, thisMethod.name, isPlaying);
 	}
 
-	addSynthPlayer { | synthPlayer |
-
-	}
 }

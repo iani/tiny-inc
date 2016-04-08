@@ -13,11 +13,11 @@
 
 + Symbol {
 	restart { | ... args |
-		this.assynthlink.restart(*args); 
+		this.asSynthLink.restart(*args); 
 	}
 
 	start { | ... args |
-		this.assynthlink.start(*args);
+		this.asSynthLink.start(*args);
 	}
 
 	asSynthLink { | server |
@@ -29,7 +29,7 @@
 	}
 
 	asPlayer {
-		^SynthPlayer (synthdefsource (this))
+		^SynthPlayer (SynthDefSource (this))
 	}
 }
 
@@ -71,7 +71,7 @@
 	}
 	
 	+>> { | linkName |
-		^SynthLink(linkName).addEventAsTaskPlayerSource(this)
+		^SynthLink(linkName).addEventAsTaskPlayerSource(this).start;
 	}
 }
 

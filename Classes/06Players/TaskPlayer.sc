@@ -11,7 +11,10 @@ TaskPlayer : AbstractPlayer {
 		players = IdentityDictionary();
 	}
 
-	addPlayer { | player | players[player.name] = player }
+	addPlayer { | player |
+		//		player.inspect;
+		players[player.name] = player
+	}
 	removePlayer { | player | players[player.name] = nil }
 
 	// meaningful synonym, since source is the source for dur:
@@ -34,6 +37,7 @@ TaskPlayer : AbstractPlayer {
 			if (process.isPlaying.not) { process.resume }
 		}{
 			// process has reached end.  Must reset durStream
+			postf ("% doing % will make processs now\n", this, thisMethod.name);
 			this.makeProcess; // creates new task + plays it
 		}
 	}
@@ -42,6 +46,7 @@ TaskPlayer : AbstractPlayer {
 		var sourceEvent;
 		// Only called when process has reached its end. Therefore: ...
 		this.makeDurStream; // ... reset the durStream to the begining
+			postf ("% doing % will make processs now\n", this, thisMethod.name);
 		process = Task({
 			while { (dur = durStream.next).notNil }
 			{
@@ -90,6 +95,7 @@ PatternTaskPlayer : TaskPlayer {
 
 	extractDur { | argPattern |
 		var durPattern;
+		// postf ("%, argPattern %\n", thisMethod.name, argPattern).postln;
 		durPattern = argPattern[\dur];
 		durPattern !? {
 			this.setSource(durPattern);
