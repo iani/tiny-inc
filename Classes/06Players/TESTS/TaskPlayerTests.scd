@@ -19,7 +19,7 @@ a = (degree: [0, 1, 3, 2].pseq (inf), dur: 0.25, legato: 0.25) +>> \test2;
 a.start;
 //
 (degree: 0).asPlayer.start;
-//:
+//:ψ
 a.inspect;
 
 a.player.start;
