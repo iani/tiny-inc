@@ -55,12 +55,23 @@ TaskPlayer : AbstractPlayer {
 				dur.wait;
 			}
 		}).play(clock, false, quant); // THE TASK STARTS PLAYING HERE
+		this.addNotifier (process, \stopped,  { this.taskStopped });
+		this.addNotifier (process, \userStopped,  { this.taskUserStopped });
+		/*
 		process.addDependant({ | task msg |
 			if (msg === \stopped and: { task.streamHasEnded }) { process = nil }
-		})
+		});
+		*/
 		^process;
 	}
 
+	taskStopped {
+		postf ("% : %\n", this, thisMethod.name);
+	}
+
+	taskUserStopped {
+		postf ("% : %\n", this, thisMethod.name);
+	}
 	// Reset the durStream to the begining
 	makeDurStream { durStream = source.asStream }
 	
