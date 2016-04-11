@@ -8,7 +8,7 @@ a.start;
 		0.1.wait;
 	}	
 }.fork
-//:
+//: Does not release previous sound:
 
 
 (degree: 0) +> \test;
