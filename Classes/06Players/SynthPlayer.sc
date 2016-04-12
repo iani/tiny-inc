@@ -38,8 +38,10 @@ SimpleSynthPlayer : AbstractPlayer {
 		//	process.free;
 	
 		argNode.onStart (\start, { | n |
-				processes.reverse [1..] do: { | p |
-				processes remove: p;
+				processes.reverse [1..].postln do: { | p |
+					processes remove: p;
+					processes.postln;
+					p.postln;
 				{ p.release }.defer (0.03);
 			};
 			//			processes = [n.notifier];
@@ -82,8 +84,16 @@ SimpleSynthPlayer : AbstractPlayer {
 		this.changed(\stopped)
 	}
 
+	stopIfPlaying {
+		if (this.isPlaying) { this.prStop}
+	}
 		// isPlaying { ^process.isPlaying; }
-	isPlaying { ^nodes.size > 0; }
+	isPlaying {
+		"testing method isPlaying. looking at Nodes size which is the test.".postln;
+		postf ("nodes are: % nodes size is: %, result playing is: %\n",
+			nodes, nodes.size, nodes.size > 0
+		);
+		^nodes.size > 0; }
 
 	prStop { process.release }
 

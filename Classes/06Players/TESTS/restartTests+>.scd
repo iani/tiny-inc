@@ -1,7 +1,7 @@
 a = { LFTri.ar(Rand(2400, 5100) * [1, 1.1], 0, 0.1) } +> \test;
 
 a.start;
-//:
+CS//:
 {
 	10 do: { | i |
 		a = { LFTri.ar(1 + i * 100 * [1, 1.2], 0, 0.1) } +> \test;
@@ -9,7 +9,6 @@ a.start;
 	}	
 }.fork
 //: Does not release previous sound:
-
 
 (degree: 0) +> \test;
 

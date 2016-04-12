@@ -44,7 +44,13 @@ SynthPlayer and PatternTaskPlayer may have to return new object.
 }
 
 + SynthPlayer {
-	addSource { | source, name = \player|
+ 	addSource { | source, name = \player|
+		"!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!".postln;
+		postf ("%, % isPlaying: %\n", this, thisMethod.name, this.isPlaying);
+		"!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!".postln;
+		"!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!".postln;
+		"!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!".postln;
+		this.stopIfPlaying;
 		^source.addSelfToSynthPlayer(this, name);	
 	}
 }
