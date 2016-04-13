@@ -57,19 +57,23 @@ FunctionSynthSource : SynthDefSource {
 				);
 				// [this, thisMethod.name, "sending synthdef now"].postln;
 				synthDef.doSend(server, synth.newMsg(target, args, action ? \addToHead));
-				synth.onStart(this, { synth = nil; });
+				this.makeSynthActions (synth, player);
 				^synth;
 			}{ 
 				^synth; // if waiting for synthdef, return previous synth
 			}
 		}{
-			^Synth(defName, args, target.asTarget, action)
-			onStart (player, {
+			^this.makeSynthActions (Synth(defName, args, target.asTarget, action), player);
+		}
+	}
+
+	makeSynthActions { | synth, player |
+		synth.onStart (player, {
 				
 			})
 			.onEnd (player, {
 				
 			});
-		}
+		^synth
 	}
 }
