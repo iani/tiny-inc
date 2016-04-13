@@ -89,11 +89,14 @@ SimpleSynthPlayer : AbstractPlayer {
 	}
 		// isPlaying { ^process.isPlaying; }
 	isPlaying {
-		"testing method isPlaying. looking at Nodes size which is the test.".postln;
+		//	"testing method isPlaying. looking at Nodes size which is the test.".postln;
+		/*
 		postf ("nodes are: % nodes size is: %, result playing is: %\n",
 			nodes, nodes.size, nodes.size > 0
 		);
-		^nodes.size > 0; }
+		*/
+		^nodes.size > 0; 
+	}
 
 	prStop { process.release }
 
@@ -111,7 +114,7 @@ SynthPlayer : SimpleSynthPlayer {
 	}
 
 	makeProcess { | args, target, action |
-		this addNode: source.play(args, target, action)
+		this addNode: source.play(args, target, action, this)
 	}
 
 	release { | dur = 0.1 |

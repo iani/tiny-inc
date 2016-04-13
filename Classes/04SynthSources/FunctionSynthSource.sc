@@ -43,7 +43,7 @@ FunctionSynthSource : SynthDefSource {
 		^this.play(args, target, action);
 	}
 
-	play { | args, target, action = \addToHead |
+	play { | args, target, action = \addToHead, player |
 		var server;
 		//		[this, thisMethod.name, "the synthdef is:", synthDef].postln;
 		if (synthDef.isNil) {  // Load synthdef if new
@@ -63,7 +63,13 @@ FunctionSynthSource : SynthDefSource {
 				^synth; // if waiting for synthdef, return previous synth
 			}
 		}{
-			^Synth(defName, args, target.asTarget, action);
+			^Synth(defName, args, target.asTarget, action)
+			onStart (player, {
+				
+			})
+			.onEnd (player, {
+				
+			});
 		}
 	}
 }
