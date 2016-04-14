@@ -69,10 +69,10 @@ FunctionSynthSource : SynthDefSource {
 
 	makeSynthActions { | synth, player |
 		synth.onStart (player, {
-				
+				player.addSynth (synth);
 			})
 			.onEnd (player, {
-				
+				player.removeSynth (synth);
 			});
 		^synth
 	}
