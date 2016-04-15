@@ -126,5 +126,21 @@ SynthPlayer : SimpleSynthPlayer {
 	makeSource { | source, name = \player |
 		^this.source_ (source);
 	}
+
+	addSynth { | synth |
+		// from FunctionSynthSource via Synth:onStart
+		postf ("%, %, adding synth %\n", this,thisMethod.name, synth);
+		nodes add: synth;
+
+		postf ("synths are now: %\n", nodes);
+	}
+
+	removeSynth { | synth |
+		// from FunctionSynthSource via Synth:onEnd
+		postf ("%, %, adding synth %\n", this,thisMethod.name, synth);
+
+		nodes remove: synth;
+		postf ("synths are now: %\n", nodes);
+	}
 }
 
