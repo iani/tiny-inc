@@ -137,7 +137,7 @@ SynthPlayer : SimpleSynthPlayer {
 
 	removeSynth { | synth |
 		// from FunctionSynthSource via Synth:onEnd
-		postf ("%, %, adding synth %\n", this,thisMethod.name, synth);
+		postf ("%, %, REMOVING synth %\n", this,thisMethod.name, synth);
 
 		nodes remove: synth;
 		postf ("synths are now: %\n", nodes);

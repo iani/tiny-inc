@@ -57,7 +57,7 @@ FunctionSynthSource : SynthDefSource {
 				);
 				// [this, thisMethod.name, "sending synthdef now"].postln;
 				synthDef.doSend(server, synth.newMsg(target, args, action ? \addToHead));
-				this.makeSynthActions (synth, player);
+				this.makeSynthActions2 (synth, player);
 				^synth;
 			}{ 
 				^synth; // if waiting for synthdef, return previous synth
@@ -68,13 +68,30 @@ FunctionSynthSource : SynthDefSource {
 	}
 
 	makeSynthActions { | synth, player |
+		postf ("% adding synth on start action now\n", thisMethod.name);
+		
+		synth.onStart (this, { | n |
+			postf ("% started!  WILL NOW ADD IT TO PLAYER\n", n.notifier);
+			player addSynth: n.notifier;
+			
+		});
+		synth.onEnd (this, { | n |
+			postf ("% ENDED!  WILL NOW remove it from PLAYER\n", n.notifier);
+			player removeSynth: n.notifier;
+		});
+	}
+
+	/*
+	makeSynthActionsDebugged { | synth, player |
 		postf ("%, %, synth is: %, player is: %\n", this, thisMethod.name, synth, player);
-		synth.onStart (player, {
+		synth.onStart (player, { | n |
+			postf ("% started!\n", n.notifier);
 				player.addSynth (synth);
-			})
-			.onEnd (player, {
+			});
+		synth.onEnd (player, { | n |
 				player.removeSynth (synth);
 			});
 		^synth
 	}
+	*/
 }

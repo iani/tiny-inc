@@ -4,7 +4,9 @@ a = { LFTri.ar(Rand(2400, 5100) * [1, 1.1], 0, 0.1) } +> \test;
 a;
 
 //:
-a.player;
+a.player.process.free;
+//:
+a.player.process.release;
 //:
 
 
