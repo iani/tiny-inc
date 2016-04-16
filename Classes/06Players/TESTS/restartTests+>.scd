@@ -10,6 +10,8 @@ a.player;
 
 
 a.start;
+//:
+a.restart;
 CS//:
 {
 	10 do: { | i |

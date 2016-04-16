@@ -68,6 +68,7 @@ FunctionSynthSource : SynthDefSource {
 	}
 
 	makeSynthActions { | synth, player |
+		postf ("%, %, synth is: %, player is: %\n", this, thisMethod.name, synth, player);
 		synth.onStart (player, {
 				player.addSynth (synth);
 			})
