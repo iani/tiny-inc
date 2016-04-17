@@ -1,5 +1,6 @@
 AbstractPlayer {
-	var <process, <source;
+	var <nodes, <source;
+	var <process;
 
 	start { | args, target, action = \addToHead |
 		this.makeProcess(args, target, action)
@@ -20,14 +21,22 @@ AbstractPlayer {
 	}
 
 	prStop { process.stop }
-
-	isPlaying { ^process.notNil }
+	
+	isPlaying {
+		//	"testing method isPlaying. looking at Nodes size which is the test.".postln;
+		/*
+		postf ("nodes are: % nodes size is: %, result playing is: %\n",
+			nodes, nodes.size, nodes.size > 0
+		);
+		*/
+		^nodes.size > 0; 
+	}
 }
 
 SimpleSynthPlayer : AbstractPlayer {
 	var <processes, <nodes;
 	addNode { | argNode |
-		NodeWatcher.register(argNode);
+		//		NodeWatcher.register(argNode);
 		//  Release previous node if playing,
 		//	but prevent that node from triggering a stopped notification when it ends.
 
@@ -36,7 +45,7 @@ SimpleSynthPlayer : AbstractPlayer {
 			Therefore prevent stopping a node that has not started yet.
 		*/
 		//	process.free;
-	
+		/*
 		argNode.onStart (\start, { | n |
 				processes.reverse [1..].postln do: { | p |
 					processes remove: p;
@@ -66,6 +75,7 @@ SimpleSynthPlayer : AbstractPlayer {
 		};
 		process = argNode;
 		processes = processes add: argNode;
+		*/
 	}
 
 	nodeStarted { | argNode |
@@ -88,15 +98,6 @@ SimpleSynthPlayer : AbstractPlayer {
 		if (this.isPlaying) { this.prStop}
 	}
 		// isPlaying { ^process.isPlaying; }
-	isPlaying {
-		//	"testing method isPlaying. looking at Nodes size which is the test.".postln;
-		/*
-		postf ("nodes are: % nodes size is: %, result playing is: %\n",
-			nodes, nodes.size, nodes.size > 0
-		);
-		*/
-		^nodes.size > 0; 
-	}
 
 	prStop { process.release }
 
