@@ -2,7 +2,8 @@ TaskPlayer : AbstractPlayer {
 	var <>clock, <>quant;
 	var <players;
 	var <dur, <durStream;
-
+	var <process;
+	
 	*new { | source = 1, clock, quant |
 		^this.newCopyArgs(nil, source, clock, quant).init;
 	}

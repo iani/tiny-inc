@@ -1,6 +1,6 @@
 AbstractPlayer {
 	var <nodes, <source;
-	var <process;
+	//	var <process;
 
 	start { | args, target, action = \addToHead |
 		this.makeProcess(args, target, action)
@@ -20,7 +20,11 @@ AbstractPlayer {
 		source = argSource.asSource;
 	}
 
-	prStop { process.stop }
+	prStop {
+		this.postln;
+		"method prStop is not implemented".postln;
+		//	process.stop
+	}
 	
 	isPlaying {
 		//	"testing method isPlaying. looking at Nodes size which is the test.".postln;
@@ -90,7 +94,7 @@ SimpleSynthPlayer : AbstractPlayer {
 	}
 	stopped {
 		//	process.releaseDependants;
-		process = nil;
+		// process = nil;
 		this.changed(\stopped)
 	}
 
@@ -99,7 +103,11 @@ SimpleSynthPlayer : AbstractPlayer {
 	}
 		// isPlaying { ^process.isPlaying; }
 
-	prStop { process.release }
+	prStop {
+		this.postln;
+		"method prStop is not implemented!!!!!".postln;
+		//	process.release
+	}
 
 	addListener { | listener, onStart, onEnd |
 		listener.addNotifier(this, \started, onStart);
@@ -119,7 +127,7 @@ SynthPlayer : SimpleSynthPlayer {
 	}
 
 	release { | dur = 0.1 |
-		process !? { process release: dur }
+		//		process !? { process release: dur }
 	}
 
 	makePlayerFor { ^this }
