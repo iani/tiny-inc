@@ -138,9 +138,13 @@ SynthPlayer : SimpleSynthPlayer {
 
 	addSynth { | synth |
 		// from FunctionSynthSource via Synth:onStart
+		if (nodes.size == 0) {
+			postf ("addSynth will notify started\n");
+			this.changed (\started);
+		};
 		postf ("%, %, adding synth %\n", this,thisMethod.name, synth);
+		nodes.asArray do: _.release;
 		nodes add: synth;
-
 		postf ("synths are now: %\n", nodes);
 	}
 
@@ -150,6 +154,10 @@ SynthPlayer : SimpleSynthPlayer {
 
 		nodes remove: synth;
 		postf ("synths are now: %\n", nodes);
+		if (nodes.size == 0) {
+			postf ("removeSynth will notify stopped\n");
+			this.changed (\stopped);
+		};
 	}
 }
 
