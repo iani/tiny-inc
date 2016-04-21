@@ -119,7 +119,7 @@ SimpleSynthPlayer : AbstractPlayer {
 SynthPlayer : SimpleSynthPlayer {
 
 	*new { | source |
-		^this.newCopyArgs(nil, source.asSource)
+		^this.newCopyArgs(Set (), source.asSource)
 	}
 
 	makeProcess { | args, target, action |
@@ -138,6 +138,7 @@ SynthPlayer : SimpleSynthPlayer {
 
 	addSynth { | synth |
 		// from FunctionSynthSource via Synth:onStart
+		postf ("addSynth. BEFORE ADDING. Nodes are: %\n", nodes);
 		if (nodes.size == 0) {
 			postf ("addSynth will notify started\n");
 			this.changed (\started);
@@ -149,7 +150,7 @@ SynthPlayer : SimpleSynthPlayer {
 		};
 		
 		nodes add: synth;
-		postf ("synths are now: %\n", nodes);
+		postf ("after addding. NODES are now: %\n", nodes);
 	}
 
 	removeSynth { | synth |

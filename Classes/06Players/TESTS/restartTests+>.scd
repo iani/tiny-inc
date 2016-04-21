@@ -7,8 +7,11 @@ a.player.process.free;
 //:
 a.player.process.release;
 //:
+10 do:{
+	a = { SinOsc.ar(Rand(500, 2100) * [1, 1.2], 0, 0.1) } +> \test;
+};
 
-
+//:
 
 a.start;
 //:
