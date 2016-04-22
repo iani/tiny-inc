@@ -16,7 +16,26 @@ a.player.process.release;
 a.start;
 //:
 a.restart;
-CS//:
+
+//:
+{
+	10 do: {
+		a.restart;
+		2.0.rand.wait;
+	};
+}.fork;
+
+
+//:
+{
+	100 do: {
+		a.restart;
+		0.001.wait;
+	};
+}.fork;
+
+
+//:
 {
 	10 do: { | i |
 		a = { LFTri.ar(1 + i * 100 * [1, 1.2], 0, 0.1) } +> \test;

@@ -68,15 +68,15 @@ FunctionSynthSource : SynthDefSource {
 	}
 
 	makeSynthActions { | synth, player |
-		postf ("% adding synth on start action now\n", thisMethod.name);
+		// postf ("% adding synth on start action now\n", thisMethod.name);
 		
 		synth.onStart (this, { | n |
-			postf ("% started!  WILL NOW ADD IT TO PLAYER\n", n.notifier);
+			// postf ("% started!  WILL NOW ADD IT TO PLAYER\n", n.notifier);
 			player addSynth: n.notifier;
 			
 		});
 		synth.onEnd (this, { | n |
-			postf ("% ENDED!  WILL NOW remove it from PLAYER\n", n.notifier);
+			// postf ("% ENDED!  WILL NOW remove it from PLAYER\n", n.notifier);
 			player removeSynth: n.notifier;
 		});
 		^synth;
