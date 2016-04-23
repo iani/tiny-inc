@@ -50,7 +50,7 @@ SynthPlayer and PatternTaskPlayer may have to return new object.
 		//"!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!".postln;
 		// "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!".postln;
 		// "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!".postln;
-		this.stopIfPlaying;
+		//		this.stopIfPlaying;
 		^source.addSelfToSynthPlayer(this, name);	
 	}
 }

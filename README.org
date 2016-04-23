@@ -168,7 +168,17 @@ See =Registry= class.
 \writer@\out1 @>.in2 \reader; // specify output/input params out1 and in2
 #+END_SRC
 
+Possible extra operators:
+
+#+BEGIN_SRC sclang
+\writer @+ \reader; // branch output of writer to reader with i/o copy synth
+\writer +@ \reader; // branch to input of reader with i/o copy synth
+#+END_SRC
+
+
 =\writer= and =\reader= are unique group/rank and input/output bus holders accessible through their symbols. They can store a SynthPlayer or a TaskPlayer - interchangeably. Class: =SynthLink=
+
+
 
 Structure of SynthLink: 
 
@@ -300,6 +310,18 @@ Possibly:
 
 - =++>= :: Set source of SynthLink but do not play now
 - =%%>= :: change args in SynthLink, but do not send them to player now.
+
+** STARTED start and restart methods
+:LOGBOOK:  
+- State "STARTED"    from "TODO"       [2016-04-23 Sat 11:56]
+:END:      
+:PROPERTIES:
+:DATE:     <2016-04-23 Sat 11:57>
+:END:
+
+- Only in SynthLink, not in SynthPlayer or TaskPlayer
+- start :: start if not playing
+- restart :: stop previous process and start again
 
 ** TODO Overview of Classes
 :PROPERTIES:

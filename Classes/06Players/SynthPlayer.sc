@@ -22,6 +22,7 @@ AbstractPlayer {
 
 	prStop {
 		this.postln;
+		//		"on purpose".blablablabla;
 		"method prStop is not implemented".postln;
 		//	process.stop
 	}
@@ -98,10 +99,12 @@ SimpleSynthPlayer : AbstractPlayer {
 		this.changed(\stopped)
 	}
 
+	/*
 	stopIfPlaying {
 		if (this.isPlaying) { this.prStop}
 	}
-		// isPlaying { ^process.isPlaying; }
+	*/
+	// isPlaying { ^process.isPlaying; }
 
 	prStop {
 		this.postln;
@@ -147,7 +150,7 @@ SynthPlayer : SimpleSynthPlayer {
 		nodes.asArray do: { | n |
 			//	postf ("releasing this node: %\n", n);
 			n.release;
-			nodes remove: n; // prevent re-releasing
+			nodes remove: n; // prevent re-releasing dead nodes on fast restarts
 		};
 		
 		nodes add: synth;
