@@ -41,7 +41,7 @@ SynthLink {
 	}
 
 	start { | ... argArgs |
-		postf ("%, %, % isplaying: %\n", this, thisMethod.name, this, this.isPlaying);
+		//		postf ("%, %, % isplaying: %\n", this, thisMethod.name, this, this.isPlaying);
 		if (this.isPlaying) { ^this }; 
 		argArgs !? { args = argArgs };
 		player.start(args, group, addAction)

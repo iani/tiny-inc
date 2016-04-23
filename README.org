@@ -1,4 +1,4 @@
-#+TODO: TODO(t) STARTED(s@/!) | DONE(d!) CANCELED(c@)
+ #+TODO: TODO(t) STARTED(s@/!) | DONE(d!) CANCELED(c@)
 
 Incremental redo of [[https://github.com/iani/tiny-sc][tiny-sc]].
 

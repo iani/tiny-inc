@@ -144,9 +144,10 @@ SynthPlayer : SimpleSynthPlayer {
 			this.changed (\started);
 		};
 		// postf ("%, %, adding synth %\n", this,thisMethod.name, synth);
-		nodes.asArray.postln do: { | n |
+		nodes.asArray do: { | n |
 			//	postf ("releasing this node: %\n", n);
 			n.release;
+			nodes remove: n; // prevent re-releasing
 		};
 		
 		nodes add: synth;

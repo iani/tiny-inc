@@ -4,7 +4,7 @@
 		lp = linkName.asSynthLink;
 		lp.addSource(this, playerName);
 		// .player_ (this.asPlayer(playerName)).start
-		[this, thisMethod.name, lp, lp.isPlaying].postln;
+		// [this, thisMethod.name, lp, lp.isPlaying].postln;
 		//		[ "lp.player.process", lp.player.process].postln;
 		//if (lp.isPlaying.not) { lp.start };
 		lp.start;
