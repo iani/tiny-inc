@@ -29,7 +29,7 @@ SynthPlayer and PatternTaskPlayer may have to return new object.
 
 + Event {
 	asPlayer { | name |
-	^PatternTaskPlayer ().addPlayerFromEvent (this, name);
+		^PatternTaskPlayer ().addPlayerFromEvent (this, name);
 	}
 
 	addSelfToSynthPlayer { | player, name = \player |

@@ -3,7 +3,10 @@ AbstractPlayer {
 	//	var <process;
 
 	start { | args, target, action = \addToHead |
-		this.makeProcess(args, target, action)
+		if (this.isPlaying.not) {
+				this.makeProcess(args, target, action)
+		}	
+	}
 	}
 	stop { if (this.isPlaying) { this.prStop } }
 	source_ { | argSource |
@@ -21,9 +24,10 @@ AbstractPlayer {
 	}
 
 	prStop {
-		this.postln;
+	 	nodes do: _.release;
+		// this.postln;
 		//		"on purpose".blablablabla;
-		"method prStop is not implemented".postln;
+		// "method prStop is not implemented".postln;
 		//	process.stop
 	}
 	
