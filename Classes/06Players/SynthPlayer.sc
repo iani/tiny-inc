@@ -4,9 +4,12 @@ AbstractPlayer {
 
 	start { | args, target, action = \addToHead |
 		if (this.isPlaying.not) {
-				this.makeProcess(args, target, action)
-		}	
+				this.restart(args, target, action)
+		}
 	}
+
+	restart { | args, target, action = \addToHead |
+		this.makeProcess(args, target, action)
 	}
 	stop { if (this.isPlaying) { this.prStop } }
 	source_ { | argSource |
