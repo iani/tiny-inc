@@ -18,7 +18,7 @@ AbstractPlayer {
 		// [this, thisMethod.name, format("isPlaying? %\n", this.isPlaying)].postln;
 		// this.setSource(argSource);
 		source = argSource.asSource;
-		if (isPlaying) { this.start};
+		if (isPlaying) { this.start };
 		this.changed(\source);
 	}
 
