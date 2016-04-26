@@ -36,15 +36,15 @@ SynthLink {
 	}
 
 	restart { | ... argArgs |
-		player.start (argArgs);
+		player.restart (argArgs, group, addAction);
 		//		player.restart (argArgs);
 	}
 
 	start { | ... argArgs |
 		//		postf ("%, %, % isplaying: %\n", this, thisMethod.name, this, this.isPlaying);
-		if (this.isPlaying) { ^this }; 
-		argArgs !? { args = argArgs };
-		player.start(args, group, addAction)
+		// if (this.isPlaying) { ^this }; 
+		// argArgs !? { args = argArgs };
+		player.start(argArgs, group, addAction)
 	}
 
 	stop { player.stop }
