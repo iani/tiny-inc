@@ -1,5 +1,6 @@
 + Object {
 	+> { | linkName playerName = \player |
+		/*
 		var lp;
 		lp = linkName.asSynthLink;
 		lp.addSource(this, playerName);
@@ -9,6 +10,8 @@
 		//if (lp.isPlaying.not) { lp.start };
 		lp.start;
 		^lp;
+		*/
+		^linkName.asSynthLink.addSource (this, playerName).start
 	}
 }
 
