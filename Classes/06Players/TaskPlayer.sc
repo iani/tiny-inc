@@ -43,6 +43,10 @@ TaskPlayer : AbstractPlayer {
 		}
 	}
 
+	stop {
+		process.stop;
+	}
+
 	makeProcess {
 		var sourceEvent;
 		// Only called when process has reached its end. Therefore: ...

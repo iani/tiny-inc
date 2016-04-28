@@ -114,9 +114,10 @@ SimpleSynthPlayer : AbstractPlayer {
 	// isPlaying { ^process.isPlaying; }
 
 	prStop {
-		this.postln;
-		"method prStop is not implemented!!!!!".postln;
-		//	process.release
+		//	this.postln;
+		// "method prStop is not implemented!!!!!".postln;
+		//`	process.release
+		nodes do: _.release;
 	}
 
 	addListener { | listener, onStart, onEnd |
