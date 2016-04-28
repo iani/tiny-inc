@@ -56,8 +56,8 @@ SynthLink {
 		// or exchange self with new object and (Opionally) restart
 		// The optional restart is done by the player
 		//	this.player.source = source;
-		[this, thisMethod.name, "stopping player now"].postln;
-		player.stop;
+		//		[this, thisMethod.name, "stopping player now"].postln;
+		player.stop; // TODO: PatternPlayers should not stope when adding events
 		player = player.addSource (source, name)
 	}
 
