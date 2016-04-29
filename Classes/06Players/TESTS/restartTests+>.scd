@@ -44,15 +44,21 @@ a.restart;
 }.fork
 //: Does not release previous sound:
 
-(degree: 0) +> \test;
+(degree: 0, dur: 0.1) +> \test;
 
-(degree: 2) +>.third \test;
+(degree: [1, 3, 5].prand) +>.third \test;
 
 (degree: 4) +>.fifth \test;
 
 (degree: 7) +>.octave \test;
 //:
 
-a = (degree: [0, 1, 3, 2].pseq (inf), dur: 0.1) +>> \test;
+(degree: [0, 1, 3, 2].pseq (inf), dur: 0.1) +>> \test;
+
+//:
+(degree: [0, 1, 3, 2].pseq (inf), dur: 0.31) +>> \test;
+
+//:
+{ WhiteNoise.ar (0.1) } +> \test;
 
 a = (degree: [0, 1, 3, 2].pseq (inf), dur: 0.25, legato: 0.25) +>> \test2;
