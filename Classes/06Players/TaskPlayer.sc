@@ -43,6 +43,8 @@ TaskPlayer : AbstractPlayer {
 		}
 	}
 
+	isPlaying { ^process.isPlaying }
+
 	stop {
 		process.stop;
 	}
