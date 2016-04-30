@@ -60,5 +60,5 @@ a.restart;
 
 //:
 { WhiteNoise.ar (0.1) } +> \test;
-
-a = (degree: [0, 1, 3, 2].pseq (inf), dur: 0.25, legato: 0.25) +>> \test2;
+//
+(degree: [0, 1].pseq (inf), dur: 0.25, legato: 0.125) +>> \test2;
