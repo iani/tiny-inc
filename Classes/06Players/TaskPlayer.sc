@@ -121,7 +121,12 @@ PatternTaskPlayer : TaskPlayer {
 		}
 	}
 
-	makeStream { stream = pattern.asStream }
+	makeStream {
+		postf ("% doing % pattern is: %\n", this, thisMethod.name, pattern.pattern );
+		pattern.postln;
+		pattern.pattern.postln;
+		stream = pattern.asStream;
+	}
 
 	getSourceEvent { ^(stream.next ?? { () }).put (\dur, dur) }
 

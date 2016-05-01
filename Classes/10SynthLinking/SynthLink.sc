@@ -212,10 +212,10 @@ SynthLink {
 		//	var isPlaying;
 		//isPlaying = this.isPlaying;
 		if (player isKindOf: PatternTaskPlayer) {
-			//	postf ("% doing % will add to existing PatternTaskPlayer\n", this, thisMethod.name);
+			postf ("% doing % will add to existing PatternTaskPlayer\n", this, thisMethod.name);
 			player.pattern = event;
 		}{
-			// postf ("% doing % will create new PatternTaskPlayer\n", this, thisMethod.name);
+			postf ("% doing % will create new PatternTaskPlayer\n", this, thisMethod.name);
 			player = event.asPlayer;
 		};
 
