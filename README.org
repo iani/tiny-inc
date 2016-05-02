@@ -353,3 +353,22 @@ Possibly:
 
 **** Registry
 
+** STARTED SynthLink addEventAsTaskPlayerSource notes
+:PROPERTIES:
+:DATE:     <2016-05-02 Mon 17:28>
+:END:
+
+To watch: 
+
+player pattern should copy 
+
+** STARTED SynthLink +>> notes
+:PROPERTIES:
+:DATE:     <2016-05-02 Mon 17:28>
+:END:
+
+
+To watch: 
+
+How exactly is the EventPlayer produced, and where, in the chain of method calls, when the TaskPatternPlayer is produced.
+
