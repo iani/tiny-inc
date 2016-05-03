@@ -48,6 +48,7 @@ a.restart;
 
 (degree: [1, 3, 5].prand) +>.third \test;
 
+
 (degree: 4) +>.fifth \test;
 
 (degree: 7) +>.octave \test;
@@ -63,4 +64,30 @@ a.restart;
 //
 a = (degree: [1, 2, 5].pseq (inf), dur: 1.25, legato: 0.125) +>> \test2;
 //:
+a = (degree: 10) +>> \test2;
+//:
 a.inspect;
+//:
+p = a.player;
+
+//:
+p.start;
+
+//:
+p.source = (dur: [0.1, 0.2].prand);
+
+//:
+(dur: [0.1, 0.2].prand).asSource;
+//:
+p.inspect;
+//: Testing 	addEventAsTaskPlayerSource
+
+
+t = PatternTaskPlayer ((degree: 1));
+
+//:
+t.start;
+//:
+e = EventPlayer ((degree: -5));
+//
+e.play;

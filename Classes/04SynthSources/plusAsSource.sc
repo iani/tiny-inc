@@ -12,3 +12,9 @@
 		^SynthPlayer(this, server);
 	}
 }
+
++ Event {
+	asSource {
+		^EventPlayer (this);
+	}
+}
