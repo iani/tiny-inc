@@ -90,7 +90,13 @@ t.start;
 //:
 e = EventPattern (());
 //
-e.play;
+p = e.play;
+//:
+p.stream.event.degree = 10;
+//:
+p.stream.event.dur = 0.1;
+//:
+p.stream.event.dur = 2.1;
 //:
 e.subevents = [{ | ... args | args.postln;}] 
 
