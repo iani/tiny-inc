@@ -1,3 +1,4 @@
+
 EventPattern((dur: 0.1, degree: [-5, 12, 1].pbrown + [0, [-2, 3]].prand)).play;
 
 //:
@@ -24,3 +25,14 @@ m = Pseq([
 ]).asStream;
 //:
 m.next;
+//:
+a = EventPattern ((degree: Pn([-10, 1].pseries (20), inf), dur: 1)).play;
+//:
+a.stop;
+
+//:
+a.start;
+
+//:
+asEventStreamPlayer
+

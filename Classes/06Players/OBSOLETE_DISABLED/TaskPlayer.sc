@@ -1,3 +1,21 @@
+/* Note  3 May 2016 21:41
+
+TaskPlayer and PatternTaskPlayer will be replaced by a modified version of
+
+playAndDelta for Event, that adds this.changed(\play) after this.play
+and thus permits adding any dependent actions (including playing filter 
+events).
+
+playAndDelta { | cleanup, mute |
+		if (mute) { this.put(\type, \rest) };
+		cleanup.update(this);
+		this.play;
+		^this.delta;
+	}
+
+
+*/
+
 TaskPlayer : AbstractPlayer {
 	var <>clock, <>quant;
 	var <players;

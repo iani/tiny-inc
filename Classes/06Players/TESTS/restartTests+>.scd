@@ -88,6 +88,17 @@ t = PatternTaskPlayer ((degree: 1));
 //:
 t.start;
 //:
-e = EventPlayer ((degree: -5));
+e = EventPattern (());
 //
 e.play;
+//:
+e.subevents = [{ | ... args | args.postln;}] 
+
+e.changed (\est);
+
+e.inspect;
+//:
+e.event.subevents = [{ (degree: (1..5)).play }];
+//:
+
+e.event;
