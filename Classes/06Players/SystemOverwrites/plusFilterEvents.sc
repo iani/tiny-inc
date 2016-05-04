@@ -19,25 +19,17 @@
 	playAndDelta { | cleanup, mute |
 		if (mute) { this.put(\type, \rest) };
 		cleanup.update(this);
-		this.play;
 		this.subevents do: _.(this);
+		this.play;
 		^this.delta;
 	}
 
 	addFilterEvent { | event, name = \player |
+		var eventStream;
+		eventStream = EventPattern (event).asStream;
 		this.addFilterFunc (
 			{ | inEvent |
-				var outEvent;
-				outEvent = ();
-				event keysValuesDo: { | key value |
-					outEvent [key] = value.asStream;
-				};
-				inEvent use: {
-					inEvent keysValuesDo: { | key value |
-						outEvent [key] = value.(inEvent);
-					}
-				};
-				outEvent.play;
+				eventStream.next (inEvent).play;
 			} , name
 		)
 	}

@@ -55,7 +55,7 @@ EventStream : Stream {
 			outEvent use: { // evaluate using outEvent as environment
 				// makes outEvent values available as environmentVariables
 				event keysValuesDo: { | key value |
-					outValue = value.next(this);
+					outValue = value.(this);
 					if (outValue.isNil) { ^nil };
 					outEvent [key] = outValue;
 				}
