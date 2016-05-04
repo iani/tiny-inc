@@ -36,13 +36,30 @@ EventStream : Stream {
 		inEvent keysValuesDo: { | key, value | event[key] = value.asStream(this); };
 	}
 
-	next {
+	next { | inEvent |
+		// If inEvent is provided, add its contents,
+		// filtering them through own values.
 		var outEvent, outValue;
-		outEvent = ();
-		event keysValuesDo: { | key, value |
-			outValue = value.next(this);
-			if (outValue.isNil) { ^nil };
-			outEvent[key] = outValue;
+
+		if (inEvent.isNil) {
+			outEvent = ();
+			event keysValuesDo: { | key, value |
+				outValue = value.next(this);
+				if (outValue.isNil) { ^nil };
+				outEvent[key] = outValue;
+			}
+		}{
+			// Use inEvent as main event to play,
+			// and then filter any of its values through the present event
+			outEvent = inEvent.copy;
+			outEvent use: { // evaluate using outEvent as environment
+				// makes outEvent values available as environmentVariables
+				event keysValuesDo: { | key value |
+					outValue = value.next(this);
+					if (outValue.isNil) { ^nil };
+					outEvent [key] = outValue;
+				}
+			}
 		};
 		^outEvent;
 	}

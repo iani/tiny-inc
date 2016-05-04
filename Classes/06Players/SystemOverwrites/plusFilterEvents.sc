@@ -20,7 +20,6 @@
 		if (mute) { this.put(\type, \rest) };
 		cleanup.update(this);
 		this.play;
-		[thisMethod.name, this].postln;
 		this.subevents do: _.(this);
 		^this.delta;
 	}
@@ -29,7 +28,10 @@
 		this.addFilterFunc (
 			{ | inEvent |
 				var outEvent;
-				outEvent = event.copy;
+				outEvent = ();
+				event keysValuesDo: { | key value |
+					outEvent [key] = value.asStream;
+				};
 				inEvent use: {
 					inEvent keysValuesDo: { | key value |
 						outEvent [key] = value.(inEvent);
