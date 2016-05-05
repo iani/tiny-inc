@@ -13,6 +13,28 @@
 	removeFilter { | name = \player |
 		stream.event.removeFilter (name);
 	}
+
+	addKeys { | keyValuePairs |
+		var newStream, originalEvent, event;
+		originalEvent = originalStream.event;
+		event = stream.event;
+		keyValuePairs keysValuesDo: { | key value |
+			newStream = value.asStream;
+			originalEvent [key] = newStream;
+			event [key] = newStream;
+		}
+	}
+
+	addEvent { | inEvent |
+		var newStream, originalEvent, event;
+		originalEvent = originalStream.event;
+		event = stream.event;
+		inEvent keysValuesDo: { | key value |
+			newStream = value.asStream;
+			originalEvent [key] = newStream;
+			event [key] = newStream;
+		}
+	}
 }
 
 + Event {

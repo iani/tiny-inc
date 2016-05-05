@@ -2,6 +2,11 @@ e = EventPattern (());
 //
 p = e.play;
 //:
+p.stream.event;
+//:
+p.addKeys ([dur: Pfunc ({ 0.1 exprand: 1})]);
+//:
+
 p.stream.event.degree = 1;
 //:
 p.stream.event.dur = 0.1;
