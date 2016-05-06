@@ -149,30 +149,20 @@ SynthPlayer : SimpleSynthPlayer {
 
 	addSynth { | synth |
 		// from FunctionSynthSource via Synth:onStart
-		//	postf ("addSynth. BEFORE ADDING. Nodes are: %\n", nodes);
 		if (nodes.size == 0) {
-			//	postf ("addSynth will notify started\n");
 			this.changed (\started);
 		};
-		// postf ("%, %, adding synth %\n", this,thisMethod.name, synth);
 		nodes.asArray do: { | n |
-			//	postf ("releasing this node: %\n", n);
 			n.release;
 			nodes remove: n; // prevent re-releasing dead nodes on fast restarts
 		};
-		
 		nodes add: synth;
-		// postf ("after addding. NODES are now: %\n", nodes);
 	}
 
 	removeSynth { | synth |
 		// from FunctionSynthSource via Synth:onEnd
-		// postf ("%, %, REMOVING synth %\n", this,thisMethod.name, synth);
-
 		nodes remove: synth;
-		// postf ("synths are now: %\n", nodes);
 		if (nodes.size == 0) {
-			// postf ("removeSynth will notify stopped\n");
 			this.changed (\stopped);
 		};
 	}

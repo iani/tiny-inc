@@ -4,7 +4,9 @@ p = e.play;
 //:
 p.stream.event;
 //:
-p.addKeys ([dur: Pfunc ({ 0.1 exprand: 1})]);
+p.addKeys ([dur: Pfunc ({ 0.01 exprand: 0.51})]);
+//:
+p.addEvent ((degree: [0, 7, 14].prand, legato: 0.1));
 //:
 
 p.stream.event.degree = 1;
