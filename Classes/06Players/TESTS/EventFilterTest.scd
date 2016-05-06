@@ -14,3 +14,14 @@ p;
 p.inspect;
 //:
 p.stream.event;
+
+
+//:
+
+a = EventPattern ((degree: [0, 10].pwhite, dur: 1));
+b = a.asEventStreamPlayer;
+
+b.play;
+
+
+b.play;
