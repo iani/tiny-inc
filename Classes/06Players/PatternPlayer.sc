@@ -21,4 +21,31 @@ PatternPlayer {
 	}
 
 	isPlaying { ^player.isPlaying }
+
+	addFilterEvent { | inEvent, name = \player |
+		event.addFilterEvent (inEvent, name);
+		player.addFilterEvent (inEvent, name);
+	}
+	
+	addFilterFunc { | function, name = \player |
+		event.addFilterFunc (function, name);
+		player.addFilterEvent (function, name);
+	}
+
+	removeFilter { | name = \player |
+		event.removeFilter (name);
+		player.event.removeFilter (name);
+	}
+
+	addKeys { | keyValuePairs |
+		event.addKeys (keyValuePairs);
+		player.event.addKeys (keyValuePairs);
+	}
+
+	addEvent { | inEvent |
+		player addEvent: inEvent;
+		inEvent keysValuesDo: { | key value |
+			event [key] = value;
+		}
+	}
 }
