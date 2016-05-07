@@ -140,9 +140,9 @@ PatternTaskPlayer : TaskPlayer {
 	}
 
 	makeStream {
-		postf ("% doing % pattern is: %\n", this, thisMethod.name, pattern.pattern );
-		pattern.postln;
-		pattern.pattern.postln;
+		//		postf ("% doing % pattern is: %\n", this, thisMethod.name, pattern.pattern );
+		// pattern.postln;
+		// pattern.pattern.postln;
 		stream = pattern.asStream;
 	}
 

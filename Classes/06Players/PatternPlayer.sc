@@ -12,7 +12,7 @@ PatternPlayer {
 		player = EventPattern (event).asEventStreamPlayer;
 	}
 
-	play {
+	start {
 		if (player.isPlaying.not) { player.play }
 	}
 
@@ -22,6 +22,10 @@ PatternPlayer {
 
 	isPlaying { ^player.isPlaying }
 
+	addSource { | source |
+		^source.addSelfToPatternPlayer (this);
+	}
+	
 	addFilterEvent { | inEvent, name = \player |
 		event.addFilterEvent (inEvent, name);
 		player.addFilterEvent (inEvent, name);

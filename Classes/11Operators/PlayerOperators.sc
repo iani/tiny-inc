@@ -49,8 +49,8 @@
 }
 
 + Event {
-	asPlayer { | playername = \player |
-	   	^PatternTaskPlayer ().addPlayerFromEvent (this, playername);
+	asPlayer {
+	   	^PatternPlayer (this);
 	}
 
 	addToSelf { | taskPlayer, playerName = \player|
@@ -62,7 +62,6 @@
 		^taskPlayer;
 		*/
 		^taskPlayer.addPlayerFromEvent (this, playerName);
-		
 	}
 	
 	addToSynthLink { | synthLink, name |

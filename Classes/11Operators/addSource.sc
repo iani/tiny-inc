@@ -24,6 +24,11 @@ SynthPlayer and PatternTaskPlayer may have to return new object.
 	addSelfToTaskPlayer {
 		^SynthPlayer (this)
 	}
+
+	addSelfToPatternPlayer { | previousPlayer |
+		previousPlayer.stop; // always replace previous player with new synth
+		^SynthPlayer (this)
+	}
 }
 
 
@@ -32,34 +37,24 @@ SynthPlayer and PatternTaskPlayer may have to return new object.
 		//		^PatternTaskPlayer ().addPlayerFromEvent (this, name);
 	}
 
-	addSelfToSynthPlayer { | player, name = \player |
-		
-   		^PatternTaskPlayer ().addPlayerFromEvent (this, name);
+	addSelfToSynthPlayer { | previousPlayer |
+		previousPlayer.release; // replace synth with new pattern
+   		^PatternPlayer (this)
 		// ^
 	}
 
-	addSelfToTaskPlayer { | player name = \player |
-		[this, thisMethod.name].postln;
-		postf ("player % addPlayerFromEvent args: %, %\n", this, name);
-		^player.addPlayerFromEvent (this, name);
+	addSelfToPatternPlayer { | player name = \player |
+		//		[this, thisMethod.name].postln;
+		// postf ("player % addPlayerFromEvent args: %, %\n", this, name);
+		//		^player.addFilterEvent (this, name);
+		^player.addEvent (this);
 	}
 }
 
 + SynthPlayer {
  	addSource { | source, name = \player|
-		//		"!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!".postln;
-		// postf ("%, % isPlaying: %\n", this, thisMethod.name, this.isPlaying);
-		//"!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!".postln;
-		// "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!".postln;
-		// "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!".postln;
-		//		this.stopIfPlaying;
+		this.release;  // always release: new source replaces previous sound
 		^source.addSelfToSynthPlayer(this, name);	
 	}
 }
 
-+ PatternTaskPlayer {
-	addSource { | source, name = \player |
-		[this, thisMethod.name].postln;
-		^source.addSelfToTaskPlayer(this, name);	
-	}
-}
