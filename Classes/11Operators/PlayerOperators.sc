@@ -68,13 +68,20 @@
 		^synthLink.addEventAsTaskPlayerFilter(this, name);
 	}
 
-	+> { | linkName, playerName = \player |
+	+> { | linkName, playerName |
+		var synthLink;
 		[thisMethod.name, this, playerName].postln;
-		^SynthLink(linkName).addSource(this, playerName).start;	
-	}
-	
-	+>> { | linkName |
-		^SynthLink(linkName).addEventAsTaskPlayerSource(this).start;
+		if (playerName.isNil) {
+			^SynthLink(linkName).addSource(this).start;	
+		}{  // TODO: Make this a method of SynthLink
+			synthLink = SynthLink(linkName);
+			if (synthLink.player.isKindOf (PatternPlayer).not) {
+				synthLink.addSource (());
+			};
+			synthLink.player.addFilterEvent(this, playerName);
+			^synthLink.start;
+		};
+
 	}
 }
 

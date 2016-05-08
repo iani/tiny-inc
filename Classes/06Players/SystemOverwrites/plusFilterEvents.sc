@@ -28,7 +28,8 @@
 	addEvent { | inEvent |
 		var newStream, originalEvent, event;
 		originalEvent = originalStream.event;
-		event = stream.event;
+		if (stream.isNil) { event = () } { event = stream.event };
+		// event = stream.event;
 		inEvent keysValuesDo: { | key value |
 			newStream = value.asStream;
 			originalEvent [key] = newStream;

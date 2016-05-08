@@ -56,5 +56,9 @@ SynthPlayer and PatternTaskPlayer may have to return new object.
 		this.release;  // always release: new source replaces previous sound
 		^source.addSelfToSynthPlayer(this, name);	
 	}
+
+	addPatternFilter { | event, name |
+		
+	}
 }
 
