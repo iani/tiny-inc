@@ -3,21 +3,23 @@
 + EventStreamPlayer {
 
 	addFilterEvent { | event, name = \player |
-		stream.event.addFilterEvent (event, name)
+		// error if not already playing!
+		 stream.event.addFilterEvent (event, name)
+		
 	}
 	
 	addFilterFunc { | function, name = \player |
-		stream.event.addFilterFunc (function, name);
+		 stream.event.addFilterFunc (function, name);
 	}
 
 	removeFilter { | name = \player |
-		stream.event.removeFilter (name);
+		 stream.event.removeFilter (name);
 	}
 
 	addKeys { | keyValuePairs |
 		var newStream, originalEvent, event;
 		originalEvent = originalStream.event;
-		event = stream.event;
+			if (stream.isNil) { event = () } { event = stream.event };
 		keyValuePairs keysValuesDo: { | key value |
 			newStream = value.asStream;
 			originalEvent [key] = newStream;

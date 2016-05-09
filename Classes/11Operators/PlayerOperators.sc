@@ -69,17 +69,19 @@
 	}
 
 	+> { | linkName, playerName |
-		var synthLink;
+		// var synthLink;
 		[thisMethod.name, this, playerName].postln;
 		if (playerName.isNil) {
 			^SynthLink(linkName).addSource(this).start;	
 		}{  // TODO: Make this a method of SynthLink
-			synthLink = SynthLink(linkName);
+			^SynthLink (linkName).addFilterEvent (this, playerName).start;
+			/* synthLink = SynthLink(linkName);
 			if (synthLink.player.isKindOf (PatternPlayer).not) {
 				synthLink.addSource (());
 			};
 			synthLink.player.addFilterEvent(this, playerName);
 			^synthLink.start;
+			*/
 		};
 
 	}

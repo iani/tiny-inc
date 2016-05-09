@@ -207,10 +207,17 @@ SynthLink {
 
 	}
 	*/
-   
+
+	addFilterEvent { | event playerName |
+		if (player.isKindOf (PatternPlayer).not) {
+				this.addSource (());
+		};
+		player.addFilterEvent(event, playerName)
+	}
+
+	/*
 	addEventAsTaskPlayerSource { | event |
 		//	var isPlaying;
-		//isPlaying = this.isPlaying;
 		if (player isKindOf: PatternTaskPlayer) {
 			postf ("% doing % will add to existing PatternTaskPlayer\n", this, thisMethod.name);
 			player.pattern = event;
@@ -218,8 +225,6 @@ SynthLink {
 			postf ("% doing % will create new PatternTaskPlayer\n", this, thisMethod.name);
 			player = event.asPlayer;
 		};
-
-		//postf ("% doing % monitoring: isPlaying? %\n", this, thisMethod.name, isPlaying);
 	}
-
+	*/
 }

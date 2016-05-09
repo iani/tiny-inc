@@ -27,8 +27,18 @@ PatternPlayer {
 	}
 	
 	addFilterEvent { | inEvent, name = \player |
-		event.addFilterEvent (inEvent, name);
-		player.addFilterEvent (inEvent, name);
+		postf ("% addFilterEvent % %\n",this, inEvent, name);
+		if (player.isPlaying){
+			event.addFilterEvent (inEvent, name);
+			player.addFilterEvent (inEvent, name)
+		}{
+			postf ("the player is: %").postln;
+			player addDependant: { | ... args | args.postln };
+			player.addNotifierOneShot (inEvent, \playing, {
+				postf ("% STARTED!!!!: addFilterEvent % %\n",this, inEvent, name);
+				this.addFilterEvent (inEvent, name);
+			})
+		};
 	}
 	
 	addFilterFunc { | function, name = \player |

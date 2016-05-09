@@ -1,4 +1,4 @@
-(degree: [0, 2].prand) +> \test;
+(degree: [0, 2].prand) +>.one \test;
 
 //:
 (degree: [0, 2]) +> \test;
@@ -8,3 +8,17 @@
 PatternPlayer ((degree: [0, 2])).start;
 
 \test.asSynthLink.player.player.stream;
+
+//:
+
+EventPattern(()).asEventStreamPlayer.inspect;
+
+
+EventPattern(()).asStream;
+
+//:
+a = SynthLink ().addSource (());
+//:
+a.player.player addDependant: { | ... args | args.postln; };
+//:
+a.start;
