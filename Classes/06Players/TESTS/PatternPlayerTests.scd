@@ -1,4 +1,4 @@
-(degree: [0, 2].prand) +>.one \test;
+(degree: [ (-10..-3) + [0, 5, 4].pwhite, 0, 2].prand) +>.one \test;
 
 //:
 (degree: [0, 2]) +> \test;
@@ -22,3 +22,12 @@ a = SynthLink ().addSource (());
 a.player.player addDependant: { | ... args | args.postln; };
 //:
 a.start;
+//:
+
+
+p = EventPattern(()).asEventStreamPlayer;
+//:
+p.start;
+//:
+p.stop;
+//:

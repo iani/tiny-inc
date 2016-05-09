@@ -27,39 +27,59 @@ PatternPlayer {
 	}
 	
 	addFilterEvent { | inEvent, name = \player |
-		postf ("% addFilterEvent % %\n",this, inEvent, name);
 		if (player.isPlaying){
 			event.addFilterEvent (inEvent, name);
 			player.addFilterEvent (inEvent, name)
 		}{
-			postf ("the player is: %").postln;
-			player addDependant: { | ... args | args.postln };
-			player.addNotifierOneShot (inEvent, \playing, {
-				postf ("% STARTED!!!!: addFilterEvent % %\n",this, inEvent, name);
+			inEvent.addNotifierOneShot (player, \playing, {
 				this.addFilterEvent (inEvent, name);
 			})
-		};
+		}
 	}
 	
 	addFilterFunc { | function, name = \player |
-		event.addFilterFunc (function, name);
-		player.addFilterEvent (function, name);
+		if (player.isPlaying) {
+			event.addFilterFunc (function, name);
+			player.addFilterEvent (function, name)
+		}{
+			function.addNotifierOneShot (player, \playing, {
+				this.addFilterFunc (function, name);
+			})
+		}
 	}
 
 	removeFilter { | name = \player |
+		if (player.isPlaying) {
 		event.removeFilter (name);
-		player.event.removeFilter (name);
+			player.event.removeFilter (name)
+		}{
+			name.addNotifierOneShot (player, \playing, {
+				this.removeFilter (name);
+			})
+		}
 	}
 
 	addKeys { | keyValuePairs |
-		event.addKeys (keyValuePairs);
-		player.event.addKeys (keyValuePairs);
+		if (player.isPlaying) {
+			event.addKeys (keyValuePairs);
+			player.event.addKeys (keyValuePairs)
+		}{
+			keyValuePairs.addNotifierOneShot (player, \playing, {
+				this.addKeys (keyValuePairs);
+			})
+		};
 	}
 
 	addEvent { | inEvent |
-		player addEvent: inEvent;
-		inEvent keysValuesDo: { | key value |
-			event [key] = value;
+		if (player.isPlaying) {
+			player addEvent: inEvent;
+			inEvent keysValuesDo: { | key value |
+				event [key] = value;
+			}
+		}{
+			inEvent.addNotifierOneShot (player, \playing, {
+				this.addEvent (inEvent);
+			})
 		}
 	}
 }
