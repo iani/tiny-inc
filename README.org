@@ -361,7 +361,6 @@ Possibly:
 To watch: 
 
 player pattern should copy 
-
 ** STARTED SynthLink +>> notes
 :PROPERTIES:
 :DATE:     <2016-05-02 Mon 17:28>
@@ -372,3 +371,9 @@ To watch:
 
 How exactly is the EventPlayer produced, and where, in the chain of method calls, when the TaskPatternPlayer is produced.
 
+** TODO UGen + SynthDef Shortcuts
+
+- duh
+- duuh
+- out ?
+- makeDef
