@@ -1,10 +1,18 @@
  #+TODO: TODO(t) STARTED(s@/!) | DONE(d!) CANCELED(c@)
+#+LATEX_HEADER: \usepackage[AUTO]{inputenc}
+#+LATEX_HEADER: \setmainfont{Times}
 
 Incremental redo of [[https://github.com/iani/tiny-sc][tiny-sc]].
 
 Started on [2016-01-28 Thu 00:09]
 
 * Roadmap
+
+Greek
+
+Ελληνικά
+
+Greek
 
 ** DONE Make an object listen to notifications from another object
 CLOSED: [2016-01-28 Thu 07:42]
