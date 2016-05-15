@@ -20,15 +20,17 @@
 		
 	}
 
-	duho { // TODO: add args
-		^this.duh.out;
+	duho { | gateName = \gate gateValue = 1 fadeTimeName = \fadeTime fadeTimeValue = 0.02 outName = \out outValue = 0 | 
+		^this.duh (gateName, gateValue, fadeTimeName, fadeTimeValue)
+		.out (outName, outValue);
 	}
 
-	duuh { | posName = \pos posValue = 0 |
-		^Pan2.ar (this, posName.kr (posValue)).duh
+	duuh { | gateName = \gate gateValue = 1 fadeTimeName = \fadeTime fadeTimeValue = 0.02 posName = \pos posValue = 0 |
+		^Pan2.ar (this, posName.kr (posValue)).duh (gateName, gateValue, fadeTimeName, fadeTimeValue)
 	}
 
-	duuho { // TODO: Add args
-		^this.duuh.out;
+	duuho { | gateName = \gate gateValue = 1 fadeTimeName = \fadeTime fadeTimeValue = 0.02 posName = \pos posValue = 0 outName = \out outValue = 0 |
+		// TODO: Add args
+		^this.duuh (gateName, gateValue, fadeTimeName, fadeTimeValue).out (outName, outValue);
 	}
 }
