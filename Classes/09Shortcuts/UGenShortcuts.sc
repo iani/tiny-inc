@@ -34,3 +34,9 @@
 		^this.duuh (gateName, gateValue, fadeTimeName, fadeTimeValue).out (outName, outValue);
 	}
 }
+
++ Symbol {
+	def { | function |
+		^SynthDef (this, function).add
+	}
+}
