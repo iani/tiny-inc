@@ -139,6 +139,7 @@ SynthPlayer : SimpleSynthPlayer {
 
 	release { | dur = 0.1 |
 		//		process !? { process release: dur }
+		nodes do: _.release (dur);
 	}
 
 	makePlayerFor { ^this }
