@@ -1,11 +1,11 @@
 
 
 
-{ WhiteNoise.ar (0.9 ).dup } +> \test;
+{ WhiteNoise.ar (0.1 ).dup } +> \test;
 
-{ GrayNoise.ar (0.9 ).dup } +> \test;
+{ GrayNoise.ar (0.1 ).dup } +> \test;
 
-{ SinOsc.ar (2400, 0, 0.9 ).dup } +> \test;
+{ SinOsc.ar (2400, 0, 0.1 ).dup } +> \test;
 
 
 () +> \test;
@@ -24,4 +24,3 @@
 
 (degree: nil) +> \test2;
 
-SynthLink

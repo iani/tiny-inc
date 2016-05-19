@@ -28,11 +28,14 @@ AbstractPlayer {
 
 	prStop {
 	 	nodes do: _.release;
+		this.resetNodes;
 		// this.postln;
 		//		"on purpose".blablablabla;
 		// "method prStop is not implemented".postln;
 		//	process.stop
 	}
+
+	resetNodes { nodes = Set () }
 	
 	isPlaying {
 		//	"testing method isPlaying. looking at Nodes size which is the test.".postln;
@@ -140,6 +143,7 @@ SynthPlayer : SimpleSynthPlayer {
 	release { | dur = 0.1 |
 		//		process !? { process release: dur }
 		nodes do: _.release (dur);
+		this.resetNodes;
 	}
 
 	makePlayerFor { ^this }
