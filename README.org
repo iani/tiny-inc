@@ -8,12 +8,6 @@ Started on [2016-01-28 Thu 00:09]
 
 * Roadmap
 
-Greek
-
-Ελληνικά
-
-Greek
-
 ** DONE Make an object listen to notifications from another object
 CLOSED: [2016-01-28 Thu 07:42]
 
@@ -385,3 +379,16 @@ How exactly is the EventPlayer produced, and where, in the chain of method calls
 - duuh
 - out ?
 - makeDef
+
+* Documentation
+:PROPERTIES:
+:DATE:     <2016-05-20 Fri 09:53>
+:END:
+
+** Player classes
+:PROPERTIES:
+:DATE:     <2016-05-20 Fri 09:53>
+:END:
+
+SynthPlayer
+PatternPlayer
