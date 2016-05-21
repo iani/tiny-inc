@@ -12,7 +12,10 @@ PatternPlayer {
 		player = EventPattern (event).asEventStreamPlayer;
 	}
 
-	start {
+	start { | args, target, action |
+		args !? { this.addKeys (args) };
+		target !? { this.addKeys ([\target, target]) };
+		action !? { this.addKeys ([\action, acton]) };
 		if (player.isPlaying.not) { player.play }
 	}
 

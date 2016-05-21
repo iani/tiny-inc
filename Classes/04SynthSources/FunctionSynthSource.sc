@@ -63,7 +63,7 @@ FunctionSynthSource : SynthDefSource {
 				^synth; // if waiting for synthdef, return previous synth
 			}
 		}{
-			^this.makeSynthActions (Synth(defName, args, target.asTarget, action), player);
+			^this.makeSynthActions (Synth(defName, args, target, action), player);
 		}
 	}
 
