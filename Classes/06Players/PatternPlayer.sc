@@ -15,7 +15,7 @@ PatternPlayer {
 	start { | args, target, action |
 		args !? { this.addKeys (args) };
 		target !? { this.addKeys ([\target, target]) };
-		action !? { this.addKeys ([\action, acton]) };
+		action !? { this.addKeys ([\action, action]) };
 		if (player.isPlaying.not) { player.play }
 	}
 
