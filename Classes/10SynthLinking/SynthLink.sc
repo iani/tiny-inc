@@ -142,9 +142,15 @@ SynthLink {
 	}
 
 	// ================ INPUTS AND OUTPUTS ================
-
+	// utility for testing groups:
+	target_ { | target |
+		group = target.asTarget;
+	}
 
 	// ================ GROUPS ================
+
+
+	
 
 	getGroup {
 		if (inputs.size == 0 and: { outputs.size == 0 }) {

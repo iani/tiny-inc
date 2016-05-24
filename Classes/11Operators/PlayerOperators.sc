@@ -35,6 +35,14 @@
 	asPlayer {
 		^SynthPlayer (SynthDefSource (this))
 	}
+
+	set { | ... args |
+		^SynthLink (this).set (args);
+	}
+
+	target_ { | target |
+		^SynthLink (this).target = target;
+	}
 }
 
 + Function {
