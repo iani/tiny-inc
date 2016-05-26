@@ -393,4 +393,4 @@ How exactly is the EventPlayer produced, and where, in the chain of method calls
 SynthPlayer
 PatternPlayer
 
-test
+
