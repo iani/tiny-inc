@@ -202,7 +202,10 @@ SynthLink {
 	}
 
 	//================ ARGUMENTS ================
- 
+	set { | param, value |
+
+	}
+	
 	getArgs {
 		
 	}

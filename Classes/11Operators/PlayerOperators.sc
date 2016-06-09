@@ -1,17 +1,17 @@
-+ Object {
-	+> { | linkName playerName = \player |
-		/*
-		var lp;
-		lp = linkName.asSynthLink;
-		lp.addSource(this, playerName);
-		// .player_ (this.asPlayer(playerName)).start
-		// [this, thisMethod.name, lp, lp.isPlaying].postln;
-		//	 	[ "lp.player.process", lp.player.process].postln;
-		//if (lp.isPlaying.not) { lp.start };
-		lp.start;
-		^lp;
-		*/
-		^linkName.asSynthLink.addSource (this, playerName).start
++ SimpleNumber {
+	+> { | linkName param = \amp |
+		^linkName.asSynthLink.set(param, this).start
+	}
+}
+
++ Array {
+	+> { | linkName |
+		var synthLink;
+		synthLink = SynthLink (linkName.asSymbol);
+		this.keysValuesDo ({ | key, value |
+			synthLink.set (key, value);
+		});
+		^synthLink;
 	}
 }
 
@@ -46,6 +46,10 @@
 }
 
 + Function {
+	+> { | linkName playerName = \player |
+		^linkName.asSynthLink.addSource (this, playerName).start
+	}
+
 	asPlayer {
 		^SynthPlayer (this);
 		// ^synthplayer (functionsynthsource (this))
