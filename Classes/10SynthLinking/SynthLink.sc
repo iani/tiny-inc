@@ -203,7 +203,9 @@ SynthLink {
 
 	//================ ARGUMENTS ================
 	set { | param, value |
-
+		
+		//		player.nodes.asArray.first.set (param, value);
+		player.set (param, value);
 	}
 	
 	getArgs {

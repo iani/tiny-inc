@@ -36,8 +36,8 @@
 		^SynthPlayer (SynthDefSource (this))
 	}
 
-	set { | ... args |
-		^SynthLink (this).set (args);
+	set { | param value |
+		^SynthLink (this).set (param, value);
 	}
 
 	target_ { | target |

@@ -49,7 +49,7 @@ AbstractPlayer {
 }
 
 SimpleSynthPlayer : AbstractPlayer {
-	var <processes, <nodes;
+	var <processes; //  <nodes;
 	addNode { | argNode |
 		//		NodeWatcher.register(argNode);
 		//  Release previous node if playing,
@@ -126,6 +126,16 @@ SimpleSynthPlayer : AbstractPlayer {
 	addListener { | listener, onStart, onEnd |
 		listener.addNotifier(this, \started, onStart);
 		listener.addNotifier(this, \stopped, onEnd)
+	}
+
+	set { | param, value |
+		nodes do: _.set (param, value);
+		/*
+		nodes do: { | node |
+			[node, param, val].postln;
+			node.set (param, val);
+		}
+		*/
 	}
 }
 
