@@ -6,6 +6,21 @@ Incremental redo of [[https://github.com/iani/tiny-sc][tiny-sc]].
 
 Started on [2016-01-28 Thu 00:09]
 
+* Documentation
+:PROPERTIES:
+:DATE:     <2016-05-20 Fri 09:53>
+:END:
+
+
+
+** Player classes
+:PROPERTIES:
+:DATE:     <2016-05-20 Fri 09:53>
+:END:
+
+SynthPlayer
+PatternPlayer
+
 * Roadmap
 
 ** DONE Make an object listen to notifications from another object
@@ -279,7 +294,7 @@ Structure of SynthLink:
    - =>>= :: ...
    - =!>>= :: ...
 4. Linking SynthLinks
-   - =@>= :: ...
+   - =@>= :: ...b・・・
    - =<@= :: ...
    - =@= :: ...
 
@@ -379,18 +394,5 @@ How exactly is the EventPlayer produced, and where, in the chain of method calls
 - duuh
 - out ?
 - makeDef
-
-* Documentation
-:PROPERTIES:
-:DATE:     <2016-05-20 Fri 09:53>
-:END:
-
-** Player classes
-:PROPERTIES:
-:DATE:     <2016-05-20 Fri 09:53>
-:END:
-
-SynthPlayer
-PatternPlayer
 
 

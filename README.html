@@ -1,0 +1,795 @@
+<!doctype html>
+<html lang="en">
+<head>
+<title>README</title>
+<!-- 2016-08-05 Fri 18:14 -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="generator" content="Org-mode">
+<meta name="author" content="IOANNIS ZANNOS">
+
+<link  href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<style type="text/css">
+/* org mode styles on top of twbs */
+
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    font-size: 18px;
+    margin-bottom: 105px;
+}
+
+footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 101px;
+    background-color: #f5f5f5;
+}
+
+footer > div {
+    padding: 10px;
+}
+
+footer p {
+    margin: 0 0 5px;
+    text-align: center;
+    font-size: 16px;
+}
+
+#table-of-contents {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+blockquote p {
+    font-size: 18px;
+}
+
+pre {
+    font-size: 16px;
+}
+
+.footpara {
+    display: inline-block;
+}
+
+figcaption {
+  font-size: 16px;
+  color: #666;
+  font-style: italic;
+  padding-bottom: 15px;
+}
+
+/* from twbs docs */
+
+.bs-docs-sidebar.affix {
+    position: static;
+}
+@media (min-width: 768px) {
+    .bs-docs-sidebar {
+        padding-left: 20px;
+    }
+}
+
+/* All levels of nav */
+.bs-docs-sidebar .nav > li > a {
+    display: block;
+    padding: 4px 20px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #999;
+}
+.bs-docs-sidebar .nav > li > a:hover,
+.bs-docs-sidebar .nav > li > a:focus {
+    padding-left: 19px;
+    color: #A1283B;
+    text-decoration: none;
+    background-color: transparent;
+    border-left: 1px solid #A1283B;
+}
+.bs-docs-sidebar .nav > .active > a,
+.bs-docs-sidebar .nav > .active:hover > a,
+.bs-docs-sidebar .nav > .active:focus > a {
+    padding-left: 18px;
+    font-weight: bold;
+    color: #A1283B;
+    background-color: transparent;
+    border-left: 2px solid #A1283B;
+}
+
+/* Nav: second level (shown on .active) */
+.bs-docs-sidebar .nav .nav {
+    display: none; /* Hide by default, but at >768px, show it */
+    padding-bottom: 10px;
+}
+.bs-docs-sidebar .nav .nav > li > a {
+    padding-top: 1px;
+    padding-bottom: 1px;
+    padding-left: 30px;
+    font-size: 12px;
+    font-weight: normal;
+}
+.bs-docs-sidebar .nav .nav > li > a:hover,
+.bs-docs-sidebar .nav .nav > li > a:focus {
+    padding-left: 29px;
+}
+.bs-docs-sidebar .nav .nav > .active > a,
+.bs-docs-sidebar .nav .nav > .active:hover > a,
+.bs-docs-sidebar .nav .nav > .active:focus > a {
+    padding-left: 28px;
+    font-weight: 500;
+}
+
+/* Nav: third level (shown on .active) */
+.bs-docs-sidebar .nav .nav .nav {
+    padding-bottom: 10px;
+}
+.bs-docs-sidebar .nav .nav .nav > li > a {
+    padding-top: 1px;
+    padding-bottom: 1px;
+    padding-left: 40px;
+    font-size: 12px;
+    font-weight: normal;
+}
+.bs-docs-sidebar .nav .nav .nav > li > a:hover,
+.bs-docs-sidebar .nav .nav .nav > li > a:focus {
+    padding-left: 39px;
+}
+.bs-docs-sidebar .nav .nav .nav > .active > a,
+.bs-docs-sidebar .nav .nav .nav > .active:hover > a,
+.bs-docs-sidebar .nav .nav .nav > .active:focus > a {
+    padding-left: 38px;
+    font-weight: 500;
+}
+
+/* Show and affix the side nav when space allows it */
+@media (min-width: 992px) {
+    .bs-docs-sidebar .nav > .active > ul {
+        display: block;
+    }
+    /* Widen the fixed sidebar */
+    .bs-docs-sidebar.affix,
+    .bs-docs-sidebar.affix-bottom {
+        width: 213px;
+    }
+    .bs-docs-sidebar.affix {
+        position: fixed; /* Undo the static from mobile first approach */
+        top: 20px;
+    }
+    .bs-docs-sidebar.affix-bottom {
+        position: absolute; /* Undo the static from mobile first approach */
+    }
+    .bs-docs-sidebar.affix .bs-docs-sidenav,.bs-docs-sidebar.affix-bottom .bs-docs-sidenav {
+        margin-top: 0;
+        margin-bottom: 0
+    }
+}
+@media (min-width: 1200px) {
+    /* Widen the fixed sidebar again */
+    .bs-docs-sidebar.affix-bottom,
+    .bs-docs-sidebar.affix {
+        width: 263px;
+    }
+}
+</style>
+<script type="text/javascript">
+$(function() {
+    'use strict';
+
+    $('.bs-docs-sidebar li').first().addClass('active');
+
+    $(document.body).scrollspy({target: '.bs-docs-sidebar'});
+
+    $('.bs-docs-sidebar').affix();
+});
+</script>
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  displayAlign: "center",
+  displayIndent: "2em",
+  messageStyle: "none",
+  "HTML-CSS": {
+    scale: 100,
+    styles: {
+      ".MathJax_Display": {
+        "font-size": "100%"
+      }
+    }
+  },
+  "SVG": {
+    scale: 100,
+    styles: {
+      ".MathJax_SVG_Display": {
+        "font-size": "100%",
+        "margin-left": "-2.281em"
+      }
+    }
+  }
+});
+</script>
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_SVG"></script>
+</head>
+<body>
+<div id="content" class="container">
+<div class="row"><div class="col-md-9"><h1 class="title">README</h1>
+<p>
+Incremental redo of <a href="https://github.com/iani/tiny-sc">tiny-sc</a>.
+</p>
+
+<p>
+Started on <span class="timestamp-wrapper"><span class="timestamp">[2016-01-28 Thu 00:09]</span></span>
+</p>
+
+<div id="outline-container-sec-1" class="outline-2">
+<h2 id="sec-1"><span class="section-number-2">1</span> Documentation</h2>
+<div class="outline-text-2" id="text-1">
+</div>
+
+
+
+<div id="outline-container-sec-1-1" class="outline-3">
+<h3 id="sec-1-1"><span class="section-number-3">1.1</span> Player classes</h3>
+<div class="outline-text-3" id="text-1-1">
+
+<p>
+SynthPlayer
+PatternPlayer
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-2" class="outline-2">
+<h2 id="sec-2"><span class="section-number-2">2</span> Roadmap</h2>
+<div class="outline-text-2" id="text-2">
+</div><div id="outline-container-sec-2-1" class="outline-3">
+<h3 id="sec-2-1"><span class="section-number-3">2.1</span> <span class="label label-default DONE">DONE</span> Make an object listen to notifications from another object</h3>
+<div class="outline-text-3" id="text-2-1">
+<p>
+Notification class.
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-2-2" class="outline-3">
+<h3 id="sec-2-2"><span class="section-number-3">2.2</span> <span class="label label-default DONE">DONE</span> Real Server Watcher, that tells when system resumes from sleep</h3>
+<div class="outline-text-3" id="text-2-2">
+</div>
+</div>
+
+<div id="outline-container-sec-2-3" class="outline-3">
+<h3 id="sec-2-3"><span class="section-number-3">2.3</span> <span class="label label-default DONE">DONE</span> Notify an object when a synth starts / ends</h3>
+<div class="outline-text-3" id="text-2-3">
+<p>
+Methods Node:onStart, Node:onEnd.
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-2-4" class="outline-3">
+<h3 id="sec-2-4"><span class="section-number-3">2.4</span> <span class="label label-default DONE">DONE</span> Hold a node, monitor if it runs, replace with other node on request, notify when it starts and stops running</h3>
+<div class="outline-text-3" id="text-2-4">
+<p>
+Class <code>SimpleSynthPlayer</code>
+</p>
+</div>
+
+<div id="outline-container-sec-2-4-1" class="outline-4">
+<h4 id="sec-2-4-1"><span class="section-number-4">2.4.1</span> <span class="label label-default DONE">DONE</span> Do not notify end when a new synth is started to replace a previous one</h4>
+<div class="outline-text-4" id="text-2-4-1">
+<p>
+Done in class SimpleSynthPlayer.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-sclang">addNode { | argNode |
+    NodeWatcher.register(argNode);
+    //  Release previous node if playing,
+    //  but prevent that node from triggering a stopped notification when it ends.
+    if (this.isPlaying) {
+        node.releaseDependants; // do not notify when you end: next node is on the way
+        this.prStop;
+        argNode addDependant: { | changer, message |
+            switch (message,
+                // do not notify when started
+                // \n_go, { this.changed(\started) },
+                \n_end, {
+                    node = nil;
+                    this.changed(\stopped);                 
+                }
+            );
+        }
+    }{
+        argNode addDependant: { | changer, message |
+            switch (message,
+                \n_go, { this.changed(\started) },
+                \n_end, {
+                    node = nil;
+                    this.changed(\stopped);                 
+                }
+            );
+        }
+    };
+    node = argNode;
+}
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-2-4-2" class="outline-4">
+<h4 id="sec-2-4-2"><span class="section-number-4">2.4.2</span> <span class="label label-default DONE">DONE</span> Examples with GUI buttons to start/stop a synth</h4>
+<div class="outline-text-4" id="text-2-4-2">
+<p>
+See file 
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-2-5" class="outline-3">
+<h3 id="sec-2-5"><span class="section-number-3">2.5</span> <span class="label label-default DONE">DONE</span> Store the source for starting a node</h3>
+<div class="outline-text-3" id="text-2-5">
+</div>
+
+<div id="outline-container-sec-2-5-1" class="outline-4">
+<h4 id="sec-2-5-1"><span class="section-number-4">2.5.1</span> SynthPlayer</h4>
+</div>
+
+<div id="outline-container-sec-2-5-2" class="outline-4">
+<h4 id="sec-2-5-2"><span class="section-number-4">2.5.2</span> FunctionSynthSource</h4>
+<div class="outline-text-4" id="text-2-5-2">
+<p>
+Stores a Function that is the source for creating Synths.  It substitutes <code>{ }.play</code> by a mechanism that caches the SynthDef created from the function, so that any new Synths from the same Function can be created by <code>Synth("defName")</code>.  This is much more efficient than compiling the SynthDef from the Function and sending it to the Server each time that a new Synth is created. 
+</p>
+
+<p>
+Behavior: 
+</p>
+</div>
+
+<ol class="org-ol"><li><a id="sec-2-5-2-1" name="sec-2-5-2-1"></a>message <code>play</code><br ><div class="outline-text-5" id="text-2-5-2-1">
+<p>
+When receiving the message <code>play</code>, the FunctionSynthSource creates a Synth and returns it immediately.  If the SynthDef from the Function stored in the FunctionSynthSource is already loaded in the server, then the Synth is created in the usual manner, with the <code>Synth("defName")</code>.  If however the Function is not yet loaded, the Synth is created with <code>Synth.basicNew</code> and the actual Synth instance on the scserver is created as soon as the SynthDef is loaded.
+</p>
+
+<p>
+When a FunctionSynthSource is created, it adds the given Function - or a default - as SynthDef, and sends it to the Server.
+</p>
+
+<p>
+Upon sending a SynthDef to the server, the FunctionSynthSource sets its waiting_for_def flag to true.
+</p>
+
+<p>
+The algorithm for the method <code>play</code> is as follows: 
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-sclang">if (waiting_for_def) {
+    ^node ?? {
+        node = Synth.basicNew(defName, server);
+    }
+}{
+    ^Synth(defName, *args);
+}
+</pre>
+</div>
+
+<p>
+<code>loadAndPlayMethod</code> is one of the following: 
+</p>
+</div>
+
+<ol class="org-ol"><li><a id="sec-2-5-2-1-1" name="sec-2-5-2-1-1"></a>sendDef2Server<br ></li>
+
+
+
+<li><a id="sec-2-5-2-1-2" name="sec-2-5-2-1-2"></a>waitForServer2Load<br ></li></ol>
+</li>
+
+<li><a id="sec-2-5-2-2" name="sec-2-5-2-2"></a>message <code>source_</code><br ><div class="outline-text-5" id="text-2-5-2-2">
+<ol class="org-ol">
+<li>Set the
+</li>
+</ol>
+</div>
+</li>
+
+<li><a id="sec-2-5-2-3" name="sec-2-5-2-3"></a>tests<br ><div class="outline-text-5" id="text-2-5-2-3">
+
+<div class="org-src-container">
+
+<pre class="src src-sclang">f = FuncNodeSource.new;
+f.play;
+</pre>
+</div>
+</div>
+</li></ol>
+</div>
+</div>
+
+<div id="outline-container-sec-2-6" class="outline-3">
+<h3 id="sec-2-6"><span class="section-number-3">2.6</span> <span class="label label-default DONE">DONE</span> Unique objects - created only if not found under a key</h3>
+<div class="outline-text-3" id="text-2-6">
+<p>
+See <code>Registry</code> class.
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-2-7" class="outline-3">
+<h3 id="sec-2-7"><span class="section-number-3">2.7</span> STARTED Designing TaskPlayer</h3>
+<div class="outline-text-3" id="text-2-7">
+</div>
+
+<div id="outline-container-sec-2-7-1" class="outline-4">
+<h4 id="sec-2-7-1"><span class="section-number-4">2.7.1</span> Approach 1: Use the same archtecture and approach as for SynthPlayer, involving a TaskSource.</h4>
+</div>
+</div>
+
+<div id="outline-container-sec-2-8" class="outline-3">
+<h3 id="sec-2-8"><span class="section-number-3">2.8</span> STARTED Synth and Task Bus I/O linking mechanism</h3>
+<div class="outline-text-3" id="text-2-8">
+
+<div class="org-src-container">
+
+<pre class="src src-sclang">\writer @&gt; \reader; // move output of writer to input of reader
+\writer &lt;@ \reader; // move input of reader to output of writer
+// operator specifies output, adverb specifies input:
+\writer@\out1 @&gt;.in2 \reader; // specify output/input params out1 and in2
+</pre>
+</div>
+
+<p>
+Possible extra operators:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-sclang">\writer @+ \reader; // branch output of writer to reader with i/o copy synth
+\writer +@ \reader; // branch to input of reader with i/o copy synth
+</pre>
+</div>
+
+
+<p>
+<code>\writer</code> and <code>\reader</code> are unique group/rank and input/output bus holders accessible through their symbols. They can store a SynthPlayer or a TaskPlayer - interchangeably. Class: <code>SynthLink</code>
+</p>
+
+
+
+<p>
+Structure of SynthLink: 
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-sclang">SynthLink {
+    var &lt;server;
+    var &lt;rank = 0; // smaller numbers mean earlier synth order
+    var &lt;group;  // the actual group. Used as target for player.
+    var &lt;inputs; // Dictionary of Inputs (param: input, param2: input)
+    var &lt;outputs; // Dictionary of Outputs
+    var &lt;player; // SynthPlayer, TaskPlayer, or similar/compatible object
+
+    getGroup {
+        if (inputs.isNil and: { outputs.isNil }) {
+            rank = 0
+        }{
+            rank = this.allWriters.collect(_.rank).maxItem + 1;
+            this.moveToGroup;
+        };
+
+    }
+
+    moveToGroup {
+        this.readers do: _.moveAfter(rank);
+        this.setGroup;
+    }
+
+    moveAfter { | argRank |
+        if (rank &lt;= argRank) {
+            rank = argRank + 1;
+            this.moveToGroup;
+        }
+    }
+
+    setGroup {
+        group = PlayerGroup(server, rank);
+        player !? { player.target = group };
+    }
+
+    getArgs {
+
+    }
+}
+
+Input {
+    var &lt;parameter; // name of input parameter
+    var &lt;bus;
+    var &lt;readerNode; // the SynthLink that has this input
+    var &lt;writers;   // set of Outputs that write to this input
+}
+
+Output {
+    var &lt;parameter; // name of input parameter
+    var &lt;bus;
+    var &lt;writerNode; // the SynthLink that has this output
+    var &lt;readers;   // set of Inputs that read from this output
+}
+
+PlayerGroup {
+    var &lt;server, &lt;groups;
+    *new { | server, rank = 0 |
+        ^Registry(this, server, { this.newCopyArgs(server, []) })
+        .getGroup(rank);
+    };
+
+    getGroup { | rank |
+        var root;
+        root = server.rootNode;
+        rank - groups.size + 1 max: 0 do: {
+            groups = groups add: Group.tail(root);
+        };
+        ^groups[rank];
+    }
+}
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-2-9" class="outline-3">
+<h3 id="sec-2-9"><span class="section-number-3">2.9</span> STARTED operator syntax</h3>
+<div class="outline-text-3" id="text-2-9">
+</div>
+
+<div id="outline-container-sec-2-9-1" class="outline-4">
+<h4 id="sec-2-9-1"><span class="section-number-4">2.9.1</span> Operator overview</h4>
+<div class="outline-text-4" id="text-2-9-1">
+<ol class="org-ol">
+<li>Playing
+<dl class="org-dl">
+<dt> <code>+&gt;</code> </dt><dd>Start playing something in a SynthLink.
+Note:  If the first (left) operand is an event, it adds or sets the EventPattern of an EventPlayer that is attached to the TaskPlayer as player. The default name of the player is <code>player</code>.  Another name is used if it is provided as adverb to the <code>+&gt;</code> operator. 
+</dd>
+<dt> <code>+&gt;&gt;</code> </dt><dd>Set the pattern of the TaskPlayer in the SynthLink, and start. Do not add any EventPlayer to the TaskPlayer.
+</dd>
+</dl>
+</li>
+<li>Modifying args
+For TaskPlayer, these modify the EventStream of the default EventPlayer or the player specified in the adverb to the operator.
+<dl class="org-dl">
+<dt> <code>%&gt;</code> </dt><dd>Add args to event or arg-array
+</dd>
+<dt> <code>!%&gt;</code> </dt><dd>Replace event or arg-array
+</dd>
+</dl>
+</li>
+<li>Modifying pattern of the TaskPlayer
+These modify the pattern and stream of the TaskPlayer, not of any EventPlayer.
+<dl class="org-dl">
+<dt> <code>&gt;&gt;</code> </dt><dd>&#x2026;
+</dd>
+<dt> <code>!&gt;&gt;</code> </dt><dd>&#x2026;
+</dd>
+</dl>
+</li>
+<li>Linking SynthLinks
+<dl class="org-dl">
+<dt> <code>@&gt;</code> </dt><dd>&#x2026;b・・・
+</dd>
+<dt> <code>&lt;@</code> </dt><dd>&#x2026;
+</dd>
+<dt> <code>@</code> </dt><dd>&#x2026;
+</dd>
+</dl>
+</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-sec-2-9-2" class="outline-4">
+<h4 id="sec-2-9-2"><span class="section-number-4">2.9.2</span> Details</h4>
+<div class="outline-text-4" id="text-2-9-2">
+</div><ol class="org-ol"><li><a id="sec-2-9-2-1" name="sec-2-9-2-1"></a><code>+&gt;</code> : Set source of SynthLink and play.<br ><div class="outline-text-5" id="text-2-9-2-1">
+<p>
+Play function into SynthPlayer - in SynthLink: 
+</p>
+<pre class="example">
+{ } +&gt; \symbol 
+</pre>
+
+<p>
+Play named and loaded SynthDef into SynthPlayer - in SynthLink: 
+</p>
+<pre class="example">
+\default +&gt; \symbol
+</pre>
+
+<p>
+Play Event into TaskPlayer - in SynthLink:
+</p>
+<pre class="example">
+( ) +&gt; \symbol // Plays through default EventPlayer as TaskPlayer-player
+( ) +&gt; \symbol // Plays through default EventPlayer as TaskPlayer-player
+</pre>
+
+<p>
+Possibly: 
+</p>
+
+<dl class="org-dl">
+<dt> <code>number +&gt; \symbol</code> </dt><dd>use number as duration to start TaskPlayer in SynthLink
+</dd>
+<dt> <code>pattern +&gt; \symbol</code> </dt><dd>use pattern as duration to start TaskPlayer in SynthLink
+</dd>
+</dl>
+</div>
+</li>
+
+<li><a id="sec-2-9-2-2" name="sec-2-9-2-2"></a><code>%&gt;</code> : change args in SynthLink, and send them to player - without restarting<br ><div class="outline-text-5" id="text-2-9-2-2">
+<p>
+() %&gt; \symbol
+</p>
+</div>
+</li></ol>
+</div>
+
+<div id="outline-container-sec-2-9-3" class="outline-4">
+<h4 id="sec-2-9-3"><span class="section-number-4">2.9.3</span> for simplicity, these will not be attempted now:</h4>
+<div class="outline-text-4" id="text-2-9-3">
+
+<dl class="org-dl">
+<dt> <code>++&gt;</code> </dt><dd>Set source of SynthLink but do not play now
+</dd>
+<dt> <code>%%&gt;</code> </dt><dd>change args in SynthLink, but do not send them to player now.
+</dd>
+</dl>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-2-10" class="outline-3">
+<h3 id="sec-2-10"><span class="section-number-3">2.10</span> STARTED start and restart methods</h3>
+<div class="outline-text-3" id="text-2-10">
+
+<ul class="org-ul">
+<li>Only in SynthLink, not in SynthPlayer or TaskPlayer
+</li>
+<li id="start">start if not playing
+</li>
+<li id="restart">stop previous process and start again
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-sec-2-11" class="outline-3">
+<h3 id="sec-2-11"><span class="section-number-3">2.11</span> <span class="label label-primary TODO">TODO</span> Overview of Classes</h3>
+<div class="outline-text-3" id="text-2-11">
+</div>
+
+<div id="outline-container-sec-2-11-1" class="outline-4">
+<h4 id="sec-2-11-1"><span class="section-number-4">2.11.1</span> Synth and Task playing</h4>
+<div class="outline-text-4" id="text-2-11-1">
+</div><ol class="org-ol"><li><a id="sec-2-11-1-1" name="sec-2-11-1-1"></a>Source containers for players<br ><ol class="org-ol"><li><a id="sec-2-11-1-1-1" name="sec-2-11-1-1-1"></a>FunctionSynthSource<br ></li>
+
+<li><a id="sec-2-11-1-1-2" name="sec-2-11-1-1-2"></a>SynthDefSource<br ></li></ol>
+</li>
+
+
+<li><a id="sec-2-11-1-2" name="sec-2-11-1-2"></a>Players<br ><ol class="org-ol"><li><a id="sec-2-11-1-2-1" name="sec-2-11-1-2-1"></a>SynthPlayer<br ></li>
+
+<li><a id="sec-2-11-1-2-2" name="sec-2-11-1-2-2"></a>TaskPlayer<br ></li></ol>
+</li></ol>
+</div>
+<div id="outline-container-sec-2-11-2" class="outline-4">
+<h4 id="sec-2-11-2"><span class="section-number-4">2.11.2</span> Linking Synth I/O</h4>
+</div>
+
+<div id="outline-container-sec-2-11-3" class="outline-4">
+<h4 id="sec-2-11-3"><span class="section-number-4">2.11.3</span> Utilities</h4>
+<div class="outline-text-4" id="text-2-11-3">
+</div><ol class="org-ol"><li><a id="sec-2-11-3-1" name="sec-2-11-3-1"></a>Notification<br ></li>
+
+<li><a id="sec-2-11-3-2" name="sec-2-11-3-2"></a>ServerBootCheck<br ></li>
+
+<li><a id="sec-2-11-3-3" name="sec-2-11-3-3"></a>onEnd, onStart<br ></li>
+
+<li><a id="sec-2-11-3-4" name="sec-2-11-3-4"></a>Registry<br ></li></ol>
+</div>
+</div>
+
+<div id="outline-container-sec-2-12" class="outline-3">
+<h3 id="sec-2-12"><span class="section-number-3">2.12</span> STARTED SynthLink addEventAsTaskPlayerSource notes</h3>
+<div class="outline-text-3" id="text-2-12">
+
+<p>
+To watch: 
+</p>
+
+<p>
+player pattern should copy 
+</p>
+</div>
+</div>
+<div id="outline-container-sec-2-13" class="outline-3">
+<h3 id="sec-2-13"><span class="section-number-3">2.13</span> STARTED SynthLink +&gt;&gt; notes</h3>
+<div class="outline-text-3" id="text-2-13">
+
+
+<p>
+To watch: 
+</p>
+
+<p>
+How exactly is the EventPlayer produced, and where, in the chain of method calls, when the TaskPatternPlayer is produced.
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-2-14" class="outline-3">
+<h3 id="sec-2-14"><span class="section-number-3">2.14</span> <span class="label label-primary TODO">TODO</span> UGen + SynthDef Shortcuts</h3>
+<div class="outline-text-3" id="text-2-14">
+<ul class="org-ul">
+<li>duh
+</li>
+<li>duuh
+</li>
+<li>out ?
+</li>
+<li>makeDef
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div><div class="col-md-3"><nav id="table-of-contents">
+<div id="text-table-of-contents" class="bs-docs-sidebar">
+<ul class="nav">
+<li><a href="#sec-1">1. Documentation</a>
+<ul class="nav">
+<li><a href="#sec-1-1">1.1. Player classes</a></li>
+</ul>
+</li>
+<li><a href="#sec-2">2. Roadmap</a>
+<ul class="nav">
+<li><a href="#sec-2-1">2.1. Make an object listen to notifications from another object</a></li>
+<li><a href="#sec-2-2">2.2. Real Server Watcher, that tells when system resumes from sleep</a></li>
+<li><a href="#sec-2-3">2.3. Notify an object when a synth starts / ends</a></li>
+<li><a href="#sec-2-4">2.4. Hold a node, monitor if it runs, replace with other node on request, notify when it starts and stops running</a></li>
+<li><a href="#sec-2-5">2.5. Store the source for starting a node</a></li>
+<li><a href="#sec-2-6">2.6. Unique objects - created only if not found under a key</a></li>
+<li><a href="#sec-2-7">2.7. STARTED Designing TaskPlayer</a></li>
+<li><a href="#sec-2-8">2.8. STARTED Synth and Task Bus I/O linking mechanism</a></li>
+<li><a href="#sec-2-9">2.9. STARTED operator syntax</a></li>
+<li><a href="#sec-2-10">2.10. STARTED start and restart methods</a></li>
+<li><a href="#sec-2-11">2.11. Overview of Classes</a></li>
+<li><a href="#sec-2-12">2.12. STARTED SynthLink addEventAsTaskPlayerSource notes</a></li>
+<li><a href="#sec-2-13">2.13. STARTED SynthLink +&gt;&gt; notes</a></li>
+<li><a href="#sec-2-14">2.14. UGen + SynthDef Shortcuts</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</nav>
+</div></div></div>
+<footer id="postamble" class="">
+<div><p class="author">Author: IOANNIS ZANNOS</p>
+<p class="date">Created: 2016-08-05 Fri 18:14</p>
+<p class="creator"><a href="http://www.gnu.org/software/emacs/">Emacs</a> 24.5.1 (<a href="http://orgmode.org">Org-mode</a> 8.2.10)</p>
+</div>
+</footer>
+</body>
+</html>
