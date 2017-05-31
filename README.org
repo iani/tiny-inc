@@ -6,20 +6,77 @@ Incremental redo of [[https://github.com/iani/tiny-sc][tiny-sc]].
 
 Started on [2016-01-28 Thu 00:09]
 
-* Documentation
-:PROPERTIES:
-:DATE:     <2016-05-20 Fri 09:53>
-:END:
-
-
-
-** Player classes
+* Player classes
 :PROPERTIES:
 :DATE:     <2016-05-20 Fri 09:53>
 :END:
 
 SynthPlayer
 PatternPlayer
+
+* Operators
+** STARTED operator syntax - version 201603
+:LOGBOOK:  
+- State "STARTED"    from "TODO"       [2016-03-17 Thu 12:33] \\
+  started
+:END:      
+
+*** Operator overview
+
+1. Playing
+   - =+>= :: Start playing something in a SynthLink.
+             Note:  If the first (left) operand is an event, it adds or sets the EventPattern of an EventPlayer that is attached to the TaskPlayer as player. The default name of the player is =player=.  Another name is used if it is provided as adverb to the =+>= operator. 
+   - =+>>= :: Set the pattern of the TaskPlayer in the SynthLink, and start. Do not add any EventPlayer to the TaskPlayer.
+2. Modifying args
+   For TaskPlayer, these modify the EventStream of the default EventPlayer or the player specified in the adverb to the operator.
+   - =%>= :: Add args to event or arg-array
+   - =!%>= :: Replace event or arg-array
+3. Modifying pattern of the TaskPlayer
+   These modify the pattern and stream of the TaskPlayer, not of any EventPlayer.
+   - =>>= :: ...
+   - =!>>= :: ...
+4. Linking SynthLinks
+   - =@>= :: ...b・・・
+   - =<@= :: ...
+   - =@= :: ...
+   - =@+= :: 
+   - =+@= :: 
+
+*** Details
+**** =+>= : Set source of SynthLink and play.
+
+Play function into SynthPlayer - in SynthLink: 
+: { } +> \symbol 
+
+Play named and loaded SynthDef into SynthPlayer - in SynthLink: 
+: \default +> \symbol
+
+Play Event into TaskPlayer - in SynthLink:
+: ( ) +> \symbol // Plays through default EventPlayer as TaskPlayer-player
+: ( ) +> \symbol // Plays through default EventPlayer as TaskPlayer-player
+
+Possibly: 
+
+- =number +> \symbol= :: use number as duration to start TaskPlayer in SynthLink
+- =pattern +> \symbol= :: use pattern as duration to start TaskPlayer in SynthLink
+
+****  =%>= : change args in SynthLink, and send them to player - without restarting
+
+() %> \symbol
+
+*** for simplicity, these will not be attempted now:
+:PROPERTIES:
+:DATE:     <2016-03-23 Wed 14:54>
+:END:
+
+- =++>= :: Set source of SynthLink but do not play now
+- =%%>= :: change args in SynthLink, but do not send them to player now.
+** Operator syntax - version 31 May 2017 22:37 ff
+
+
+
+
+
 
 * Roadmap
 
@@ -195,8 +252,6 @@ Possible extra operators:
 
 =\writer= and =\reader= are unique group/rank and input/output bus holders accessible through their symbols. They can store a SynthPlayer or a TaskPlayer - interchangeably. Class: =SynthLink=
 
-
-
 Structure of SynthLink: 
 
 #+BEGIN_SRC sclang
@@ -273,61 +328,6 @@ Structure of SynthLink:
 
 #+END_SRC
 
-** STARTED operator syntax
-:LOGBOOK:  
-- State "STARTED"    from "TODO"       [2016-03-17 Thu 12:33] \\
-  started
-:END:      
-
-*** Operator overview
-
-1. Playing
-   - =+>= :: Start playing something in a SynthLink.
-             Note:  If the first (left) operand is an event, it adds or sets the EventPattern of an EventPlayer that is attached to the TaskPlayer as player. The default name of the player is =player=.  Another name is used if it is provided as adverb to the =+>= operator. 
-   - =+>>= :: Set the pattern of the TaskPlayer in the SynthLink, and start. Do not add any EventPlayer to the TaskPlayer.
-2. Modifying args
-   For TaskPlayer, these modify the EventStream of the default EventPlayer or the player specified in the adverb to the operator.
-   - =%>= :: Add args to event or arg-array
-   - =!%>= :: Replace event or arg-array
-3. Modifying pattern of the TaskPlayer
-   These modify the pattern and stream of the TaskPlayer, not of any EventPlayer.
-   - =>>= :: ...
-   - =!>>= :: ...
-4. Linking SynthLinks
-   - =@>= :: ...b・・・
-   - =<@= :: ...
-   - =@= :: ...
-
-*** Details
-**** =+>= : Set source of SynthLink and play.
-
-Play function into SynthPlayer - in SynthLink: 
-: { } +> \symbol 
-
-Play named and loaded SynthDef into SynthPlayer - in SynthLink: 
-: \default +> \symbol
-
-Play Event into TaskPlayer - in SynthLink:
-: ( ) +> \symbol // Plays through default EventPlayer as TaskPlayer-player
-: ( ) +> \symbol // Plays through default EventPlayer as TaskPlayer-player
-
-Possibly: 
-
-- =number +> \symbol= :: use number as duration to start TaskPlayer in SynthLink
-- =pattern +> \symbol= :: use pattern as duration to start TaskPlayer in SynthLink
-
-****  =%>= : change args in SynthLink, and send them to player - without restarting
-
-() %> \symbol
-
-*** for simplicity, these will not be attempted now:
-:PROPERTIES:
-:DATE:     <2016-03-23 Wed 14:54>
-:END:
-
-- =++>= :: Set source of SynthLink but do not play now
-- =%%>= :: change args in SynthLink, but do not send them to player now.
-
 ** STARTED start and restart methods
 :LOGBOOK:  
 - State "STARTED"    from "TODO"       [2016-04-23 Sat 11:56]
@@ -383,16 +383,12 @@ player pattern should copy
 :DATE:     <2016-05-02 Mon 17:28>
 :END:
 
-
 To watch: 
 
 How exactly is the EventPlayer produced, and where, in the chain of method calls, when the TaskPatternPlayer is produced.
 
 ** TODO UGen + SynthDef Shortcuts
 
-- duh
-- duuh
-- out ?
-- makeDef
+
 
 
