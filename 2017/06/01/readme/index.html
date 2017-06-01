@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Initial README File | Tiny Inc</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <meta name="keywords" content="readme" />
+  
+  
+  
+  
+  <meta name="description" content="Incremental redo of tiny-sc.    Started on [2016-01-28 Thu 00:09]    Player classes    SynthPlayer PatternPlayer      Operators   Operators / revision from 0 version 31 May 2017 22:37 ff   Step 1:">
+<meta name="keywords" content="readme">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Initial README File">
+<meta property="og:url" content="http://iani.github.io/2017/06/01/readme/index.html">
+<meta property="og:site_name" content="Tiny Inc">
+<meta property="og:description" content="Incremental redo of tiny-sc.    Started on [2016-01-28 Thu 00:09]    Player classes    SynthPlayer PatternPlayer      Operators   Operators / revision from 0 version 31 May 2017 22:37 ff   Step 1:">
+<meta property="og:updated_time" content="2017-06-01T18:05:53.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Initial README File">
+<meta name="twitter:description" content="Incremental redo of tiny-sc.    Started on [2016-01-28 Thu 00:09]    Player classes    SynthPlayer PatternPlayer      Operators   Operators / revision from 0 version 31 May 2017 22:37 ff   Step 1:">
+  
+    <link rel="alternate" href="/atom.xml" title="Tiny Inc" type="application/atom+xml">
+  
+  <link rel="icon" href="/tiny-inc/css/images/favicon.ico">
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans|Montserrat:700" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic" rel="stylesheet" type="text/css">
+  <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+  <style type="text/css">
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/9749f0/00000000000000000001008f/27/l?subset_id=2&fvd=n5) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/90cf9f/000000000000000000010091/27/l?subset_id=2&fvd=n7) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/8a5494/000000000000000000013365/27/l?subset_id=2&fvd=n4) format("woff2");font-weight:lighter;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/d337d8/000000000000000000010095/27/l?subset_id=2&fvd=i4) format("woff2");font-weight:400;font-style:italic;}</style>
+    
+  <link rel="stylesheet" id="athemes-headings-fonts-css" href="//fonts.googleapis.com/css?family=Yanone+Kaffeesatz%3A200%2C300%2C400%2C700&amp;ver=4.6.1" type="text/css" media="all">
+
+  <link rel="stylesheet" id="athemes-headings-fonts-css" href="//fonts.googleapis.com/css?family=Oswald%3A300%2C400%2C700&amp;ver=4.6.1" type="text/css" media="all">
+  <link rel="stylesheet" href="/tiny-inc/css/style.css">
+
+  <script src="/tiny-inc/js/jquery-3.1.1.min.js"></script>
+
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="/tiny-inc/css/bootstrap.css" >
+  <link rel="stylesheet" href="/tiny-inc/css/fashion.css" >
+  <link rel="stylesheet" href="/tiny-inc/css/glyphs.css" >
+
+</head>
+
+
+
+  <body data-spy="scroll" data-target="#toc" data-offset="50">
+
+
+  
+
+
+<header id="allheader" class="site-header" role="banner" 
+   >
+  <div class="clearfix container">
+      <div class="site-branding">
+
+          <h1 class="site-title">
+            
+              <a href="/tiny-inc/" title="Tiny Inc" rel="home"> Tiny Inc </a>
+            
+          </h1>
+          
+          
+            <div class="site-description">Tiny-sc lib redone from essentials</div>
+          
+            
+          <nav id="main-navigation" class="main-navigation" role="navigation">
+            <a class="nav-open">Menu</a>
+            <a class="nav-close">Close</a>
+
+            <div class="clearfix sf-menu">
+              <ul id="main-nav" class="menu sf-js-enabled sf-arrows"  style="touch-action: pan-y;">
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="/tiny-inc/">Home</a> </li>
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="/tiny-inc/archives">Archives</a> </li>
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="/tiny-inc/categories">Kategorien</a> </li>
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="/tiny-inc/tags">Tags</a> </li>
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="/tiny-inc/about">About</a> </li>
+                    
+              </ul>
+            </div>
+          </nav>
+
+      </div>
+  </div>
+</header>
+
+
+  <div id="container">
+    <div id="wrap">
+            
+      <div id="content" class="outer">
+        
+          <section id="main" style="float:none;"><article id="post-readme" style="width: 66%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="clearfix post-1016 post type-post status-publish format-standard has-post-thumbnail hentry category-template-2 category-uncategorized tag-codex tag-edge-case tag-featured-image tag-image tag-template">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" class="article-title" itemprop="name">
+      Initial README File
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="/tiny-inc/2017/06/01/readme/" class="article-date">
+	  <time datetime="2017-06-01T18:00:11.000Z" itemprop="datePublished">June 1, 2017</time>
+	</a>
+
+      
+	<span class="ico-folder"></span>
+    <a class="article-category-link" href="/tiny-inc/categories/uncategorized/">uncategorized</a>
+ 
+      
+	<span id="busuanzi_container_page_pv">
+	  本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+	</span>
+
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+
+<p>
+Incremental redo of <a href="https://github.com/iani/tiny-sc" target="_blank" rel="external">tiny-sc</a>.
+</p>
+
+<p>
+Started on <span class="timestamp-wrapper"><span class="timestamp">[2016-01-28 Thu 00:09]</span></span>
+</p>
+
+<div id="outline-container-sec-1" class="outline-2">
+<h2 id="sec-1">Player classes</h2>
+<div class="outline-text-2" id="text-1">
+
+<p>
+SynthPlayer
+PatternPlayer
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-2" class="outline-2">
+<h2 id="sec-2">Operators</h2>
+<div class="outline-text-2" id="text-2">
+</div><div id="outline-container-sec-2-1" class="outline-3">
+<h3 id="sec-2-1">Operators / revision from 0 version 31 May 2017 22:37 ff</h3>
+<div class="outline-text-3" id="text-2-1">
+</div><div id="outline-container-sec-2-1-1" class="outline-4">
+<h4 id="sec-2-1-1">Step 1: +&gt;</h4>
+<div class="outline-text-4" id="text-2-1-1">
+
+<div class="org-src-container">
+
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line">// play function as Synth in SynthPlayer&#10;Function +&#38;gt; Symbol; &#10;&#10;// play any pattern-capable object as stream in key in EventStreamPlayer&#10;Pattern +&#38;gt; Symbol;</span><br></pre></td></tr></table></figure>
+</div>
+
+<p>
+Starting implementation for EventStreamPlayer  1 Jun 2017 20:00.
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-2-2" class="outline-3">
+<h3 id="sec-2-2">STARTED operator syntax - version 201603</h3>
+<div class="outline-text-3" id="text-2-2">
+</div>
+
+<div id="outline-container-sec-2-2-1" class="outline-4">
+<h4 id="sec-2-2-1">Operator overview</h4>
+<div class="outline-text-4" id="text-2-2-1">
+<ol class="org-ol">
+<li>Playing
+<dl class="org-dl">
+<dt> <code>+&gt;</code> </dt><dd>Start playing something in a SynthLink.
+Note:  If the first (left) operand is an event, it adds or sets the EventPattern of an EventPlayer that is attached to the TaskPlayer as player. The default name of the player is <code>player</code>.  Another name is used if it is provided as adverb to the <code>+&gt;</code> operator. 
+</dd>
+<dt> <code>+&gt;&gt;</code> </dt><dd>Set the pattern of the TaskPlayer in the SynthLink, and start. Do not add any EventPlayer to the TaskPlayer.
+</dd>
+</dl>
+</li>
+<li>Modifying args
+For TaskPlayer, these modify the EventStream of the default EventPlayer or the player specified in the adverb to the operator.
+<dl class="org-dl">
+<dt> <code>%&gt;</code> </dt><dd>Add args to event or arg-array
+</dd>
+<dt> <code>!%&gt;</code> </dt><dd>Replace event or arg-array
+</dd>
+</dl>
+</li>
+<li>Modifying pattern of the TaskPlayer
+These modify the pattern and stream of the TaskPlayer, not of any EventPlayer.
+<dl class="org-dl">
+<dt> <code>&gt;&gt;</code> </dt><dd>&#x2026;
+</dd>
+<dt> <code>!&gt;&gt;</code> </dt><dd>&#x2026;
+</dd>
+</dl>
+</li>
+<li>Linking SynthLinks
+<dl class="org-dl">
+<dt> <code>@&gt;</code> </dt><dd>&#x2026;b・・・
+</dd>
+<dt> <code>&lt;@</code> </dt><dd>&#x2026;
+</dd>
+<dt> <code>@</code> </dt><dd>&#x2026;
+</dd>
+<dt> <code>@+</code> </dt><dd></dd>
+<dt> <code>+@</code> </dt><dd></dd>
+</dl>
+</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-sec-2-2-2" class="outline-4">
+<h4 id="sec-2-2-2">Details</h4>
+<div class="outline-text-4" id="text-2-2-2">
+</div><ul class="org-ul"><li><a id="sec-2-2-2-1" name="sec-2-2-2-1"></a><code>+&gt;</code> : Set source of SynthLink and play.<br><div class="outline-text-5" id="text-2-2-2-1">
+<p>
+Play function into SynthPlayer - in SynthLink: 
+</p>
+<pre class="example">
+{ } +&gt; \symbol 
+</pre>
+
+<p>
+Play named and loaded SynthDef into SynthPlayer - in SynthLink: 
+</p>
+<pre class="example">
+\default +&gt; \symbol
+</pre>
+
+<p>
+Play Event into TaskPlayer - in SynthLink:
+</p>
+<pre class="example">
+( ) +&gt; \symbol // Plays through default EventPlayer as TaskPlayer-player
+( ) +&gt; \symbol // Plays through default EventPlayer as TaskPlayer-player
+</pre>
+
+<p>
+Possibly: 
+</p>
+
+<dl class="org-dl">
+<dt> <code>number +&gt; \symbol</code> </dt><dd>use number as duration to start TaskPlayer in SynthLink
+</dd>
+<dt> <code>pattern +&gt; \symbol</code> </dt><dd>use pattern as duration to start TaskPlayer in SynthLink
+</dd>
+</dl>
+</div>
+</li>
+
+<li><a id="sec-2-2-2-2" name="sec-2-2-2-2"></a><code>%&gt;</code> : change args in SynthLink, and send them to player - without restarting<br><div class="outline-text-5" id="text-2-2-2-2">
+<p>
+() %&gt; \symbol
+</p>
+</div>
+</li></ul>
+</div>
+
+<div id="outline-container-sec-2-2-3" class="outline-4">
+<h4 id="sec-2-2-3">for simplicity, these will not be attempted now:</h4>
+<div class="outline-text-4" id="text-2-2-3">
+
+<dl class="org-dl">
+<dt> <code>++&gt;</code> </dt><dd>Set source of SynthLink but do not play now
+</dd>
+<dt> <code>%%&gt;</code> </dt><dd>change args in SynthLink, but do not send them to player now.
+</dd>
+</dl>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-3" class="outline-2">
+<h2 id="sec-3">Roadmap</h2>
+<div class="outline-text-2" id="text-3">
+</div><div id="outline-container-sec-3-1" class="outline-3">
+<h3 id="sec-3-1"><span class="done DONE">DONE</span> Make an object listen to notifications from another object</h3>
+<div class="outline-text-3" id="text-3-1">
+<p>
+Notification class.
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-3-2" class="outline-3">
+<h3 id="sec-3-2"><span class="done DONE">DONE</span> Real Server Watcher, that tells when system resumes from sleep</h3>
+<div class="outline-text-3" id="text-3-2">
+</div>
+</div>
+
+<div id="outline-container-sec-3-3" class="outline-3">
+<h3 id="sec-3-3"><span class="done DONE">DONE</span> Notify an object when a synth starts / ends</h3>
+<div class="outline-text-3" id="text-3-3">
+<p>
+Methods Node:onStart, Node:onEnd.
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-3-4" class="outline-3">
+<h3 id="sec-3-4"><span class="done DONE">DONE</span> Hold a node, monitor if it runs, replace with other node on request, notify when it starts and stops running</h3>
+<div class="outline-text-3" id="text-3-4">
+<p>
+Class <code>SimpleSynthPlayer</code>
+</p>
+</div>
+
+<div id="outline-container-sec-3-4-1" class="outline-4">
+<h4 id="sec-3-4-1"><span class="done DONE">DONE</span> Do not notify end when a new synth is started to replace a previous one</h4>
+<div class="outline-text-4" id="text-3-4-1">
+<p>
+Done in class SimpleSynthPlayer.
+</p>
+
+<div class="org-src-container">
+
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line">addNode { | argNode |&#10;&#9;NodeWatcher.register(argNode);&#10;&#9;//  Release previous node if playing,&#10;&#9;//      but prevent that node from triggering a stopped notification when it ends.&#10;&#9;if (this.isPlaying) {&#10;&#9;&#9;node.releaseDependants; // do not notify when you end: next node is on the way&#10;&#9;&#9;this.prStop;&#10;&#9;&#9;argNode addDependant: { | changer, message |&#10;&#9;&#9;&#9;switch (message,&#10;&#9;&#9;&#9;&#9;// do not notify when started&#10;&#9;&#9;&#9;&#9;// \n_go, { this.changed(\started) },&#10;&#9;&#9;&#9;&#9;\n_end, {&#10;&#9;&#9;&#9;&#9;&#9;node = nil;&#10;&#9;&#9;&#9;&#9;&#9;this.changed(\stopped);                                 &#10;&#9;&#9;&#9;&#9;}&#10;&#9;&#9;&#9;);&#10;&#9;&#9;}&#10;&#9;}{&#10;&#9;&#9;argNode addDependant: { | changer, message |&#10;&#9;&#9;&#9;switch (message,&#10;&#9;&#9;&#9;&#9;\n_go, { this.changed(\started) },&#10;&#9;&#9;&#9;&#9;\n_end, {&#10;&#9;&#9;&#9;&#9;&#9;node = nil;&#10;&#9;&#9;&#9;&#9;&#9;this.changed(\stopped);                                 &#10;&#9;&#9;&#9;&#9;}&#10;&#9;&#9;&#9;);&#10;&#9;&#9;}&#10;&#9;};&#10;&#9;node = argNode;&#10;}</span><br></pre></td></tr></table></figure>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-3-4-2" class="outline-4">
+<h4 id="sec-3-4-2"><span class="done DONE">DONE</span> Examples with GUI buttons to start/stop a synth</h4>
+<div class="outline-text-4" id="text-3-4-2">
+<p>
+See file 
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-3-5" class="outline-3">
+<h3 id="sec-3-5"><span class="done DONE">DONE</span> Store the source for starting a node</h3>
+<div class="outline-text-3" id="text-3-5">
+</div>
+
+<div id="outline-container-sec-3-5-1" class="outline-4">
+<h4 id="sec-3-5-1">SynthPlayer</h4>
+</div>
+
+<div id="outline-container-sec-3-5-2" class="outline-4">
+<h4 id="sec-3-5-2">FunctionSynthSource</h4>
+<div class="outline-text-4" id="text-3-5-2">
+<p>
+Stores a Function that is the source for creating Synths.  It substitutes <code>{ }.play</code> by a mechanism that caches the SynthDef created from the function, so that any new Synths from the same Function can be created by <code>Synth("defName")</code>.  This is much more efficient than compiling the SynthDef from the Function and sending it to the Server each time that a new Synth is created. 
+</p>
+
+<p>
+Behavior: 
+</p>
+</div>
+
+<ul class="org-ul"><li><a id="sec-3-5-2-1" name="sec-3-5-2-1"></a>message <code>play</code><br><div class="outline-text-5" id="text-3-5-2-1">
+<p>
+When receiving the message <code>play</code>, the FunctionSynthSource creates a Synth and returns it immediately.  If the SynthDef from the Function stored in the FunctionSynthSource is already loaded in the server, then the Synth is created in the usual manner, with the <code>Synth("defName")</code>.  If however the Function is not yet loaded, the Synth is created with <code>Synth.basicNew</code> and the actual Synth instance on the scserver is created as soon as the SynthDef is loaded.
+</p>
+
+<p>
+When a FunctionSynthSource is created, it adds the given Function - or a default - as SynthDef, and sends it to the Server.
+</p>
+
+<p>
+Upon sending a SynthDef to the server, the FunctionSynthSource sets its waiting<sub>for</sub><sub>def</sub> flag to true.
+</p>
+
+<p>
+The algorithm for the method <code>play</code> is as follows: 
+</p>
+
+<div class="org-src-container">
+
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line">if (waiting_for_def) {&#10;    ^node ?? {&#10;&#9;node = Synth.basicNew(defName, server);&#10;    }&#10;}{&#10;    ^Synth(defName, *args);&#10;}</span><br></pre></td></tr></table></figure>
+</div>
+
+<p>
+<code>loadAndPlayMethod</code> is one of the following: 
+</p>
+</div>
+
+<ul class="org-ul"><li><a id="sec-3-5-2-1-1" name="sec-3-5-2-1-1"></a>sendDef2Server<br></li>
+
+
+
+<li><a id="sec-3-5-2-1-2" name="sec-3-5-2-1-2"></a>waitForServer2Load<br></li></ul>
+</li>
+
+<li><a id="sec-3-5-2-2" name="sec-3-5-2-2"></a>message <code>source_</code><br><div class="outline-text-5" id="text-3-5-2-2">
+<ol class="org-ol">
+<li>Set the
+</li>
+</ol>
+</div>
+</li>
+
+<li><a id="sec-3-5-2-3" name="sec-3-5-2-3"></a>tests<br><div class="outline-text-5" id="text-3-5-2-3">
+
+<div class="org-src-container">
+
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line">f = FuncNodeSource.new;&#10;f.play;</span><br></pre></td></tr></table></figure>
+</div>
+</div>
+</li></ul>
+</div>
+</div>
+
+<div id="outline-container-sec-3-6" class="outline-3">
+<h3 id="sec-3-6"><span class="done DONE">DONE</span> Unique objects - created only if not found under a key</h3>
+<div class="outline-text-3" id="text-3-6">
+<p>
+See <code>Registry</code> class.
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-3-7" class="outline-3">
+<h3 id="sec-3-7">STARTED Designing TaskPlayer</h3>
+<div class="outline-text-3" id="text-3-7">
+</div>
+
+<div id="outline-container-sec-3-7-1" class="outline-4">
+<h4 id="sec-3-7-1">Approach 1: Use the same archtecture and approach as for SynthPlayer, involving a TaskSource.</h4>
+</div>
+</div>
+
+<div id="outline-container-sec-3-8" class="outline-3">
+<h3 id="sec-3-8">STARTED Synth and Task Bus I/O linking mechanism</h3>
+<div class="outline-text-3" id="text-3-8">
+
+<div class="org-src-container">
+
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line">\writer @&#38;gt; \reader; // move output of writer to input of reader&#10;\writer &#38;lt;@ \reader; // move input of reader to output of writer&#10;// operator specifies output, adverb specifies input:&#10;\writer@\out1 @&#38;gt;.in2 \reader; // specify output/input params out1 and in2</span><br></pre></td></tr></table></figure>
+</div>
+
+<p>
+Possible extra operators:
+</p>
+
+<div class="org-src-container">
+
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line">\writer @+ \reader; // branch output of writer to reader with i/o copy synth&#10;\writer +@ \reader; // branch to input of reader with i/o copy synth</span><br></pre></td></tr></table></figure>
+</div>
+
+
+<p>
+<code>\writer</code> and <code>\reader</code> are unique group/rank and input/output bus holders accessible through their symbols. They can store a SynthPlayer or a TaskPlayer - interchangeably. Class: <code>SynthLink</code>
+</p>
+
+<p>
+Structure of SynthLink: 
+</p>
+
+<div class="org-src-container">
+
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line">SynthLink {&#10;    var &#38;lt;server;&#10;    var &#38;lt;rank = 0; // smaller numbers mean earlier synth order&#10;    var &#38;lt;group;  // the actual group. Used as target for player.&#10;    var &#38;lt;inputs; // Dictionary of Inputs (param: input, param2: input)&#10;    var &#38;lt;outputs; // Dictionary of Outputs&#10;    var &#38;lt;player; // SynthPlayer, TaskPlayer, or similar/compatible object&#10;&#10;    getGroup {&#10;&#9;if (inputs.isNil and: { outputs.isNil }) {&#10;&#9;    rank = 0&#10;&#9;}{&#10;&#9;    rank = this.allWriters.collect(_.rank).maxItem + 1;&#10;&#9;    this.moveToGroup;&#10;&#9;};&#10;&#10;    }&#10;&#10;    moveToGroup {&#10;&#9;this.readers do: _.moveAfter(rank);&#10;&#9;this.setGroup;&#10;    }&#10;&#10;    moveAfter { | argRank |&#10;&#9;if (rank &#38;lt;= argRank) {&#10;&#9;    rank = argRank + 1;&#10;&#9;    this.moveToGroup;&#10;&#9;}&#10;    }&#10;&#10;    setGroup {&#10;&#9;group = PlayerGroup(server, rank);&#10;&#9;player !? { player.target = group };&#10;    }&#10;&#10;    getArgs {&#10;&#10;    }&#10;}&#10;&#10;Input {&#10;    var &#38;lt;parameter; // name of input parameter&#10;    var &#38;lt;bus;&#10;    var &#38;lt;readerNode; // the SynthLink that has this input&#10;    var &#38;lt;writers;   // set of Outputs that write to this input&#10;}&#10;&#10;Output {&#10;    var &#38;lt;parameter; // name of input parameter&#10;    var &#38;lt;bus;&#10;    var &#38;lt;writerNode; // the SynthLink that has this output&#10;    var &#38;lt;readers;   // set of Inputs that read from this output&#10;}&#10;&#10;PlayerGroup {&#10;    var &#38;lt;server, &#38;lt;groups;&#10;    *new { | server, rank = 0 |&#10;&#9;^Registry(this, server, { this.newCopyArgs(server, []) })&#10;&#9;.getGroup(rank);&#10;    };&#10;&#10;    getGroup { | rank |&#10;&#9;var root;&#10;&#9;root = server.rootNode;&#10;&#9;rank - groups.size + 1 max: 0 do: {&#10;&#9;    groups = groups add: Group.tail(root);&#10;&#9;};&#10;&#9;^groups[rank];&#10;    }&#10;}</span><br></pre></td></tr></table></figure>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-3-9" class="outline-3">
+<h3 id="sec-3-9">STARTED start and restart methods</h3>
+<div class="outline-text-3" id="text-3-9">
+
+<ul class="org-ul">
+<li>Only in SynthLink, not in SynthPlayer or TaskPlayer
+</li>
+<li id="start">start if not playing
+</li>
+<li id="restart">stop previous process and start again
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-sec-3-10" class="outline-3">
+<h3 id="sec-3-10"><span class="todo TODO">TODO</span> Overview of Classes</h3>
+<div class="outline-text-3" id="text-3-10">
+</div>
+
+<div id="outline-container-sec-3-10-1" class="outline-4">
+<h4 id="sec-3-10-1">Synth and Task playing</h4>
+<div class="outline-text-4" id="text-3-10-1">
+</div><ul class="org-ul"><li><a id="sec-3-10-1-1" name="sec-3-10-1-1"></a>Source containers for players<br><ul class="org-ul"><li><a id="sec-3-10-1-1-1" name="sec-3-10-1-1-1"></a>FunctionSynthSource<br></li>
+
+<li><a id="sec-3-10-1-1-2" name="sec-3-10-1-1-2"></a>SynthDefSource<br></li></ul>
+</li>
+
+
+<li><a id="sec-3-10-1-2" name="sec-3-10-1-2"></a>Players<br><ul class="org-ul"><li><a id="sec-3-10-1-2-1" name="sec-3-10-1-2-1"></a>SynthPlayer<br></li>
+
+<li><a id="sec-3-10-1-2-2" name="sec-3-10-1-2-2"></a>TaskPlayer<br></li></ul>
+</li></ul>
+</div>
+<div id="outline-container-sec-3-10-2" class="outline-4">
+<h4 id="sec-3-10-2">Linking Synth I/O</h4>
+</div>
+
+<div id="outline-container-sec-3-10-3" class="outline-4">
+<h4 id="sec-3-10-3">Utilities</h4>
+<div class="outline-text-4" id="text-3-10-3">
+</div><ul class="org-ul"><li><a id="sec-3-10-3-1" name="sec-3-10-3-1"></a>Notification<br></li>
+
+<li><a id="sec-3-10-3-2" name="sec-3-10-3-2"></a>ServerBootCheck<br></li>
+
+<li><a id="sec-3-10-3-3" name="sec-3-10-3-3"></a>onEnd, onStart<br></li>
+
+<li><a id="sec-3-10-3-4" name="sec-3-10-3-4"></a>Registry<br></li></ul>
+</div>
+</div>
+
+<div id="outline-container-sec-3-11" class="outline-3">
+<h3 id="sec-3-11">STARTED SynthLink addEventAsTaskPlayerSource notes</h3>
+<div class="outline-text-3" id="text-3-11">
+
+<p>
+To watch: 
+</p>
+
+<p>
+player pattern should copy 
+</p>
+</div>
+</div>
+<div id="outline-container-sec-3-12" class="outline-3">
+<h3 id="sec-3-12">STARTED SynthLink +&gt;&gt; notes</h3>
+<div class="outline-text-3" id="text-3-12">
+
+<p>
+To watch: 
+</p>
+
+<p>
+How exactly is the EventPlayer produced, and where, in the chain of method calls, when the TaskPatternPlayer is produced.
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-3-13" class="outline-3">
+<h3 id="sec-3-13"><span class="todo TODO">TODO</span> UGen + SynthDef Shortcuts</h3>
+</div>
+</div>
+
+<p class="author">Author: Ioannis Zannos</p>
+<p class="date">Created: 2017-06-01 Thu 21:05</p>
+<p class="creator"><a href="http://www.gnu.org/software/emacs/" target="_blank" rel="external">Emacs</a> 25.1.1 (<a href="http://orgmode.org" target="_blank" rel="external">Org</a> mode 8.2.10)</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer" target="_blank" rel="external">Validate</a></p>
+
+      
+    </div>
+    <footer class="entry-meta entry-footer">
+      
+	<span class="ico-folder"></span>
+    <a class="article-category-link" href="/tiny-inc/categories/uncategorized/">uncategorized</a>
+
+      
+  <span class="ico-tags"></span>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tiny-inc/tags/readme/">readme</a></li></ul>
+
+      
+        
+	<div id="comment">
+	
+	<!-- 多说评论框 start -->
+	 <div class="ds-thread" data-thread-key="/tiny-inc/2017/06/01/readme/" data-title="Initial README File" data-url="http://iani.github.io/2017/06/01/readme/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"iTimeTraveler"};
+	  (function() {
+	    var ds = document.createElement('script');
+	    ds.type = 'text/javascript';ds.async = true;
+	    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+	    ds.charset = 'UTF-8';
+	    (document.getElementsByTagName('head')[0] 
+	     || document.getElementsByTagName('body')[0]).appendChild(ds);
+	  })();
+	  </script>
+	<!-- 多说公共JS代码 end -->
+	
+	</div>
+	<link rel="stylesheet" href="/tiny-inc/css/comment.css">
+
+
+      
+    </footer>
+    <hr class="entry-footer-hr">
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/tiny-inc/2017/06/01/hello-world/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Älter</strong>
+      <div class="article-nav-title">Hello World</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+<!-- Table of Contents -->
+
+  <aside id="sidebar">
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">Contents</strong>
+    
+      <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#sec-1"><span class="nav-number">1.</span> <span class="nav-text">Player classes</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#sec-2"><span class="nav-number">2.</span> <span class="nav-text">Operators</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#sec-2-1"><span class="nav-number">2.1.</span> <span class="nav-text">Operators / revision from 0 version 31 May 2017 22:37 ff</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#sec-2-1-1"><span class="nav-number">2.1.1.</span> <span class="nav-text">Step 1: +></span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#sec-2-2"><span class="nav-number">2.2.</span> <span class="nav-text">STARTED operator syntax - version 201603</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#sec-2-2-1"><span class="nav-number">2.2.1.</span> <span class="nav-text">Operator overview</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#sec-2-2-2"><span class="nav-number">2.2.2.</span> <span class="nav-text">Details</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#sec-2-2-3"><span class="nav-number">2.2.3.</span> <span class="nav-text">for simplicity, these will not be attempted now:</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#sec-3"><span class="nav-number">3.</span> <span class="nav-text">Roadmap</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#sec-3-1"><span class="nav-number">3.1.</span> <span class="nav-text">DONE Make an object listen to notifications from another object</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#sec-3-2"><span class="nav-number">3.2.</span> <span class="nav-text">DONE Real Server Watcher, that tells when system resumes from sleep</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#sec-3-3"><span class="nav-number">3.3.</span> <span class="nav-text">DONE Notify an object when a synth starts / ends</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#sec-3-4"><span class="nav-number">3.4.</span> <span class="nav-text">DONE Hold a node, monitor if it runs, replace with other node on request, notify when it starts and stops running</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#sec-3-4-1"><span class="nav-number">3.4.1.</span> <span class="nav-text">DONE Do not notify end when a new synth is started to replace a previous one</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#sec-3-4-2"><span class="nav-number">3.4.2.</span> <span class="nav-text">DONE Examples with GUI buttons to start/stop a synth</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#sec-3-5"><span class="nav-number">3.5.</span> <span class="nav-text">DONE Store the source for starting a node</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#sec-3-5-1"><span class="nav-number">3.5.1.</span> <span class="nav-text">SynthPlayer</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#sec-3-5-2"><span class="nav-number">3.5.2.</span> <span class="nav-text">FunctionSynthSource</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#sec-3-6"><span class="nav-number">3.6.</span> <span class="nav-text">DONE Unique objects - created only if not found under a key</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#sec-3-7"><span class="nav-number">3.7.</span> <span class="nav-text">STARTED Designing TaskPlayer</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#sec-3-7-1"><span class="nav-number">3.7.1.</span> <span class="nav-text">Approach 1: Use the same archtecture and approach as for SynthPlayer, involving a TaskSource.</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#sec-3-8"><span class="nav-number">3.8.</span> <span class="nav-text">STARTED Synth and Task Bus I/O linking mechanism</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#sec-3-9"><span class="nav-number">3.9.</span> <span class="nav-text">STARTED start and restart methods</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#sec-3-10"><span class="nav-number">3.10.</span> <span class="nav-text">TODO Overview of Classes</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#sec-3-10-1"><span class="nav-number">3.10.1.</span> <span class="nav-text">Synth and Task playing</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#sec-3-10-2"><span class="nav-number">3.10.2.</span> <span class="nav-text">Linking Synth I/O</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#sec-3-10-3"><span class="nav-number">3.10.3.</span> <span class="nav-text">Utilities</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#sec-3-11"><span class="nav-number">3.11.</span> <span class="nav-text">STARTED SynthLink addEventAsTaskPlayerSource notes</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#sec-3-12"><span class="nav-number">3.12.</span> <span class="nav-text">STARTED SynthLink +>> notes</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#sec-3-13"><span class="nav-number">3.13.</span> <span class="nav-text">TODO UGen + SynthDef Shortcuts</span></a></li></ol></li></ol>
+    
+    </div>
+  </aside>
+</section>
+        
+      </div>
+
+    </div>
+    <!-- <nav id="mobile-nav">
+  
+    <a href="/tiny-inc/" class="mobile-nav-link">Home</a>
+  
+    <a href="/tiny-inc/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/tiny-inc/categories" class="mobile-nav-link">Categories</a>
+  
+    <a href="/tiny-inc/tags" class="mobile-nav-link">Tags</a>
+  
+    <a href="/tiny-inc/about" class="mobile-nav-link">About</a>
+  
+</nav> -->
+    <footer id="footer" class="site-footer">
+  
+
+  <div class="clearfix container">
+      <div class="site-info">
+	      &copy; 2017 Tiny Inc All Rights Reserved.
+        
+            <span id="busuanzi_container_site_uv">
+              本站访客数<span id="busuanzi_value_site_uv"></span>人次  
+              本站总访问量<span id="busuanzi_value_site_pv"></span>次
+            </span>
+          
+      </div>
+      <div class="site-credit">
+        Theme by <a href="https://github.com/iTimeTraveler/hexo-theme-hipaper" target="_blank">hipaper</a>
+      </div>
+  </div>
+</footer>
+
+
+<!-- min height -->
+
+<script>
+    var wrapdiv = document.getElementById("wrap");
+    var contentdiv = document.getElementById("content");
+
+    wrapdiv.style.minHeight = document.body.offsetHeight - document.getElementById("allheader").offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    contentdiv.style.minHeight = document.body.offsetHeight - document.getElementById("allheader").offsetHeight - document.getElementById("footer").offsetHeight + "px";
+
+
+    <!-- headerblur min height -->
+    
+    
+</script>
+    
+<div style="display: none;">
+  <script src="https://s11.cnzz.com/z_stat.php?id=1260716016&web_id=1260716016" language="JavaScript"></script>
+</div>
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  <link rel="stylesheet" href="/tiny-inc/fancybox/jquery.fancybox.css">
+  <script src="/tiny-inc/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/tiny-inc/js/script.js"></script>
+<script src="/tiny-inc/js/bootstrap.js"></script>
+<script src="/tiny-inc/js/main.js"></script>
+
+
+
+
+
+
+
+  <div style="display: none;">
+    <script src="https://s95.cnzz.com/z_stat.php?id=1260716016&web_id=1260716016" language="JavaScript"></script>
+  </div>
+
+
+
+	<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+	</script>
+
+
+
+
+
+
+  </div>
+
+  <a id="rocket" href="#top" class=""></a>
+  <script type="text/javascript" src="/js/totop.js" async=""></script>
+</body>
+</html>
