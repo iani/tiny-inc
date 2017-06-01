@@ -15,6 +15,22 @@ SynthPlayer
 PatternPlayer
 
 * Operators
+** Operators / revision from 0 version 31 May 2017 22:37 ff
+*** Step 1: +>
+:PROPERTIES:
+:DATE:     <2017-06-01 Thu 19:56>
+:END:
+
+#+BEGIN_SRC sclang
+// play function as Synth in SynthPlayer
+Function +> Symbol; 
+
+// play any pattern-capable object as stream in key in EventStreamPlayer
+Pattern +> Symbol;
+#+END_SRC
+
+Starting implementation for EventStreamPlayer  1 Jun 2017 20:00.
+
 ** STARTED operator syntax - version 201603
 :LOGBOOK:  
 - State "STARTED"    from "TODO"       [2016-03-17 Thu 12:33] \\
@@ -71,12 +87,6 @@ Possibly:
 
 - =++>= :: Set source of SynthLink but do not play now
 - =%%>= :: change args in SynthLink, but do not send them to player now.
-** Operator syntax - version 31 May 2017 22:37 ff
-
-
-
-
-
 
 * Roadmap
 
