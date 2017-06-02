@@ -1,13 +1,10 @@
 
 + Symbol {
-	asPatternPlayer { ^Registry (\patterns, this, { EventPattern().play }) }
+	asPatternPlayer { ^(Registry (\patterns, this, { EventPattern().play })).play }
 }
 
 + Object {
 	+> { | symbol, adverb |
-		["adverb", adverb, "symbol", symbol].postln;
-		symbol.asPatternPlayer.postln;
-		// ^symbol.asPatternPlayer;
 	   	^symbol.asPatternPlayer.addKey (adverb, this);
 	}
 }
@@ -24,15 +21,11 @@
 }
 
 + Event {
-	+> { | symbol, adverb |
-		^symbol.asPatternPlayer.addEvent (this);
-	}
+	+> { | symbol, adverb | ^symbol.asPatternPlayer.addEvent (this) }
 }
 
 + EventStreamPlayer {
-	addKey { | key, object |
-		stream.event [key] = object.asStream;
-	}
+	addKey { | key, object | stream.event [key] = object.asStream }
 
 	addEvent { | argEvent |
 		var event;
