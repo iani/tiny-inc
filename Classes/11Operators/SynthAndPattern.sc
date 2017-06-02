@@ -1,30 +1,20 @@
 
 + Symbol {
-	asSynthPlayer {
-		
-	}
-
-	asPatternPlayer {
-		^Registry (\patterns, this, {
-			EventPattern().play;
-		});
-	}
-
-	play {
-		var player;
-		player = this.asPatternPlayer;
-		if (player.isPlaying) { ^player } { ^player.play };
-	}
+	asPatternPlayer { ^Registry (\patterns, this, { EventPattern().play }) }
 }
 
 + Object {
-	+> { | adverb, symbol |
-		^symbol.asPatternPlayer.addKey (adverb, this);
+	+> { | symbol, adverb |
+		["adverb", adverb, "symbol", symbol].postln;
+		symbol.asPatternPlayer.postln;
+		// ^symbol.asPatternPlayer;
+	   	^symbol.asPatternPlayer.addKey (adverb, this);
 	}
 }
 
 + Function {
-	+> { | adverb, symbol |
+	+> { | symbol, adverb |
+		
 		if (adverb.isNil) {
 			^symbol.asSynthPlayer.playFunction (this);
 		}{
@@ -34,8 +24,7 @@
 }
 
 + Event {
-	+> { | symbol |
-		[symbol, this].postln;
+	+> { | symbol, adverb |
 		^symbol.asPatternPlayer.addEvent (this);
 	}
 }

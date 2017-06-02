@@ -14,20 +14,18 @@ a addEvent: (degree: Pseq ([20, 21], inf), dur: 0.25, legato: 0.1);
 
 a. stream.event.degree_ (Pseq ([20, 21], inf).asStream).dur_(1.25).legato_ (0.1);
 
-
-
-a.isPlaying;
-a;
-
-a.play;
-
-
 EventPattern ().play stream.event.degree_ (Pseq ([20, 21], inf).asStream).dur_(1.25).legato_ (0.1);
 
 //:
 
 (degree: Pseq ([20, 21], inf), dur: 0.25, legato: 0.1) +> \e;
 
+//:
+
+0.1 +>.dur \e;
+
+//:
+Pseq ((9..12), inf) +>.degree \e;
 //:
 
 \e.asPatternPlayer.stream.event [\dur] = 0.1;
